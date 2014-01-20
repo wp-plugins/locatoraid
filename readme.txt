@@ -31,6 +31,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.1.1 =
+* Cleared jQuery dependency, making use of the built-in WP version
+
 = 2.1.0 =
 * Initial plugin version release
 
