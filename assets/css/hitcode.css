@@ -1,0 +1,85 @@
+.hc .form-condensed .control-group {
+    margin-top: 0;
+    margin-bottom: 5px;
+	}
+.hc .pagination {
+	margin: 0 0;
+	}
+.hc-loading {
+	background-color: #eee;
+    background-image: url('../img/small-indicator.gif');
+    background-position:  center center;
+    background-repeat: no-repeat;
+	opacity: 1;
+	}
+.hc-loading * {
+    opacity: 0.8;
+	}
+
+.hc .thumbnail-success {
+	border-color: #0b0;
+	border-width: 2px;
+}
+
+/* overwrite wordpress */
+.hc input[type="text"],
+.hc input[type="password"],
+.hc input[type="number"],
+.hc input[type="search"],
+.hc input[type="email"],
+.hc input[type="url"],
+.hc textarea {
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	-ms-box-sizing: content-box; /* ie8 only */
+	box-sizing: content-box;
+}
+
+.hc .accordion-heading {
+  padding: 5px 15px;
+  border-bottom: 0;
+}
+.hc .accordion-heading .accordion-toggle {
+  padding: 0px 0px;
+}
+
+.hc .row-fluid [class*="span"] {
+    min-height: 0px;
+
+}
+
+.hc .dropdown-menu>li,
+.hc .navbar .nav>li {
+	margin: 0 0;
+	padding: 0 0;
+}
+
+.hc .navbar-inner {
+	background-color: #cBff6A;
+	background-color: #eee;
+	}
+.hc .navbar .nav li.dropdown.open>.dropdown-toggle,
+.hc .navbar .nav li.dropdown.active>.dropdown-toggle,
+.hc .navbar .nav li.dropdown.open.active>.dropdown-toggle {
+	background-color: #eBff8A;
+	background-color: #ddd;
+}
+.hc .dropdown-menu li>a:hover,
+.hc .dropdown-menu li>a:focus,
+.hc .dropdown-submenu:hover>a {
+	background-color: #bbb;
+}
+
+.hc h2 {
+	color: #8B88FF;
+	}
+
+.hc h3 a,
+.hc h3 {
+	color: #ccbb00;
+	}
+
+.hc a,
+.hc a:hover {
+	color: #5B930A;
+	}

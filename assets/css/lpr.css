@@ -1,0 +1,29 @@
+#lpr-map img {
+	max-width: none;
+	}
+#lpr-locations .thumbnail {
+	margin-bottom: 0.5em;
+	cursor: pointer;
+	}
+#lpr-map {
+	height: 400px;
+	}
+#lpr-locations {
+	height: 400px;
+	overflow: auto;
+	}
+.lpr-location {
+	padding: 0.5em 0.5em;
+	}
+#lpr-search-address {
+	width: 20em;
+	}
+
+/*
+#lpr-search-controls,
+#lpr-autodetect {
+	display: block;
+	width: 20em;
+	text-align: center;
+	}
+*/
