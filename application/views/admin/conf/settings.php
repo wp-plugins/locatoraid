@@ -77,6 +77,27 @@ $fields = array(
 		'help'		=> lang('conf_append_search_help'),
 		),
 	);
+
+/* get languages */
+$languages = hc_list_subfolders( APPPATH . '/language' );
+if( count($languages) > 1 )
+{
+	$language_options = array();
+	foreach( $languages as $lng )
+	{
+		$language_options[ $lng ] = $lng;
+	}
+
+	array_unshift( $fields,
+		array(
+			'name' 		=> 'language',
+			'title'		=> lang('common_language'),
+			'type'		=> 'dropdown',
+			'options'	=> $language_options
+			)
+		);
+}
+
 reset( $fields );
 ?>
 

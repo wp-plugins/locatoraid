@@ -21,6 +21,7 @@ class Conf extends Admin_controller
 				'trigger_autodetect',
 				'not_found_text',
 				'group_output',
+				'language',
 				),
 			'form' => array(
 				'form_misc1',

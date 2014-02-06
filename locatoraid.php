@@ -2,14 +2,14 @@
 /**
  * @package Locatoraid
  * @author Locatoraid
- * @version 2.1.1
+ * @version 2.1.2
  */
 /*
 Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: Locatoraid
-Version: 2.1.1
+Version: 2.1.2
 Author URI: http://www.locatoraid.com/
 */
 
@@ -115,7 +115,6 @@ class Locatoraid
 
 	function front_view()
 	{
-		
 		if( $this->load_by_js )
 		{
 			$target = ci_site_url('load');

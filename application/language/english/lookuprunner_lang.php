@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* COMMON */
 $lang['common_email'] = 'Email';
 $lang['common_password'] = 'Password';
@@ -26,6 +26,7 @@ $lang['common_yes_required_unique'] = 'Yes [Required, Unique]';
 $lang['common_upload'] = 'Upload';
 $lang['common_upload_error'] = 'Upload error';
 $lang['common_file'] = 'File';
+$lang['common_language'] = 'Language';
 
 $lang['profile_updated'] = 'Profile Updated';
 

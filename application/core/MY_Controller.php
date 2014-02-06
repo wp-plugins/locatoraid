@@ -44,7 +44,14 @@ class MY_Controller extends MX_Controller
 	// conf
 		$this->load->library( 'simple_auth', NULL, 'auth' );
 		$app_core = $this->config->item('nts_app_core') ? $this->config->item('nts_app_core') : $this->config->item('nts_app');
-		$this->lang->load( $app_core );
+
+		$this->load->library( 'app_conf' );
+		$my_language = $this->app_conf->get( 'language' );
+		if( ! file_exists(APPPATH . '/language/' . $my_language) )
+		{
+			$my_language = 'english';
+		}
+		$this->lang->load( $app_core, $my_language );
 
 		$this->data = array();
 		$this->data['page_title'] = $this->config->item('nts_app_title');
