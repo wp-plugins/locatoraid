@@ -250,7 +250,7 @@ class Front extends Front_controller
 				if( $more_entries )
 				{
 					$error = sprintf( lang('location_nothing_found'), $within . ' ' . $measure_title );
-					$error .= '<br><a href="#" id="lpr-next-within">' . sprintf( lang('location_nothing_found_suggest'), count($more_entries), $next_within . ' ' . $measure_title ) . '</a>';
+					$error .= '<br><a href="#" id="lpr-next-within" data-within="' . $next_within . '">' . sprintf( lang('location_nothing_found_suggest'), count($more_entries), $next_within . ' ' . $measure_title ) . '</a>';
 				}
 				else
 				{

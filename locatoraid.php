@@ -2,14 +2,14 @@
 /**
  * @package Locatoraid
  * @author Locatoraid
- * @version 2.1.2
+ * @version 2.1.3
  */
 /*
 Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: Locatoraid
-Version: 2.1.2
+Version: 2.1.3
 Author URI: http://www.locatoraid.com/
 */
 
@@ -137,12 +137,32 @@ EOT;
 			return;
 
 		global $post;
+
+		$is_me = FALSE;
+
+/*
 		$pattern = get_shortcode_regex();
 		if( 
 			preg_match_all('/'. $pattern .'/s', $post->post_content, $matches)
 			&& array_key_exists(2, $matches)
 			&& in_array($this->app, $matches[2])
 			)
+		{
+			$is_me = TRUE;
+		}
+*/
+		if( ! (isset($post) && $post) )
+			return $return;
+
+		$pattern = '\[' . $this->app . '\]';
+		if(
+			preg_match('/'. $pattern .'/s', $post->post_content, $matches)
+			)
+		{
+			$is_me = TRUE;
+		}
+
+		if( $is_me )
 		{
 			wp_enqueue_script( 'jquery' );
 

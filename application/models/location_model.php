@@ -468,6 +468,11 @@ class Location_model extends MY_Model
 				continue;
 			}
 
+			if( $e['distance'] > $within )
+			{
+				continue;
+			}
+
 			$e['distance_num'] = $e['distance'];
 			$e['distance'] = round( $e['distance'], 2 ) . ' ' . $measure_text;
 			$return[] = $e;

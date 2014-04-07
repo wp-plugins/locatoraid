@@ -11,7 +11,10 @@ var lpr_on_marker_click = function(event)
 jQuery('#lpr-next-within').live( 'click', function(event) {
 	event.preventDefault();
 	event.stopPropagation();
-	jQuery('#lpr-search-within option:selected').next().attr('selected', 'selected');
+	var next_within = jQuery(this).data('within');
+
+	jQuery('#lpr-search-within').find('option[value="' + next_within + '"]').attr('selected', 'selected');
+//	jQuery('#lpr-search-within option:selected').next().attr('selected', 'selected');
 	jQuery('#lpr-search-form').submit();
 	return false;
 });
