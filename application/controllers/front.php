@@ -268,7 +268,7 @@ class Front extends Front_controller
 				'error'	=> $error,
 				);
 		}
-		
+
 		echo json_encode( $out );
 
 	/* add log */

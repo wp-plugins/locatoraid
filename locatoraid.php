@@ -12,12 +12,10 @@ Author: Locatoraid
 Version: 2.1.3
 Author URI: http://www.locatoraid.com/
 */
-
 /* 
 to create another instance, simply copy this file to locatoraid2.php or locatoraid_another.php 
 or anything else starting with locatoraid
 */
-
 if( ! class_exists('Locatoraid') )
 {
 class Locatoraid

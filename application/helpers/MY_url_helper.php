@@ -25,15 +25,33 @@ if ( ! function_exists('ci_redirect'))
 
 		switch($method)
 		{
-			case 'refresh'	: header("Refresh:0;url=".$uri);
+			case 'refresh':
+				if( 0 && ! headers_sent() )
+				{
+					header("Refresh:0;url=".$uri);
+				}
+				else
+				{
+					$html = "<META http-equiv=\"refresh\" content=\"0;URL=$uri\">";
+					echo $html;
+				}
 				break;
-			default			: header("Location: ".$uri, TRUE, $http_response_code);
+
+			default:
+				if( ! headers_sent() )
+				{
+					header("Location: ".$uri, TRUE, $http_response_code);
+				}
+				else
+				{
+					$html = "<META http-equiv=\"refresh\" content=\"0;URL=$uri\">";
+					echo $html;
+				}
 				break;
 		}
 		exit;
 	}
 }
-
 
 /**
  * Anchor Link

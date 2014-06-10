@@ -1,10 +1,35 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Setup extends My_Controller {
+class Setup extends MX_Controller {
 	function __construct()
 	{
 		parent::__construct();
+
+		$this->load->database();
+		$this->load->helper( array('url') );
+		$this->data = array();
 		$this->data['page_title'] = $this->config->item('nts_app_title') . ' Installation';
+
+		$this->load->helper( array('language', 'form') );
+		$this->load->helper( array('hitcode') );
+		$this->load->library( array('form_validation', 'session') );
+		$this->form_validation->set_error_delimiters('<div class="hc-form-error">', '</div>');
+
+	// table
+		$this->load->library('table');
+		$table_tmpl = array (
+			'table_open'          => '<table class="table table-striped">',
+			);
+		$this->table->set_template( $table_tmpl );
+
+	// conf
+		$this->load->library( 'simple_auth', NULL, 'auth' );
+		$app_core = $this->config->item('nts_app_core') ? $this->config->item('nts_app_core') : $this->config->item('nts_app');
+
+		$my_language = 'english';
+		$this->lang->load( $app_core, $my_language );
+		$this->data['message'] = $this->session->flashdata('message');
+		$this->data['error'] = $this->session->flashdata('error');
 
 	// check if already setup
 		if( $this->is_setup() )
@@ -101,6 +126,18 @@ class Setup extends My_Controller {
 		$this->session->set_flashdata( 'message', lang('ok') );
 		ci_redirect( '' );
 		}
+	}
+
+	function is_setup()
+	{
+		$return = TRUE;
+		if( $this->db->table_exists('conf') ){
+			$return = TRUE;
+			}
+		else {
+			$return = FALSE;
+			}
+		return $return;
 	}
 }
 

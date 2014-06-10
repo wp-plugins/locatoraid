@@ -7,39 +7,52 @@ if( ! strlen($products_label) )
 <?php echo form_open('search', array('id' => 'lpr-search-form', 'class' => 'form-horizontal form-condensed')); ?>
 
 <div class="control-group">
-<label class="control-label" for="search"><?php echo lang('front_address_or_zip'); ?></label>
-<div class="controls">
-<?php echo form_input( array('name' => 'search', 'id' => 'lpr-search-address', 'class' => 'input-medium'), set_value('search', $search) ); ?>
-<?php if( count($within_options) > 1 ) : ?>
-<?php
-	$measure = $this->app_conf->get( 'measurement' );
-	$measure_title = lang('conf_measurement_') . $measure;
-	$dropdown_within = array();
-	foreach( $within_options as $wo )
-	{
-		$dropdown_within[ $wo ] = $wo;
-	}
-?>
-	<?php echo lang('front_search_within'); ?>: <?php echo form_dropdown( 'within', $dropdown_within, '', 'id="lpr-search-within" class="input-small"' ); ?> <?php echo $measure_title; ?>
-<?php endif; ?>	
-<div id="lpr-current-location" style="display: none; line-height: 2em;"><strong><?php echo lang('front_current_location'); ?></strong> <a href="#" id="lpr-skip-current-location"><?php echo lang('front_enter_address'); ?></a></div>
+	<label class="control-label" style="text-align: left;" for="search">
+		<?php echo lang('front_address_or_zip'); ?>
+	</label>
+	<div class="controls">
+		<?php echo form_input( array('name' => 'search', 'id' => 'lpr-search-address', 'class' => 'input-medium'), set_value('search', $search) ); ?>
+		<div id="lpr-current-location" style="display: none;">
+			<strong><?php echo lang('front_current_location'); ?></strong> 
+			<a href="#" id="lpr-skip-current-location"><?php echo lang('front_enter_address'); ?></a>
+		</div>
+	</div>
 </div>
 
-<div class="controls">
-<a href="#" id="lpr-autodetect"><?php echo lang('front_autodetect'); ?></a>
-</div>
+<div class="control-group">
+	<div class="controls">
+		<a href="#" id="lpr-autodetect"><?php echo lang('front_autodetect'); ?></a>
+	</div>
 
-<div class="controls" id="lpr-search-controls">
-<?php if( ! $product_options ) : ?>
-	<?php echo form_button( array('name' => 'submit', 'type' => 'submit', 'class' => 'btn', 'id' => 'lpr-search-button'), lang('common_search'));?>
-	<?php echo form_hidden( 'search2', '' ); ?>
-<?php endif; ?>
-</div>
+	<?php if( count($within_options) > 1 ) : ?>
+		<?php
+		$measure = $this->app_conf->get( 'measurement' );
+		$measure_title = lang('conf_measurement_') . $measure;
+		$dropdown_within = array();
+		foreach( $within_options as $wo )
+		{
+			$dropdown_within[ $wo ] = $wo;
+		}
+		?>
+		<label class="control-label" style="text-align: left;" for="within">
+			<?php echo lang('front_search_within'); ?>
+		</label>
+		<div class="controls">
+			<?php echo form_dropdown( 'within', $dropdown_within, '', 'id="lpr-search-within" class="input-small"' ); ?> <?php echo $measure_title; ?>
+		</div>
+	<?php endif; ?>
+
+	<div class="controls" id="lpr-search-controls">
+		<?php if( ! $product_options ) : ?>
+			<?php echo form_button( array('name' => 'submit', 'type' => 'submit', 'class' => 'btn', 'id' => 'lpr-search-button'), lang('common_search'));?>
+			<?php echo form_hidden( 'search2', '' ); ?>
+		<?php endif; ?>
+	</div>
 </div>
 
 <?php if( $product_options ) : ?>
 <div class="control-group">
-<label class="control-label" for="search2"><?php echo $products_label; ?></label>
+<label style="text-align: left;" class="control-label" for="search2"><?php echo $products_label; ?></label>
 <div class="controls">
 <?php
 $do_options = array(
@@ -161,6 +174,18 @@ jQuery(document).ready( function()
 	}
 <?php endif; ?>
 
+	var my_hash = window.location.hash;
+	if( my_hash )
+	{
+		my_hash = my_hash.slice(1);
+		my_hash = decodeURIComponent( my_hash );
+		var my_select = jQuery('#lpr-search-form select[name=search2]');
+		if( my_select.length )
+		{
+			my_select.find('option[value="' + my_hash + '"]').attr('selected', 'selected');
+		}
+	}
+
 	var search2 = jQuery('#lpr-search-form').find('[name=search2]').val();
 	var within = jQuery('#lpr-search-form').find('[name=within]').val();
 
@@ -217,9 +242,24 @@ jQuery('#lpr-search-form').live( 'submit', function(event) {
 
 <?php if( $product_options ) : ?>
 jQuery('#lpr-search-form select').live( 'change', function(event) {
-	lpr_allow_empty = true;
 	jQuery('#lpr-search-form').submit();
 	});
 <?php endif; ?>
+</script>
 
+<script language="JavaScript">
+jQuery(document).ready( function()
+{
+	var my_hash = window.location.hash;
+	if( my_hash )
+	{
+		my_hash = my_hash.slice(1);
+		my_hash = decodeURIComponent( my_hash );
+		var my_select = jQuery('#lpr-search-form select[name=search2]');
+		if( my_select.length )
+		{
+			my_select.find('option[value="' + my_hash + '"]').attr('selected', 'selected');
+		}
+	}
+});
 </script>

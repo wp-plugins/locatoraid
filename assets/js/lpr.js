@@ -305,7 +305,7 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 		lpr_log_it = 1;
 	if( target_div )
 		target_div.addClass( 'hc-loading' );
-		
+
 	var csrfToken = jQuery('#lpr-search-form').find('[name=hc_csrf_token]').val();
 	var thisData = {
 		hc_csrf_token: csrfToken,
