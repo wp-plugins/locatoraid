@@ -239,12 +239,6 @@ jQuery('#lpr-search-form').live( 'submit', function(event) {
 	lpr_directions_display.setMap( null );
 	lpr_front_process_search( address, search2, lpr_allow_empty, within );
 	});
-
-<?php if( $product_options ) : ?>
-jQuery('#lpr-search-form select').live( 'change', function(event) {
-	jQuery('#lpr-search-form').submit();
-	});
-<?php endif; ?>
 </script>
 
 <script language="JavaScript">

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* COMMON */
 $lang['common_email'] = 'Email';
 $lang['common_password'] = 'Password';

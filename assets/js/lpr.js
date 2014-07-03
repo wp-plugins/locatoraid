@@ -1,3 +1,4 @@
+var lpr_current_location_set = 0;
 var lpr_markers = [];
 
 var lpr_on_marker_click = function(event)
@@ -14,13 +15,58 @@ jQuery('#lpr-next-within').live( 'click', function(event) {
 	var next_within = jQuery(this).data('within');
 
 	jQuery('#lpr-search-within').find('option[value="' + next_within + '"]').attr('selected', 'selected');
-//	jQuery('#lpr-search-within option:selected').next().attr('selected', 'selected');
-	jQuery('#lpr-search-form').submit();
+
+	if( lpr_current_location_set )
+	{
+		lpr_with_position( lpr_current_location_set );
+	}
+	else
+	{
+		jQuery('#lpr-search-form').submit();
+	}
 	return false;
 });
 
-jQuery('#lpr-search-within').live( 'change', function(event) {
-	jQuery('#lpr-search-form').submit();
+function lpr_with_position( position )
+{
+	var within = jQuery('#lpr-search-form').find('[name=within]').val();
+	var search2 = jQuery('#lpr-search-form').find('[name=search2]').val();
+	if( jQuery('#lpr-results').is(':hidden') )
+	{
+		jQuery('#lpr-results').show();
+		lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
+	}
+
+	var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
+
+	var target_div = jQuery( '#lpr-locations' );
+	if( target_div )
+		target_div.html( '' );
+
+//		jQuery( '#lpr-autodetect' ).parent().toggle();
+//		jQuery( '#lpr-search-address' ).removeClass( 'hc-loading' );
+//		jQuery( '#lpr-search-address' ).toggle();
+//		jQuery( '#lpr-current-location' ).toggle();
+//		jQuery( '#lpr-search-button' ).toggle();
+
+	lpr_front_get_results_by_coord( 
+		pos,
+		search2,
+		'_autodetect_',
+		true,
+		within
+		);
+}
+
+jQuery('#lpr-search-form select').live( 'change', function(event) {
+	if( lpr_current_location_set )
+	{
+		lpr_with_position( lpr_current_location_set );
+	}
+	else
+	{
+		jQuery('#lpr-search-form').submit();
+	}
 });
 
 jQuery('#lpr-autodetect').live( 'click', function(event) {
@@ -32,25 +78,15 @@ jQuery('#lpr-autodetect').live( 'click', function(event) {
 		navigator.geolocation.getCurrentPosition(
 			function(position)
 			{
-				if( jQuery('#lpr-results').is(':hidden') )
-				{
-					jQuery('#lpr-results').show();
-					lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
-				}
-
-				var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
-
-				var target_div = jQuery( '#lpr-locations' );
-				if( target_div )
-					target_div.html( '' );
-
 				jQuery( '#lpr-autodetect' ).parent().toggle();
 				jQuery( '#lpr-search-address' ).removeClass( 'hc-loading' );
 				jQuery( '#lpr-search-address' ).toggle();
 				jQuery( '#lpr-current-location' ).toggle();
 				jQuery( '#lpr-search-button' ).toggle();
 
-				lpr_front_get_results_by_coord( pos, search2, '_autodetect_' );
+				lpr_current_location_set = position;
+				lpr_with_position( lpr_current_location_set );
+
 			},
 			function()
 			{
@@ -71,6 +107,7 @@ jQuery('#lpr-skip-current-location').live( 'click', function(event) {
 	jQuery( '#lpr-current-location' ).toggle();
 	jQuery( '#lpr-autodetect' ).parent().toggle();
 	jQuery( '#lpr-search-button' ).toggle();
+	lpr_current_location_set = 0;
 	return false;
 });
 

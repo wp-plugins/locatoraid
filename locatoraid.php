@@ -2,14 +2,14 @@
 /**
  * @package Locatoraid
  * @author Locatoraid
- * @version 2.1.4
+ * @version 2.1.5
  */
 /*
 Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: Locatoraid
-Version: 2.1.4
+Version: 2.1.5
 Author URI: http://www.locatoraid.com/
 */
 /* 

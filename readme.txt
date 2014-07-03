@@ -4,9 +4,9 @@ Contributors: HitCode
 Tags: business locations, dealer locator, dealer locater, store locator, post, store locater, mapping, mapper, google, google maps, ajax, shop locator, shop finder, shortcode, location finder, places, widget, stores, plugin, maps, coordinates, latitude, longitude, posts, geo, geocoding, jquery, shops, page, zipcode, zip code, zip code search, store finder, address map, address location map, map maker, map creator, mapping software, map tools, mapping tools, locator maps, map of addresses, map multiple locations, wordpress locator, store locator map
 License: GPLv2 or later
 
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 Requires at least: 3.3
-Tested up to: 3.8
+Tested up to: 3.9
 
 == Description ==
 
@@ -30,6 +30,10 @@ Author URI: http://www.locatoraid.com
 The upgrade is simply - upload everything up again to your `/wp-content/plugins/` directory, then go to the Locatoraid menu item in the admin panel. It will automatically start the upgrade process if any needed.
 
 == Changelog ==
+
+= 2.1.5 =
+* When using auto search (auto detecting the current location), and switching the distance or the product selection, the search results were reverted back to the default search rather than current location.
+* Language file fix
 
 = 2.1.4 =
 * Failed setup procedure in some WP configurations 
