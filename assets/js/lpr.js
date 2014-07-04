@@ -9,7 +9,7 @@ var lpr_on_marker_click = function(event)
 	lpr_infowindow.open( lpr_map, marker );
 };
 
-jQuery('#lpr-next-within').live( 'click', function(event) {
+jQuery(document).on( 'click', '#lpr-next-within', function(event) {
 	event.preventDefault();
 	event.stopPropagation();
 	var next_within = jQuery(this).data('within');
@@ -58,7 +58,7 @@ function lpr_with_position( position )
 		);
 }
 
-jQuery('#lpr-search-form select').live( 'change', function(event) {
+jQuery(document).on( 'change', '#lpr-search-form select', function(event) {
 	if( lpr_current_location_set )
 	{
 		lpr_with_position( lpr_current_location_set );
@@ -69,7 +69,7 @@ jQuery('#lpr-search-form select').live( 'change', function(event) {
 	}
 });
 
-jQuery('#lpr-autodetect').live( 'click', function(event) {
+jQuery(document).on( 'click', '#lpr-autodetect', function(event) {
 	if( navigator.geolocation )
 	{
 		jQuery( '#lpr-search-address' ).addClass( 'hc-loading' );
@@ -102,7 +102,7 @@ jQuery('#lpr-autodetect').live( 'click', function(event) {
 	return false;
 });
 
-jQuery('#lpr-skip-current-location').live( 'click', function(event) {
+jQuery(document).on( 'click', '#lpr-skip-current-location', function(event) {
 	jQuery( '#lpr-search-address' ).toggle();
 	jQuery( '#lpr-current-location' ).toggle();
 	jQuery( '#lpr-autodetect' ).parent().toggle();
@@ -111,7 +111,7 @@ jQuery('#lpr-skip-current-location').live( 'click', function(event) {
 	return false;
 });
 
-jQuery('.lpr-directions').live( 'click', function(event) {
+jQuery(document).on( 'click', '.lpr-directions', function(event) {
 	event.preventDefault();
 	event.stopPropagation();
 
@@ -177,7 +177,7 @@ jQuery('.lpr-directions').live( 'click', function(event) {
 	return false;
 });
 
-jQuery('#lpr-locations .lpr-location').live( 'click', function(event)
+jQuery(document).on( 'click', '#lpr-locations .lpr-location', function(event)
 {
 	var this_thumbnail = jQuery(this).parent();
 

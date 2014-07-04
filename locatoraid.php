@@ -2,14 +2,14 @@
 /**
  * @package Locatoraid
  * @author Locatoraid
- * @version 2.1.5
+ * @version 2.1.6
  */
 /*
 Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: Locatoraid
-Version: 2.1.5
+Version: 2.1.6
 Author URI: http://www.locatoraid.com/
 */
 /* 
@@ -174,7 +174,7 @@ EOT;
 		// action
 			$url = parse_url( get_permalink($post) );
 			$base_url = $url['path'];
-			$index_page = $url['query'] ? '?' . $url['query'] . '&' : '?/';
+			$index_page = (isset($url['query']) && $url['query']) ? '?' . $url['query'] . '&' : '?/';
 
 			$GLOBALS['NTS_CONFIG'][$this->app]['BASE_URL'] = $base_url;
 			$GLOBALS['NTS_CONFIG'][$this->app]['INDEX_PAGE'] = $index_page;

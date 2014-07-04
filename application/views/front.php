@@ -204,7 +204,7 @@ jQuery(document).ready( function()
 	lpr_directions_display.setMap( lpr_map );
 });
 
-jQuery('#lpr-search-form').live( 'submit', function(event) {
+jQuery(document).on( 'submit', '#lpr-search-form', function(event) {
 	event.preventDefault();
 	var address = jQuery( this ).find('[name=search]').val();
 <?php if( $append_search ) : ?>
