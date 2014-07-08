@@ -168,9 +168,12 @@ jQuery(document).ready( function()
 <?php if( $append_search ) : ?>
 	var append_search = "<?php echo $append_search; ?>";
 	// check if it already ends with append
-	if( address.substr(address.length - append_search.length).toLowerCase() != append_search.toLowerCase() )
+	if( address.length > 0 )
 	{
-		address = address + ' ' + append_search;
+		if( address.substr(address.length - append_search.length).toLowerCase() != append_search.toLowerCase() )
+		{
+			address = address + ' ' + append_search;
+		}
 	}
 <?php endif; ?>
 
