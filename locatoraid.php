@@ -36,6 +36,14 @@ class Locatoraid
 		add_shortcode( $this->app, array($this, 'front_view'));
 	}
 
+	function strip_p($content)
+	{
+		$content = str_replace( '</p>', '', $content );
+		$content = str_replace( '<p>', '', $content );
+		$content = str_replace( array("&#038;","&amp;"), "&", $content ); 
+		return $content;
+	}
+
 	function _init()
 	{
 		$GLOBALS['NTS_CONFIG'][$this->app] = array();
@@ -125,7 +133,8 @@ EOT;
 		else
 		{
 			$ci =& ci_get_instance();
-			return $ci->output->get_output();
+			$output = $ci->output->get_output();
+			return $output;
 		}
 	}
 
@@ -162,6 +171,7 @@ EOT;
 
 		if( $is_me )
 		{
+			add_filter('the_content', array($this, 'strip_p'), 1000);
 			wp_enqueue_script( 'jquery' );
 
 			if( ! $this->load_by_js ){
