@@ -75,7 +75,6 @@ class Location_model extends MY_Model
 			$misc_titles[ $ii ] = $misc_title;
 		}
 
-		
 		$return = array(
 			array(
 				'name'	=> 'name',
@@ -196,7 +195,7 @@ class Location_model extends MY_Model
 		return $return;
 	}
 
-	function make_address( $e, $for_display = FALSE )
+	function make_address( $e, $for_display = FALSE, $append_search = FALSE )
 	{
 		if( $for_display )
 		{
@@ -241,6 +240,20 @@ class Location_model extends MY_Model
 			{
 				if( $e[$af] )
 					$address[] = $e[$af];
+			}
+
+			$CI =& ci_get_instance();
+			$append_search = $CI->app_conf->get( 'append_search' );
+			if( $append_search )
+			{
+				$append_search = strtolower( $append_search );
+				$test_address = join( ', ', $address );
+				$test_address = strtolower( $test_address );
+			// check if it already ends with append
+				if( substr($test_address, 0, strlen($append_search)) != $append_search )
+				{
+					$address[] = $append_search;
+				}
 			}
 			$address = join( ', ', $address );
 		}
@@ -656,6 +669,40 @@ class Location_model extends MY_Model
 		$this->db->where('location_id', $id);
 		$this->db->delete('locations_categories');
 */
+		if( Modules::exists('locazip') )
+		{
+			$this->db->where('location_id', $id);
+			$this->db->delete('companies_locations');
+		}
+	}
+
+	function get_companies_by( $by, $value )
+	{
+		$return	= array();
+
+		$lids = array();
+		$this->db->select( 'id' );
+		$this->db->from( 'locations' ); 
+		$this->db->where( 'locations.' . $by, $value );
+		$result = $this->db->get();
+		foreach($result->result_array() as $i)
+		{
+			$lids[] = $i['id'];
+		}
+
+		if( $lids )
+		{
+			$this->db->select( '*' );
+			$this->db->from( 'companies' ); 
+			$this->db->join('companies_locations', 'companies_locations.company_id = companies.id');
+			$this->db->where_in( 'companies_locations.location_id', $lids ); 
+			$result = $this->db->get();
+			foreach($result->result_array() as $i)
+			{
+				$return[ $i['id'] ] = $i;
+			}
+		}
+		return $return;
 	}
 
 	function delete_all()

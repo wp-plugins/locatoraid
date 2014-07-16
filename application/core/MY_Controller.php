@@ -73,7 +73,7 @@ class MY_Controller extends MX_Controller
 		return $return;
 	}
 
-	function display_location( $e, $skip = array() )
+	function _prepare_display_location( $e, $skip = array() )
 	{
 		$this->load->model('Location_model');
 		$address_fields = array( 'street1', 'street2', 'city', 'state', 'zip', 'country' );
@@ -130,7 +130,22 @@ class MY_Controller extends MX_Controller
 						break;
 					case 'website':
 //						$return[$f['name']] = join( ': ', array($f['title'], '<a href="' . $e[$f['name']] . '" target="_blank">' . $e[$f['name']] . '</a>') );
-						$return[$f['name']] = '<a href="' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';
+						$ok = FALSE;
+						$href = $e[$f['name']];
+						$prfx = array('http://', 'https://');
+						foreach( $prfx as $prf )
+						{
+							if( substr($href, 0, strlen($prf)) == $prf )
+							{
+								$ok = TRUE;
+								break;
+							}
+						}
+						if( ! $ok )
+						{
+							$href = 'http://' . $href;
+						}
+						$return[$f['name']] = '<a href="' . $href . '" target="_blank">' . $f['title'] . '</a>';
 						break;
 					default:
 						if( 
@@ -161,7 +176,12 @@ class MY_Controller extends MX_Controller
 		{
 			$return['directions'] = '<a href="#" class="lpr-directions">' . lang('front_directions') . '</a>';
 		}
+		return $return;
+	}
 
+	function display_location( $e, $skip = array() )
+	{
+		$return = $this->_prepare_display_location( $e, $skip );
 		$return = join( '<br>', $return );
 		return $return;
 	}

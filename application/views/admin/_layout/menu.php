@@ -7,6 +7,24 @@ if( file_exists($whitelabel_file) )
 $brand_title = isset($whitelabel['title']) ? $whitelabel['title'] : $this->config->item('nts_app_title');
 $brand_url = isset($whitelabel['url']) ? $whitelabel['url'] : 'http://www.' . $this->config->item('nts_app') . '.com';
 $promo = $this->config->item('nts_app_promo');
+
+$this->load->model('Location_model');
+$lm = new Location_Model;
+$lm->condition_not_yet();
+$not_yet_count = $lm->count_all();
+
+$lm->condition_failed();
+$failed_count = $lm->count_all();
+
+$warning_view = '';
+if( $not_yet_count > 0 )
+{
+	$warning_view .= '<span class="badge badge-warning">' . $not_yet_count . '</span>';
+}
+if( $failed_count > 0 )
+{
+	$warning_view .= '<span class="badge badge-important">' . $failed_count . '</span>';
+}
 ?>
 <?php if ( $this->auth->logged_in() && $this->auth->is_admin() ) : ?>
 <p>
@@ -29,28 +47,75 @@ $promo = $this->config->item('nts_app_promo');
 
 			<div class="nav-collapse">
 				<ul class="nav">
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo lang('menu_locations'); ?><b class="caret"></b></a>
-					<ul class="dropdown-menu">  
-						<li>
-							<a href="<?php echo ci_site_url('admin/locations'); ?>"><?php echo lang('menu_locations_view');?></a>
-						</li>
-						<li>
-							<a href="<?php echo ci_site_url( array('admin', 'locations', 'add') ); ?>"><?php echo lang('menu_locations_add');?></a>
-						</li>
-					<?php if( Modules::exists('pro') ) : ?>
-						<li>
-							<a href="<?php echo ci_site_url('pro/admin/locations/import'); ?>"><?php echo lang('menu_locations_import');?></a>
-						</li>
-						<li>
-							<a href="<?php echo ci_site_url('pro/admin/locations/export'); ?>"><?php echo lang('menu_locations_export');?></a>
-						</li>
-					<?php endif; ?>
-						<li>
-							<a href="<?php echo ci_site_url('admin/locations/geocode'); ?>"><?php echo lang('menu_locations_geocode');?></a>
-						</li>
-					</ul>
-				</li>
+
+				<?php if( Modules::exists('locazip') ) : ?>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							Companies<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">  
+							<li>
+								<a href="<?php echo ci_site_url('locazip/admin/companies'); ?>">
+									View
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo ci_site_url('locazip/admin/companies/add'); ?>">
+									Add
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							Zip Codes <?php echo $warning_view; ?> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">  
+							<li>
+								<a href="<?php echo ci_site_url('locazip/admin/zipcodes'); ?>"><?php echo lang('menu_locations_view');?></a>
+							</li>
+							<?php if( $not_yet_count ) : ?>
+								<li>
+									<a href="<?php echo ci_site_url('locazip/admin/zipcodes/geocode'); ?>">
+										<?php echo lang('menu_locations_geocode');?> <?php echo $warning_view; ?>
+									</a>
+								</li>
+							<?php endif; ?>
+						</ul>
+					</li>
+				<?php endif; ?>
+
+				<?php if( ! Modules::exists('locazip') ) : ?>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+							<?php echo lang('menu_locations'); ?>  <?php echo $warning_view; ?> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">  
+							<li>
+								<a href="<?php echo ci_site_url('admin/locations'); ?>"><?php echo lang('menu_locations_view');?></a>
+							</li>
+							<li>
+								<a href="<?php echo ci_site_url( array('admin', 'locations', 'add') ); ?>"><?php echo lang('menu_locations_add');?></a>
+							</li>
+						<?php if( Modules::exists('pro') ) : ?>
+							<li>
+								<a href="<?php echo ci_site_url('pro/admin/locations/import'); ?>"><?php echo lang('menu_locations_import');?></a>
+							</li>
+							<li>
+								<a href="<?php echo ci_site_url('pro/admin/locations/export'); ?>"><?php echo lang('menu_locations_export');?></a>
+							</li>
+						<?php endif; ?>
+							<?php if( $not_yet_count ) : ?>
+								<li>
+									<a href="<?php echo ci_site_url('admin/locations/geocode'); ?>">
+										<?php echo lang('menu_locations_geocode');?> <?php echo $warning_view; ?>
+									</a>
+								</li>
+							<?php endif; ?>
+						</ul>
+					</li>
+				<?php endif; ?>
 
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo lang('menu_conf'); ?><b class="caret"></b></a>

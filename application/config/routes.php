@@ -27,5 +27,7 @@ $route['pro/admin/stats/(:any)'] = 'pro/admin/stats/index/$1';
 
 $route['404_override'] = '';
 
+$route['locazip/admin/companies/(:num)'] = 'locazip/admin/companies/index/$1';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */	

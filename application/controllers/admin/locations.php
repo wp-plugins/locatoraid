@@ -56,7 +56,14 @@ class Locations extends Admin_controller_crud
 
 		for( $ii = 0; $ii < count($this->data['entries']); $ii++ )
 		{
-			$this->data['entries'][$ii]['view'] = $this->display_location( $this->data['entries'][$ii], array('name' => TRUE, 'directions' => TRUE) );
+			$e = $this->data['entries'][$ii];
+			$this->data['entries'][$ii]['view'] = $this->display_location( 
+				$e,
+				array(
+					'name' => TRUE,
+					'directions' => TRUE
+					)
+				);
 		}
 
 		$this->model->condition_failed();
@@ -93,7 +100,7 @@ class Locations extends Admin_controller_crud
 		{
 			$out = array(
 				'id'		=> $e['id'],
-				'address'	=> $this->model->make_address( $e ),
+				'address'	=> $this->model->make_address( $e, FALSE, TRUE ),
 				'left'		=> $left,
 				);
 		}

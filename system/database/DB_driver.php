@@ -111,6 +111,7 @@ class CI_DB_driver {
 
 		// ----------------------------------------------------------------
 
+		$this->pconnect = FALSE;
 		// Connect to the database and set the connection ID
 		$this->conn_id = ($this->pconnect == FALSE) ? $this->db_connect() : $this->db_pconnect();
 

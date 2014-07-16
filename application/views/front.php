@@ -137,7 +137,13 @@ jQuery(document).ready( function()
 	lpr_allow_empty = true;
 	lpr_geocoder = new google.maps.Geocoder();
 
-	lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
+	lpr_map = new google.maps.Map( 
+		document.getElementById("lpr-map"),
+		{
+			zoom:15,
+			mapTypeId:google.maps.MapTypeId.ROADMAP
+			}
+		);
 
 	lpr_infowindow = new google.maps.InfoWindow();
 	google.maps.event.addListener(lpr_map, 'click', function(){

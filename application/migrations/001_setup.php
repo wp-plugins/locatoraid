@@ -1,8 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_setup extends CI_Migration {
-	public function up(){
+class Migration_setup extends CI_Migration
+{
+	public function up()
+	{
 	// conf
 		$this->dbforge->add_field(
 			array(
@@ -101,10 +103,61 @@ class Migration_setup extends CI_Migration {
 			);
 		$this->dbforge->add_key('id', TRUE);
 		$this->dbforge->create_table('locations');
-		}
 
-	public function down() {
-		$this->dbforge->drop_table('conf');
-		$this->dbforge->drop_table('locations');
+		if( Modules::exists('locazip') )
+		{
+		// companies
+			$this->dbforge->add_field(
+				array(
+					'id' => array(
+						'type' => 'INT',
+						'null' => FALSE,
+						'unsigned' => TRUE,
+						'auto_increment' => TRUE
+						),
+					'name' => array(
+						'type' => 'VARCHAR(100)',
+						'null' => FALSE,
+						),
+					)
+				);
+			$this->dbforge->add_key('id', TRUE);
+			$this->dbforge->create_table('companies');
+
+	// companies to locations
+			$this->dbforge->add_field(
+				array(
+					'id' => array(
+						'type' => 'INT',
+						'null' => FALSE,
+						'unsigned' => TRUE,
+						'auto_increment' => TRUE
+						),
+					'company_id' => array(
+						'type' => 'INT',
+						'null' => FALSE,
+						'unsigned' => TRUE,
+						),
+					'location_id' => array(
+						'type' => 'INT',
+						'null' => FALSE,
+						'unsigned' => TRUE,
+						),
+					)
+				);
+			$this->dbforge->add_key('id', TRUE);
+			$this->dbforge->create_table('companies_locations');
 		}
 	}
+
+	public function down()
+	{
+		$this->dbforge->drop_table('conf');
+		$this->dbforge->drop_table('locations');
+		if( Modules::exists('locazip') )
+		{
+			$this->dbforge->drop_table('companies');
+			$this->dbforge->drop_table('companies_locations');
+		}
+	}
+}

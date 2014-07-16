@@ -89,6 +89,15 @@ else {
 	$class = 'alert alert-success';
 	$status = join( ', ', array($e['latitude'],$e['longitude']) );
 	}
+
+if( Modules::exists('locazip') )
+{
+	$link_title = $e['zip'];
+}
+else
+{
+	$link_title = $e['name'];
+}
 ?>
 	<div class="span4">
 		<div class="<?php echo $class; ?>">
@@ -98,10 +107,19 @@ else {
 <h4><?php echo $this->model->type_title($e['loc_type']); ?></h4>
 <?php	endif; ?>
 
-		<?php echo ci_anchor( array($this->conf['path'], 'edit', $e['id']), '<strong>' . $e['name'] . '</strong>' ); ?>
+		<?php echo ci_anchor( array($this->conf['path'], 'edit', $e['id']), '<strong>' . $link_title . '</strong>' ); ?>
 		<br>
 		<?php echo $e['view']; ?>
 		<br><br><em><?php echo $status; ?></em>
+		
+		<?php if( Modules::exists('locazip') ) : ?>
+			<?php
+			$companies = $this->model->get_companies_by( 'zip', $e['zip'] );
+			?>
+			<p>
+				Companies: <?php echo count($companies); ?>
+			</p>
+		<?php endif; ?>
 		</div>
 	</div>
 

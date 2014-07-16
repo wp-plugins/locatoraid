@@ -2,14 +2,14 @@
 /**
  * @package Locatoraid
  * @author Locatoraid
- * @version 2.1.7
+ * @version 2.1.8
  */
 /*
 Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: Locatoraid
-Version: 2.1.7
+Version: 2.1.8
 Author URI: http://www.locatoraid.com/
 */
 /* 
@@ -74,7 +74,13 @@ class Locatoraid
 			else
 				$title .= ' ' . $this->wpi;
 		}
-		$page = add_menu_page( $title, $title, 'read', $this->app, array($this, 'admin_view') );
+		$page = add_menu_page( 
+			$title, 
+			$title,
+			'edit_pages',
+			$this->app,
+			array($this, 'admin_view')
+			);
 		add_action( 'load-' . $page, array($this, 'admin_action') );
 		add_action( 'admin_print_styles-' . $page, array($this, 'print_styles') );
 		add_action( 'admin_print_scripts-' . $page, array($this, 'print_scripts') );

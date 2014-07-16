@@ -86,7 +86,6 @@ jQuery(document).on( 'click', '#lpr-autodetect', function(event) {
 
 				lpr_current_location_set = position;
 				lpr_with_position( lpr_current_location_set );
-
 			},
 			function()
 			{
@@ -185,11 +184,18 @@ jQuery(document).on( 'click', '#lpr-locations .lpr-location', function(event)
 	var directions_panel = jQuery("#lpr-directions-panel");
 	directions_panel.hide();
 	lpr_directions_display.setMap( null );
-	
+
 	// adjust map so it shows both source and target location
 	var location_position = new google.maps.LatLng( jQuery(this).attr('lat'), jQuery(this).attr('lng') );
+	if( lpr_loc )
+	{
+		lpr_map.setCenter( lpr_loc );
+	}
+	else
+	{
+		lpr_map.setCenter( location_position );
+	}
 
-	lpr_map.setCenter( lpr_loc );
 	var z = 15;
 	for ( var zz = z; zz > 1; zz-- )
 	{
@@ -278,6 +284,7 @@ function lpr_show_on_map( loc, target_div, data )
 			var content = wrapper + data[ii].display + '</div>';
 			var location_position = new google.maps.LatLng( data[ii].lat, data[ii].lng );
 			var location_marker = new google.maps.Marker( {
+				icon: "http://localhost/_avatars/1.jpg",
 				map: lpr_map,
 				position: location_position,
 				title: data[ii].name,
