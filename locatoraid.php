@@ -2,7 +2,6 @@
 /**
  * @package Locatoraid
  * @author Locatoraid
- * @version 2.1.8
  */
 /*
 Plugin Name: Locatoraid

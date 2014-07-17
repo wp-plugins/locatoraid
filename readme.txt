@@ -4,15 +4,35 @@ Contributors: HitCode
 Tags: business locations, dealer locator, dealer locater, store locator, post, store locater, mapping, mapper, google, google maps, ajax, shop locator, shop finder, shortcode, location finder, places, widget, stores, plugin, maps, coordinates, latitude, longitude, posts, geo, geocoding, jquery, shops, page, zipcode, zip code, zip code search, store finder, address map, address location map, map maker, map creator, mapping software, map tools, mapping tools, locator maps, map of addresses, map multiple locations, wordpress locator, store locator map
 License: GPLv2 or later
 
-Stable tag: 2.1.8
+Stable tag: trunk
 Requires at least: 3.3
 Tested up to: 3.9
 
+Add a store locator map to your site and get your visitors to start finding you faster!
+
 == Description ==
 
-Locatoraid is WordPress store locator, dealer locator, zip code locator plugin for any business that needs to let customers search online for their stores, dealers, hotels, restaurants, ATMs, products, locations, etc. This locator plugin takes the address or zip code input from your customer and returns nearest matches sorted by distance, complete with online Google map, driving directions, contact info, links and more. 
-The plugin features advanced admin panel with automatic bulk location geocoding function and offers a self-service customer store location search form embedded into a page or a post with a shortcode. 
-Please visit [our website](http://www.locatoraid.com "WordPress Store Locator") for more info, or try our online zip code locator [demo](http://www.locatoraid.com/demo/ "Locatoraid Pro Demo") with all features.
+Locatoraid is WordPress store locator, zip code locator plugin for any business that needs to let customers search online for their stores, dealers, hotels, restaurants, ATMs, products, locations, etc. 
+
+This locator plugin takes the address or zip code input from your customer and returns nearest matches sorted by distance, complete with online Google map, driving directions, contact info, links and more. 
+
+###Lite Version Features###
+* Automatic geocoding to quickly locate your stores
+* Insert a store locator map with a shortcode
+* Driving directions
+* Sort results by distance, state or city
+* Configurable search radius
+* Auto detect customer position
+* Customizable options
+
+###Pro Version Features###
+
+* __CSV Import / Export__ to bulk add and update your locations
+* __Custom Fields__    to show more information
+* __Location Priority__ to highlight and move higher important entries
+* __Search Stats__ to keep track of what are your visitors searching for
+
+[Get the Pro version now!](http://www.locatoraid.com/order/)
 
 == Support ==
 Please contact us at http://www.locatoraid.com/contact/
