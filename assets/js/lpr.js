@@ -284,7 +284,7 @@ function lpr_show_on_map( loc, target_div, data )
 			var content = wrapper + data[ii].display + '</div>';
 			var location_position = new google.maps.LatLng( data[ii].lat, data[ii].lng );
 			var location_marker = new google.maps.Marker( {
-				icon: "http://localhost/_avatars/1.jpg",
+//				icon: "http://localhost/_avatars/1.jpg",
 				map: lpr_map,
 				position: location_position,
 				title: data[ii].name,
