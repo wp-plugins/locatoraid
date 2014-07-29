@@ -148,7 +148,8 @@ class MY_Controller extends MX_Controller
 						$return[$f['name']] = '<a href="' . $href . '" target="_blank">' . $f['title'] . '</a>';
 						break;
 					default:
-						if( 
+						$email_regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
+						if(
 							preg_match('/^misc/', $f['name']) &&
 							preg_match('/(\.jpg|\.png|\.gif|\.svg)$/i', $e[$f['name']])
 							)
@@ -161,6 +162,13 @@ class MY_Controller extends MX_Controller
 							)
 						{
 							$field_view = '<a href="' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';
+						}
+						elseif(
+							preg_match('/^misc/', $f['name']) &&
+							preg_match($email_regex, $e[$f['name']])
+							)
+						{
+							$field_view = '<a href="mailto:' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';
 						}
 						else
 						{
