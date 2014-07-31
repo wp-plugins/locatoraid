@@ -83,3 +83,7 @@
 .hc a:hover {
 	color: #5B930A;
 	}
+
+.hc .clearfix {
+	-webkit-perspective:0;
+}
