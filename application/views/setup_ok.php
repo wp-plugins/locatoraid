@@ -9,7 +9,7 @@ $brand_title = $this->config->item('nts_app_title');
 Thank you for installing <strong><?php echo $brand_title; ?></strong>! Please now proceed to the <a href="<?php echo ci_site_url(); ?>">start page</a>.
 </p>
 
-<META http-equiv="refresh" content="3;URL=<?php echo ci_site_url(); ?>">
+<META http-equiv="refresh" content="5;URL=<?php echo ci_site_url(); ?>">
 
 <?php
 $localhost = ($this->input->server('SERVER_NAME') != 'localhost') ? FALSE : TRUE;
