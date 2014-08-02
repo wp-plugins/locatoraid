@@ -30,7 +30,10 @@ class Setup extends MX_Controller {
 		$this->lang->load( $app_core, $my_language );
 		$this->data['message'] = $this->session->flashdata('message');
 		$this->data['error'] = $this->session->flashdata('error');
+	}
 
+	function index()
+	{
 	// check if already setup
 		if( $this->is_setup() )
 		{
@@ -42,10 +45,6 @@ class Setup extends MX_Controller {
 				ci_redirect('auth/login');
 				}
 		}
-	}
-
-	function index()
-	{
 		$this->data['include'] = 'setup';
 		$this->load->view( 'template', $this->data);
 
@@ -122,10 +121,26 @@ class Setup extends MX_Controller {
 		$this->app_conf->set( 'admin_email', $admin_email );
 		$hash_password = $this->auth->hash_password( $admin_password );
 		$this->app_conf->set( 'admin_password', $hash_password );
+		$setup_ok = TRUE;
 
-		$this->session->set_flashdata( 'message', lang('ok') );
+		if( $setup_ok )
+		{
+		/* default settings */
+			$this->app_conf->set( 'email_from',			$admin_email );
+			$this->app_conf->set( 'email_from_name',	$admin_email );
+
+			$this->session->set_flashdata( 'message', lang('ok') );
+			ci_redirect( 'setup/ok' );
+			return;
+		}
 		ci_redirect( '' );
 		}
+	}
+
+	function ok()
+	{
+		$this->data['include'] = 'setup_ok';
+		$this->load->view( 'template', $this->data);
 	}
 
 	function is_setup()
