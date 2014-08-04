@@ -295,12 +295,12 @@ function lpr_show_on_map( loc, target_div, data )
 				});
 
 			var this_distance = ( calc_distance ) ? location_position.ntsDistanceFrom(loc) : data[ii].distance;
+			this_distance = parseFloat( this_distance );
 			if( this_distance > max_distance )
 			{
 				max_distance = this_distance;
 				max_distance_id = ii;
 			}
-
 
 //			google.maps.event.addListener(marker, 'click', function() {
 //				infobox.open(map, this);
@@ -323,7 +323,9 @@ function lpr_show_on_map( loc, target_div, data )
 			{
 				lpr_map.setZoom( zz );
 				if( lpr_map.getBounds().contains( location_position ) )
+				{
 					break;
+				}
 			}
 		}
 	}
