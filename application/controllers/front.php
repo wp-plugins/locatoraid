@@ -289,7 +289,24 @@ class Front extends Front_controller
 
 	function index( $search2 = '' )
 	{
-		$search = $this->default_search ? $this->default_search : $this->app_conf->get('default_search');
+		$search = '';
+		if( isset($_GET['lpr-search']) )
+		{
+			$search = trim($_GET['lpr-search']);
+		}
+
+		if( ! strlen($search) )
+		{
+			$search = $this->default_search ? $this->default_search : $this->app_conf->get('default_search');
+		}
+
+		if( ! $search2 )
+		{
+			if( isset($_GET['lpr-search2']) )
+			{
+				$search = $_GET['lpr-search2'];
+			}
+		}
 
 	// product options
 		$product_options = $this->app_conf->get('products');

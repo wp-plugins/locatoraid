@@ -8,7 +8,7 @@ Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: Locatoraid
-Version: 2.1.8
+Version: 2.1.9
 Author URI: http://www.locatoraid.com/
 */
 /* 
@@ -17,6 +17,11 @@ or anything else starting with locatoraid
 */
 if( ! class_exists('Locatoraid') )
 {
+if( file_exists(dirname(__FILE__) . '/widgets/searchform.php') )
+{
+	include_once( dirname(__FILE__) . '/widgets/searchform.php' );
+}
+
 class Locatoraid
 {
 	var $load_by_js = FALSE;
@@ -172,6 +177,17 @@ EOT;
 			)
 		{
 			$is_me = TRUE;
+		}
+		else
+		{
+			// might be shortcode with params
+			$pattern = '\[' . $this->app . '\s*(.+)\]';
+			if(
+				preg_match('/'. $pattern .'/s', $post->post_content, $matches)
+				)
+			{
+				$is_me = TRUE;
+			}
 		}
 
 		if( $is_me )

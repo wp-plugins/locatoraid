@@ -51,6 +51,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.1.9 =
+* Added a search form widget
+
 = 2.1.8 =
 * Making the plugin admin area accessible by only Editors or higher
 

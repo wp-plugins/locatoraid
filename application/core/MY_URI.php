@@ -118,11 +118,18 @@ class MY_URI extends CI_URI {
 		{
 			$start_with = $this->config->item('index_page');
 			$str_pos = strpos($start_with, '?');
+
 			if( ($str_pos !== FALSE) && (($str_pos + 1) <= strlen($start_with)) )
 			{
 				$prefix = substr( $start_with, $str_pos );
 				$uri_starts = strlen($start_with) - $str_pos - 1;
 				$uri = substr( $parts[1], $uri_starts );
+
+			/* hack */
+				if( isset($_GET['lpr-search']) )
+				{
+					$uri = '';
+				}
 			}
 			else
 			{
@@ -141,7 +148,6 @@ class MY_URI extends CI_URI {
 		{
 			return '/';
 		}
-
 		$uri = parse_url($uri, PHP_URL_PATH);
 		// Do some final cleaning of the URI and return it
 		return str_replace(array('//', '../'), '/', trim($uri, '/'));
