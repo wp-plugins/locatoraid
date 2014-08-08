@@ -343,7 +343,6 @@ class CI_Router {
 			return $x;
 		}
 
-
 		// Nothing else to do at this point but show a 404
 		show_404($segments[0]);
 	}
@@ -432,6 +431,15 @@ class CI_Router {
 	 */
 	function set_method($method)
 	{
+	/* hack - if it contains ? or & then strip anything after */
+		$strip = array('?', '&');
+		foreach( $strip as $s )
+		{
+			if( strpos($method, $s) !== FALSE )
+			{
+				$method = substr($method, 0, strpos($method, $s));
+			}
+		}
 		$this->method = $method;
 	}
 
