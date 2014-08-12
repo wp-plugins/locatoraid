@@ -121,9 +121,23 @@ class Front extends Front_controller
 			}
 		}
 
+		if( count($entries) )
+		{
+			$limit_output = $this->app_conf->get( 'limit_output' );
+			if( $limit_output )
+			{
+				$limit_output = intval( $limit_output );
+				if( $limit_output )
+				{
+					$entries = array_slice( $entries, 0, $limit_output );
+				}
+			}
+		}
+
 	/* build output */
 		$out = array();
 		$group_by = $this->app_conf->get( 'group_output' );
+
 		if( count($entries) )
 		{
 			$final_entries = array();

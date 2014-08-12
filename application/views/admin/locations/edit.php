@@ -201,9 +201,11 @@ jQuery(document).ready( function()
 			}
 		}
 		)
-		.error( function()
+
+		.fail( function(data)
 		{
 			alert( 'Error parsing JSON from ' + json_url );
+//			alert(JSON.stringify(data));
 		}
 		);
 });

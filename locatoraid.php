@@ -8,7 +8,7 @@ Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: Locatoraid
-Version: 2.1.9
+Version: 2.2.0
 Author URI: http://www.locatoraid.com/
 */
 /* 
@@ -81,6 +81,7 @@ class Locatoraid
 		$page = add_menu_page( 
 			$title, 
 			$title,
+//			'read',
 			'edit_pages',
 			$this->app,
 			array($this, 'admin_view')

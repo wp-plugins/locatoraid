@@ -593,9 +593,10 @@ function lpr_next_location( url_prefix, loc_id, map )
 			}
 		}
 	)
-	.error( function()
+	.error( function(data)
 		{
 			alert( 'Error parsing JSON from ' + json_url );
+			alert(JSON.stringify(data));
 		}
 	);
 }

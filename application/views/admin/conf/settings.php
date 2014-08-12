@@ -57,6 +57,12 @@ $fields = array(
 			),
 		),
 	array(
+		'name' 		=> 'limit_output',
+ 		'title'		=> lang('conf_limit_output'),
+		'type'		=> 'text',
+		'help'		=> lang('conf_limit_output_help')
+		),
+	array(
 		'name' 		=> 'trigger_autodetect',
  		'title'		=> lang('conf_trigger_autodetect'),
 		'type'		=> 'checkbox',
