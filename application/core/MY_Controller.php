@@ -99,7 +99,10 @@ class MY_Controller extends MX_Controller
 		$return['address'] = $this->model->make_address( $e, TRUE );
 
 		if( isset($e['distance']) && (! ( isset($skip['distance']) && $skip['distance'])) )
-			$return['distance'] = lang('location_distance') . ': ' . $e['distance'];
+		{
+//			$return['distance'] = lang('location_distance') . ': ' . $e['distance'];
+			$return['distance'] = $e['distance'];
+		}
 
 		// more fields
 		reset( $all_fields );
@@ -189,8 +192,23 @@ class MY_Controller extends MX_Controller
 
 	function display_location( $e, $skip = array() )
 	{
-		$return = $this->_prepare_display_location( $e, $skip );
-		$return = join( '<br>', $return );
+//		$return = $this->_prepare_display_location( $e, $skip );
+//		$return = join( '<br>', $return );
+
+		$info = $this->_prepare_display_location( $e, $skip );
+
+		$return = array();
+		$return[] = '<ul class="unstyled">';
+		foreach( $info as $k => $v )
+		{
+			$this_item = '<li class="lpr-location-' . $k . '">';
+			$this_item .= $v;
+			$this_item .= '</li>';
+			$return[] = $this_item;
+		}
+		$return[] = '</ul>';
+		$return = join( '', $return );
+
 		return $return;
 	}
 }

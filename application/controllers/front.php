@@ -359,23 +359,6 @@ class Front extends Front_controller
 		$this->data['start_listing'] = $start_listing;
 		$this->load->view($this->template, $this->data);
 	}
-
-	function display_location( $e, $skip = array() )
-	{
-		$return = $this->_prepare_display_location( $e, $skip );
-		if( Modules::exists('locazip') )
-		{
-			$name_view = array();
-			$companies = $this->model->get_companies_by( 'zip', $e['zip'] );
-			foreach( $companies as $c )
-			{
-				$name_view[] = $c['name'];
-			}
-			$return['name'] = join( '<br>', $name_view );
-		}
-		$return = join( '<br>', $return );
-		return $return;
-	}
 }
 
 /* End of file customers.php */

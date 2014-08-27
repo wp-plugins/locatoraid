@@ -1,4 +1,24 @@
 <?php
+/*
+<style>
+#lpr-map,
+#lpr-locations
+{
+	width: 100%;
+	margin: 0 0;
+	padding: 0 0;
+	float: none;
+}
+</style>
+<script language="JavaScript">
+jQuery(document).ready( function()
+{
+	jQuery('#lpr-locations').insertBefore('#lpr-map');
+});
+</script>
+*/
+?>
+<?php
 $append_search = $this->app_conf->get( 'append_search' );
 $products_label = $this->app_conf->get( 'form_products' );
 if( ! strlen($products_label) )

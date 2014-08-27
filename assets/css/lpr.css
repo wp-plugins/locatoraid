@@ -19,6 +19,14 @@
 	width: 20em;
 	}
 
+/* in the front end */
+.lpr-location-distance {
+	font-weight: bold;
+}
+.lpr-location-address {
+	font-style: italic;
+}
+
 /*
 #lpr-search-controls,
 #lpr-autodetect {

@@ -51,6 +51,10 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.2.1 =
+* Fixed a bug if you are using several instances (like locatoraid2.php and [locatoraid2] shortcode), it was showing the first instance for all the shortcodes.
+* Added a wrapping CSS classes for location view in front end like .lpr-location-distance, .lpr-location-address, .lpr-location-name
+
 = 2.2.0 =
 * Added an option to set a limit on the number of locations that are shown following a search. For example, even though there may be 10 locations near AB10 C78, the locator only shows 3.
 
