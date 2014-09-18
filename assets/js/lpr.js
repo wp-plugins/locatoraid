@@ -1,3 +1,8 @@
+jQuery(document).on( 'click', 'a.hc-confirm', function(event)
+{
+	return window.confirm("Are you sure?");
+});
+
 var lpr_current_location_set = 0;
 var lpr_markers = [];
 
@@ -78,19 +83,45 @@ jQuery(document).on( 'click', '#lpr-autodetect', function(event) {
 		navigator.geolocation.getCurrentPosition(
 			function(position)
 			{
-				jQuery( '#lpr-autodetect' ).parent().toggle();
 				jQuery( '#lpr-search-address' ).removeClass( 'hc-loading' );
-				jQuery( '#lpr-search-address' ).toggle();
+
+				jQuery( '#lpr-autodetect' ).parent().toggle();
+				jQuery( '#lpr-search-address' ).parent().toggle();
 				jQuery( '#lpr-current-location' ).toggle();
 				jQuery( '#lpr-search-button' ).toggle();
 
 				lpr_current_location_set = position;
 				lpr_with_position( lpr_current_location_set );
 			},
-			function()
+			function( error )
 			{
-				alert( 'Sorry your device could not get your location' );
+				var err_msg = 'Sorry your device could not get your location';
+				switch( error.code )
+				{
+					case error.PERMISSION_DENIED:
+//						err_msg = "User denied the request for Geolocation."
+						err_msg = ""
+						break;
+					case error.POSITION_UNAVAILABLE:
+						err_msg = "Location information is unavailable."
+						break;
+					case error.TIMEOUT:
+						err_msg = "The request to get user location timed out."
+						break;
+					case error.UNKNOWN_ERROR:
+						err_msg = "An unknown error occurred."
+						break;
+				}
 				jQuery( '#lpr-search-address' ).removeClass( 'hc-loading' );
+				if( err_msg )
+				{
+					alert( err_msg );
+				}
+			},
+			{
+//				enableHighAccuracy: true, 
+//				maximumAge        : 30000, 
+				timeout           : 5000
 			}
 			);
 	}
@@ -102,7 +133,7 @@ jQuery(document).on( 'click', '#lpr-autodetect', function(event) {
 });
 
 jQuery(document).on( 'click', '#lpr-skip-current-location', function(event) {
-	jQuery( '#lpr-search-address' ).toggle();
+	jQuery( '#lpr-search-address' ).parent().toggle();
 	jQuery( '#lpr-current-location' ).toggle();
 	jQuery( '#lpr-autodetect' ).parent().toggle();
 	jQuery( '#lpr-search-button' ).toggle();
@@ -249,11 +280,18 @@ function lpr_show_on_map( loc, target_div, data )
 			calc_distance = true;
 			if( data.length > 0 )
 			{
-				loc = new google.maps.LatLng( data[0].lat, data[0].lng );
-				lpr_map.setCenter( loc );
+				for( var ii = 0; ii < data.length; ii++ )
+				{
+					if( ! data[ii].id ) // group header
+						continue;
+
+					loc = new google.maps.LatLng( data[ii].lat, data[ii].lng );
+					lpr_map.setCenter( loc );
+					break;
+				}
 			}
 		}
-		
+
 	/* here we display locations */
 		for( var ii = 0; ii < data.length; ii++ )
 		{
@@ -280,6 +318,9 @@ function lpr_show_on_map( loc, target_div, data )
 		var max_distance_id = -1;
 		for( var ii = 0; ii < data.length; ii++ )
 		{
+			if( ! data[ii].id ) // group header
+				continue;
+
 			var wrapper = '<div class="lpr-location" lat="' + data[ii].lat + '"' + 'lng="' + data[ii].lng + '">';
 			var content = wrapper + data[ii].display + '</div>';
 			var location_position = new google.maps.LatLng( data[ii].lat, data[ii].lng );

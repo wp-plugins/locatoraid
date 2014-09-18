@@ -9,7 +9,7 @@ reset( $fields );
 
 <h2><?php echo lang('setup_title');?></h2>
 
-<?php echo form_open('setup/run', array('class' => 'well')); ?>
+<?php echo form_open('setup/run', array('class' => '')); ?>
 <?php foreach( $fields as $f ) : ?>
 <p>
 <?php echo form_error($f['name']); ?>

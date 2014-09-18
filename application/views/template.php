@@ -6,14 +6,13 @@
 <title><?php echo (isset($page_title)) ? $page_title : ''; ?></title>
 
 <link href="<?php echo ci_base_url('assets/bootstrap/css/_bootstrap.css'); ?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo ci_base_url('assets/css/hitcode.css'); ?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo ci_base_url('assets/css/lpr.css'); ?>" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="<?php echo ci_base_url('assets/js/jquery-1.8.3.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo ci_base_url('assets/bootstrap/js/bootstrap.min.js'); ?>"></script>
-<script type="text/javascript" src="<?php echo ci_base_url('assets/js/lpr.js'); ?>"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script type="text/javascript" src="<?php echo ci_base_url('assets/js/lpr.js'); ?>"></script>
 </head>
 <body>
 <?php endif; ?>

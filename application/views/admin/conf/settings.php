@@ -7,6 +7,12 @@ $fields = array(
 		'help'		=> lang('conf_default_search_help'),
 		),
 	array(
+		'name' 		=> 'append_search',
+ 		'title'		=> lang('conf_append_search'),
+		'type'		=> 'text',
+		'help'		=> lang('conf_append_search_help'),
+		),
+	array(
 		'name' 		=> 'start_listing',
  		'title'		=> lang('conf_start_listing'),
 		'type'		=> 'dropdown',
@@ -76,12 +82,6 @@ $fields = array(
 			';'	=> ';',
 			),
 		),
-	array(
-		'name' 		=> 'append_search',
- 		'title'		=> lang('conf_append_search'),
-		'type'		=> 'text',
-		'help'		=> lang('conf_append_search_help'),
-		),
 	);
 
 /* get languages */
@@ -111,7 +111,7 @@ reset( $fields );
 <h2><?php echo lang('menu_conf_settings');?></h2>
 </div>
 
-<?php echo form_open('', array('class' => 'well form-horizontal form-condensed')); ?>
+<?php echo form_open('', array('class' => 'form-horizontal form-condensed')); ?>
 
 <?php foreach( $fields as $f ) : ?>
 <?php

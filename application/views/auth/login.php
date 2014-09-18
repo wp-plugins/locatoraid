@@ -1,6 +1,6 @@
 <h2><?php echo lang('login'); ?></h2>
 
-<?php echo form_open('auth/login', array('class' => 'well')); ?>
+<?php echo form_open('auth/login', array('class' => '')); ?>
 <?php
 $identity['placeholder'] = lang('common_email');
 $error = form_error($identity['name']);

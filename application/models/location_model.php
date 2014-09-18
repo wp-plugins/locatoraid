@@ -287,6 +287,7 @@ class Location_model extends MY_Model
 
 		$this->db->select($what);
 		$this->db->order_by('priority', 'DESC');
+		$this->db->order_by('name', 'ASC');
 		$result	= $this->db->get('locations');
 
 		$skip_this = FALSE;

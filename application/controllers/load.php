@@ -9,6 +9,8 @@ class Load extends Front_controller
 
 	function index( $search = '', $search2 = '' )
 	{
+		$html = '';
+
 		$content_type = 'text/javascript';
 		header("Content-type: $content_type");
 
@@ -17,7 +19,6 @@ class Load extends Front_controller
 
 		$css = array(
 			$assets_dir . '/bootstrap/css/_bootstrap.css',
-			$assets_dir . '/css/hitcode.css',
 			$assets_dir . '/css/lpr.css',
 			);
 
@@ -25,6 +26,7 @@ class Load extends Front_controller
 			$assets_dir . '/bootstrap/js/bootstrap.min.js',
 			'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true',
 			'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js',
+//			$assets_dir . '/js/lpr-front.js', // load later after content is ready
 			$assets_dir . '/js/lpr.js',
 			$assets_dir . '/js/hc-load.js',
 			);
@@ -34,14 +36,14 @@ class Load extends Front_controller
 			array_unshift( $js, $assets_dir . '/js/jquery-1.8.3.min.js' );
 		}
 
-		$html = '';
-
-		if( $search2 ){
+		if( $search2 )
+		{
 			$target = ci_site_url( array('front/start', $search, $search2) );
-			}
-		else {
+		}
+		else
+		{
 			$target = ci_site_url( array('front/start', $search) );
-			}
+		}
 
 		$html .= <<<EOT
 var hc_target = "$target";
@@ -97,6 +99,17 @@ function hc_get_js( src )
 	}
 }
 
+function hc_append_js( src )
+{
+	if( ! hc_if_loaded(src, 'script', 'src') )
+	{
+		var fileref=document.createElement('script')
+		fileref.setAttribute("type","text/javascript")
+		fileref.setAttribute("src", src)
+		document.getElementsByTagName('head')[0].appendChild( fileref );
+	}
+}
+
 function hc_get_css( src )
 {
 	if( ! hc_if_loaded(src, 'link', 'href') )
@@ -125,6 +138,11 @@ EOT;
 		$html .= <<<EOT
 
 EOT;
+
+	/* also include js init */
+		$js_init = $this->load->view('front_js', '', true);
+		$html .= $js_init;
+
 		echo $html;
 		exit;
 	}

@@ -3,6 +3,7 @@
 class Front extends Front_controller
 {
 	var $default_search = '';
+	var $front_template = '';
 
 	function __construct()
 	{
@@ -351,13 +352,11 @@ class Front extends Front_controller
 		$this->data['include'] = 'front';
 		$this->data['within_options'] = $within_options;
 
-		$start_listing = $this->app_conf->get('start_listing');
-		if( ! $start_listing && ($search != $this->app_conf->get('default_search')) )
-		{
-			$start_listing = 1;
-		}
-		$this->data['start_listing'] = $start_listing;
-		$this->load->view($this->template, $this->data);
+	// check if custom front view file exists
+		$layout_file = APPPATH . 'views/' . 'front_layout.php';
+		$this->data['layout_file'] = $layout_file;
+
+		$this->load->view( $this->template, $this->data );
 	}
 }
 

@@ -1,4 +1,4 @@
-<?php echo form_open('auth/forgot_password', array('class' => 'well')); ?>
+<?php echo form_open('auth/forgot_password', array('class' => '')); ?>
 <p>Please enter your email address so we can send you an email to reset your password.</p>
 <p>
 <h2>Forgot Password</h2>

@@ -31,7 +31,7 @@ else
 <div class="row-fluid">
 
 <div class="span6">
-<?php echo form_open('', array('class' => 'well form-horizontal form-condensed')); ?>
+<?php echo form_open('', array('class' => 'form-horizontal form-condensed')); ?>
 
 <?php foreach( $fields as $f ) : ?>
 <?php

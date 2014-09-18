@@ -7,7 +7,7 @@ reset( $fields );
 <h2><?php echo lang('location_add');?></h2>
 </div>
 
-<?php echo form_open('', array('class' => 'well form-horizontal form-condensed')); ?>
+<?php echo form_open('', array('class' => 'form-horizontal form-condensed')); ?>
 
 <?php foreach( $fields as $f ) : ?>
 <?php

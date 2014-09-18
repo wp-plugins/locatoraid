@@ -58,6 +58,19 @@ class MY_Controller extends MX_Controller
 
 		$this->data['message'] = $this->session->flashdata('message');
 		$this->data['error'] = $this->session->flashdata('error');
+
+		if( (isset($GLOBALS['NTS_IS_PLUGIN']) && ($GLOBALS['NTS_IS_PLUGIN'] == 'wordpress')) )
+		{
+			wp_localize_script( 'lctrScript1', 'url_prefix', ci_site_url('front/get') );
+			wp_localize_script( 'lctrScript_front', 'lpr_vars', 
+				array(
+					'conf_trigger_autodetect'	=> $this->app_conf->get('trigger_autodetect') ? 1 : 0,
+					'conf_append_search'		=> $this->app_conf->get('append_search'),
+					'start_listing'				=> $this->app_conf->get('start_listing') ? 1 : 0,
+					)
+				);
+		}
+
 	}
 
 	function is_setup()
@@ -198,7 +211,7 @@ class MY_Controller extends MX_Controller
 		$info = $this->_prepare_display_location( $e, $skip );
 
 		$return = array();
-		$return[] = '<ul class="unstyled">';
+		$return[] = '<ul class="list-unstyled">';
 		foreach( $info as $k => $v )
 		{
 			$this_item = '<li class="lpr-location-' . $k . '">';

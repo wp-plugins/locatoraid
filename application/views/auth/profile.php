@@ -1,6 +1,6 @@
 <h2>Profile</h2>
 
-<?php echo form_open('', array('class' => 'well form-horizontal')); ?>
+<?php echo form_open('', array('class' => 'form-horizontal')); ?>
 
 <?php
 $error = form_error($email['name']);

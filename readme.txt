@@ -6,7 +6,7 @@ License: GPLv2 or later
 
 Stable tag: trunk
 Requires at least: 3.3
-Tested up to: 3.9
+Tested up to: 4.0
 
 Add a store locator map to your site and get your visitors to start finding you faster!
 
@@ -50,6 +50,16 @@ Author URI: http://www.locatoraid.com
 The upgrade is simply - upload everything up again to your `/wp-content/plugins/` directory, then go to the Locatoraid menu item in the admin panel. It will automatically start the upgrade process if any needed.
 
 == Changelog ==
+
+= 2.3.0 =
+* Admin panel restyled for a closer match to the latest WordPress version.
+* Front end JavaScript placed in a separate file to optimize loading.
+* Cleaned and optimized many files thus greatly reducing the package size.
+* The Pro version now features automatic updates option too.
+
+= 2.2.2 =
+* Redesigned the front end search form.
+* Minor updates and fixes.
 
 = 2.2.1 =
 * Fixed a bug if you are using several instances (like locatoraid2.php and [locatoraid2] shortcode), it was showing the first instance for all the shortcodes.

@@ -5,12 +5,20 @@
 <div class="row-fluid">
 
 <div class="span4">
-<?php echo form_open( hc_urlify($this->conf['path']) . '/search' ); ?>
-<?php echo form_input( array('name' => 'search', 'class' => 'input-medium search-query'), set_value('search', $show_search)); ?>
-<?php echo form_button( array('name' => 'submit', 'type' => 'submit', 'class' => 'btn'), lang('common_search'));?>
-<?php if( $show_search ) : ?>
-	<?php echo ci_anchor( hc_urlify($this->conf['path']), lang('common_show_all'), 'class="btn"' ); ?>
-<?php endif; ?>
+<?php echo form_open( hc_urlify($this->conf['path']) . '/search', array('class' => 'form-horizontal form-condensed') ); ?>
+	<ul class="list-inline">
+		<li>
+			<?php echo form_input( array('name' => 'search', 'class' => 'input-medium'), set_value('search', $show_search)); ?>
+		</li>
+		<li>
+			<?php echo form_button( array('name' => 'submit', 'type' => 'submit', 'class' => 'btn'), lang('common_search'));?>
+		</li>
+		<?php if( $show_search ) : ?>
+			<li>
+				<?php echo ci_anchor( hc_urlify($this->conf['path']), lang('common_show_all'), 'class="btn"' ); ?>
+			</li>
+		<?php endif; ?>
+	</ul>
 <?php echo form_close();?>
 </div>
 

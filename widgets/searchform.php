@@ -1,5 +1,7 @@
 <?php
-class Locatoraid_Searchform_Widget extends WP_Widget
+if( ! class_exists('Locatoraid_Searchform_Widget23') )
+{
+class Locatoraid_Searchform_Widget23 extends WP_Widget
 {
 	var $app = '';
 	var $w_arg = array(
@@ -78,4 +80,5 @@ class Locatoraid_Searchform_Widget extends WP_Widget
 		return $content;
 	}
 }
-add_action( 'widgets_init', create_function( '', 'register_widget( "Locatoraid_Searchform_Widget" );' ) );
+add_action( 'widgets_init', create_function( '', 'register_widget( "Locatoraid_Searchform_Widget23" );' ) );
+}
