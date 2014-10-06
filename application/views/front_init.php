@@ -25,3 +25,5 @@ if( $product_options )
 		$do_options[ $po ] = $po;
 	}
 }
+
+$conf_trigger_autodetect = $this->app_conf->get('trigger_autodetect');

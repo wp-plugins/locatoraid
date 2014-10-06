@@ -27,6 +27,8 @@ $lang['common_upload'] = 'Upload';
 $lang['common_upload_error'] = 'Upload error';
 $lang['common_file'] = 'File';
 $lang['common_language'] = 'Language';
+$lang['common_automatically'] = 'Automatically';
+$lang['common_let_user_select'] = 'Let User Select';
 
 $lang['profile_updated'] = 'Profile Updated';
 
@@ -121,10 +123,11 @@ $lang['conf_group_output'] = 'Group Output';
 $lang['conf_group_output_state'] = 'By State';
 $lang['conf_group_output_state_city'] = 'By State, Then By City';
 $lang['conf_group_output_city'] = 'By City';
+$lang['conf_group_output_alphabetical'] = 'Sort Alphabetically';
 $lang['conf_limit_output'] = 'Limit Output (number of locations)';
 $lang['conf_limit_output_help'] = 'Only numbers please, set to 0 for no limit';
 
-$lang['conf_trigger_autodetect'] = 'Auto Detect Customer Current Position Automatically';
+$lang['conf_trigger_autodetect'] = 'Detect Customer Current Position';
 $lang['conf_start_listing'] = 'Start With Default Locations Listing';
 $lang['conf_not_found_text'] = 'Not Found Text';
 $lang['conf_show_distance'] = 'Show Distance To Location';

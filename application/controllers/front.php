@@ -185,6 +185,14 @@ class Front extends Front_controller
 					}
 					break;
 
+				case 'alphabetical':
+					$final_entries[0][0] = $entries;
+					usort( 
+						$final_entries[0][0],
+						create_function( '$a, $b', '{return strcmp($a["name"], $b["name"]);}' )
+						);
+					break;
+
 				default:
 					$final_entries[0][0] = $entries;
 					break;

@@ -60,6 +60,7 @@ $fields = array(
 			'state'			=> lang('conf_group_output_state'),
 			'state_city'	=> lang('conf_group_output_state_city'),
 			'city'			=> lang('conf_group_output_city'),
+			'alphabetical'	=> lang('conf_group_output_alphabetical'),
 			),
 		),
 	array(
@@ -71,7 +72,13 @@ $fields = array(
 	array(
 		'name' 		=> 'trigger_autodetect',
  		'title'		=> lang('conf_trigger_autodetect'),
-		'type'		=> 'checkbox',
+//		'type'		=> 'checkbox',
+		'type'		=> 'dropdown',
+		'options'	=> array(
+			0			=> lang('common_no'),
+			1			=> lang('common_automatically'),
+			2			=> lang('common_let_user_select')
+			),
 		),
 	array(
 		'name' 		=> 'csv_separator',

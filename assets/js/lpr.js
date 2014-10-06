@@ -77,7 +77,13 @@ jQuery(document).on( 'change', '#lpr-search-form select', function(event) {
 jQuery(document).on( 'click', '#lpr-autodetect', function(event) {
 	if( navigator.geolocation )
 	{
+		var geo_timeout = 5000;
+
 		jQuery( '#lpr-search-address' ).addClass( 'hc-loading' );
+		setTimeout( function(){
+			jQuery( '#lpr-search-address' ).removeClass( 'hc-loading' );
+			}, geo_timeout );
+
 		var search2 = jQuery('#lpr-search-form').find('[name=search2]').val();
 
 		navigator.geolocation.getCurrentPosition(
@@ -99,17 +105,18 @@ jQuery(document).on( 'click', '#lpr-autodetect', function(event) {
 				switch( error.code )
 				{
 					case error.PERMISSION_DENIED:
-//						err_msg = "User denied the request for Geolocation."
-						err_msg = ""
+						err_msg = "User denied the request for Geolocation.";
+//						err_msg = "";
 						break;
 					case error.POSITION_UNAVAILABLE:
-						err_msg = "Location information is unavailable."
+						err_msg = "Location information is unavailable.";
 						break;
 					case error.TIMEOUT:
-						err_msg = "The request to get user location timed out."
+//						err_msg = "The request to get user location timed out.";
+						err_msg = "";
 						break;
 					case error.UNKNOWN_ERROR:
-						err_msg = "An unknown error occurred."
+						err_msg = "An unknown error occurred.";
 						break;
 				}
 				jQuery( '#lpr-search-address' ).removeClass( 'hc-loading' );
@@ -121,7 +128,8 @@ jQuery(document).on( 'click', '#lpr-autodetect', function(event) {
 			{
 //				enableHighAccuracy: true, 
 //				maximumAge        : 30000, 
-				timeout           : 5000
+				enableHighAccuracy	:false,
+				timeout				: geo_timeout,
 			}
 			);
 	}
@@ -167,7 +175,7 @@ jQuery(document).on( 'click', '.lpr-directions', function(event) {
 		var clicked_in = 'own';
 	}
 
-	var end = new google.maps.LatLng( my_parent.attr('lat'), my_parent.attr('lng') );
+	var end = new google.maps.LatLng( my_parent.data('lat'), my_parent.data('lng') );
 	var request = {
 		origin: lpr_loc,
 		destination: end,
@@ -217,7 +225,7 @@ jQuery(document).on( 'click', '#lpr-locations .lpr-location', function(event)
 	lpr_directions_display.setMap( null );
 
 	// adjust map so it shows both source and target location
-	var location_position = new google.maps.LatLng( jQuery(this).attr('lat'), jQuery(this).attr('lng') );
+	var location_position = new google.maps.LatLng( jQuery(this).data('lat'), jQuery(this).data('lng') );
 	if( lpr_loc )
 	{
 		lpr_map.setCenter( lpr_loc );
@@ -305,7 +313,7 @@ function lpr_show_on_map( loc, target_div, data )
 				var div_class = 'thumbnail';
 				if( data[ii].priority > 0 )
 					div_class += ' thumbnail-success';
-				var wrapper = '<div class="lpr-location" lat="' + data[ii].lat + '"' + 'lng="' + data[ii].lng + '">';
+				var wrapper = '<div class="lpr-location" data-id="' + data[ii].id + '" data-lat="' + data[ii].lat + '"' + 'data-lng="' + data[ii].lng + '">';
 				listing_html += '<div class="' + div_class + '">' + wrapper + data[ii].display + '</div></div>';
 			}
 		}
@@ -321,7 +329,7 @@ function lpr_show_on_map( loc, target_div, data )
 			if( ! data[ii].id ) // group header
 				continue;
 
-			var wrapper = '<div class="lpr-location" lat="' + data[ii].lat + '"' + 'lng="' + data[ii].lng + '">';
+			var wrapper = '<div class="lpr-location" data-id="' + data[ii].id + '" data-lat="' + data[ii].lat + '"' + 'data-lng="' + data[ii].lng + '">';
 			var content = wrapper + data[ii].display + '</div>';
 			var location_position = new google.maps.LatLng( data[ii].lat, data[ii].lng );
 			var location_marker = new google.maps.Marker( {

@@ -2,7 +2,7 @@ var url_prefix = "<?php echo ci_site_url('front/get'); ?>";
 
 /* <![CDATA[ */
 var lpr_vars = {
-	"conf_trigger_autodetect":"<?php echo ($this->app_conf->get('trigger_autodetect')) ? 1 : 0; ?>",
+	"conf_trigger_autodetect":"<?php echo $this->app_conf->get('trigger_autodetect'); ?>",
 	"conf_append_search":"<?php echo $this->app_conf->get('append_search'); ?>",
 	"start_listing":"<?php echo ($this->app_conf->get('start_listing')) ? 1 : 0; ?>"
 	};
@@ -53,7 +53,7 @@ jQuery(document).ready( function()
 	}
 	else
 	{
-		if( lpr_vars.conf_trigger_autodetect == true )
+		if( lpr_vars.conf_trigger_autodetect == 1 )
 		{
 			jQuery('#lpr-autodetect').trigger('click');
 		}

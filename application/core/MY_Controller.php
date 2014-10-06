@@ -70,7 +70,6 @@ class MY_Controller extends MX_Controller
 					)
 				);
 		}
-
 	}
 
 	function is_setup()

@@ -8,7 +8,7 @@ Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: HitCode
-Version: 2.3.0
+Version: 2.3.1
 Author URI: http://www.hitcode.com/
 */
 /* 
@@ -20,11 +20,18 @@ include_once( dirname(__FILE__) . '/application/libraries/locatoraid_base.php' )
 
 if( ! class_exists('Locatoraid') )
 {
+register_uninstall_hook( __FILE__, array('Locatoraid', 'uninstall') );
 class Locatoraid extends Locatoraid_Base
 {
 	public function __construct( $wpi = '' )
 	{
 		parent::__construct( $wpi, __FILE__ );
+	}
+
+	static function uninstall( $prefix = 'lctr2' )
+	{
+		$prefix = 'lctr2';
+		Locatoraid_Base::uninstall( $prefix );
 	}
 }
 }

@@ -4,6 +4,11 @@ if( file_exists(dirname(__FILE__) . '/../../db.php') )
 	$nts_no_db = TRUE;
 	include_once( dirname(__FILE__) . '/../../db.php' );
 }
+else
+{
+	error_reporting(0);
+	ini_set( 'display_errors', 'Off' );
+}
 
 if( ! class_exists('Locatoraid_Base') )
 {
@@ -24,12 +29,15 @@ class Locatoraid_Base
 	var $system_type = '';
 	var $deactivate_other = array();
 
+	var $premium = NULL;
+
 	public function __construct( $wpi = '', $full_path = '' )
 	{
 		$this->wpi = $wpi;
 		$this->app = 'locatoraid' . $this->wpi;
 		$this->slug = $this->app;
 		$this->full_path = $full_path;
+		$this->system_type = 'ci';
 
 		$this->load_by_js = FALSE;
 		$this->_init();
@@ -43,6 +51,10 @@ class Locatoraid_Base
 
 	public function admin_total_init()
 	{
+		if( $this->premium )
+		{
+			$this->premium->admin_total_init();
+		}
 	}
 
 	public function admin_init()
@@ -52,6 +64,10 @@ class Locatoraid_Base
 
 	public function admin_submenu()
 	{
+		if( $this->premium )
+		{
+			$this->premium->admin_submenu();
+		}
 	}
 
 	public function deactivate_other( $plugins = array() )
@@ -155,6 +171,7 @@ class Locatoraid_Base
 		$GLOBALS['NTS_CONFIG'][$this->app]['FORCE_LOGIN_ID'] = $current_user->ID;
 		$GLOBALS['NTS_CONFIG'][$this->app]['FORCE_LOGIN_NAME'] = $current_user->user_email;
 
+		$GLOBALS['NTS_CONFIG'][$this->app]['BASE_URL'] = get_admin_url();
 		$GLOBALS['NTS_CONFIG'][$this->app]['INDEX_PAGE'] = 'admin.php?page=' . $this->app . '&';
 		$GLOBALS['NTS_CONFIG'][$this->app]['DEFAULT_CONTROLLER'] = 'admin/locations';
 
@@ -278,6 +295,36 @@ EOT;
 
 			$GLOBALS['NTS_CONFIG']['_app_'] = $this->app;
 			require( dirname(__FILE__) . '/../index_action.php' );
+		}
+	}
+
+	public function dev_options()
+	{
+		if( $this->premium )
+		{
+			$this->premium->dev_options();
+		}
+	}
+
+	static function uninstall( $prefix )
+	{
+		global $wpdb, $table_prefix;
+
+		if( ! strlen($prefix) )
+		{
+			return;
+		}
+
+		$mypref = $table_prefix . $prefix . '_';
+		$sql = "SHOW TABLES LIKE '$mypref%'";
+		$results = $wpdb->get_results( $sql );
+		foreach( $results as $index => $value )
+		{
+			foreach( $value as $tbl )
+			{
+				$sql = "DROP TABLE IF EXISTS $tbl";
+				$e = $wpdb->query($sql);
+			}
 		}
 	}
 

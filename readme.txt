@@ -51,6 +51,12 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.1 =
+* Added an option to hide the user autodetect button
+* Added an option to view locations in alphabetical order (in Settings > Group Output)
+* BUG: the admin area in multi site installation was redirecting to the default site
+* Added the data-id attribute in the location wrapping div (.lpr-location) in the front-end possible developer use
+
 = 2.3.0 =
 * Admin panel restyled for a closer match to the latest WordPress version.
 * Front end JavaScript placed in a separate file to optimize loading.

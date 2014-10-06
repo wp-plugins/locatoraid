@@ -1,9 +1,11 @@
 <?php echo form_open('search', array('id' => 'lpr-search-form', 'class' => 'form-horizontal form-condensed')); ?>
 
 <ul class="list-unstyled list-margin-v">
-	<li>
-		<button class="btn" id="lpr-autodetect"><?php echo lang('front_autodetect'); ?></button>
-	</li>
+	<?php if( $conf_trigger_autodetect ) : ?>
+		<li>
+			<button class="btn" id="lpr-autodetect"><?php echo lang('front_autodetect'); ?></button>
+		</li>
+	<?php endif; ?>
 
 	<li id="lpr-current-location" style="display: none;">
 		<ul class="list-inline list-margin-v list-margin-h">
@@ -45,7 +47,7 @@
 
 <?php echo form_close(); ?>
 
-<div id="lpr-results" class="row-fluid" style="width: 90%;">
+<div id="lpr-results" class="row-fluid">
 	<?php if( $show_sidebar ) : ?>
 		<div id="lpr-map" class="span8" style="margin-bottom: 2em;"></div>
 		<div id="lpr-locations" class="span4"></div>
