@@ -164,6 +164,11 @@ class CI_Exceptions {
 	 */
 	function show_php_error($severity, $message, $filepath, $line)
 	{
+		if( ! (defined('NTS_DEVELOPMENT') && NTS_DEVELOPMENT) )
+		{
+			return;
+		}
+
 		$severity = ( ! isset($this->levels[$severity])) ? $severity : $this->levels[$severity];
 
 		$filepath = str_replace("\\", "/", $filepath);

@@ -46,16 +46,41 @@ Author URI: http://www.locatoraid.com
 
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
+3. To make it full width on default WP 2014 theme add the following code to the post with Locatoraid shortcode:
+<style>
+.site-content .entry-content
+{
+max-width: 100%;
+}
+#lpr-results
+{
+width: 100%;
+overflow: auto;
+}
+#lpr-map {
+width: 60%;
+float: left;
+}
+#lpr-locations
+{
+width: 35%;
+float: right;
+}
+</style>
+
 == Upgrade Notice ==
 The upgrade is simply - upload everything up again to your `/wp-content/plugins/` directory, then go to the Locatoraid menu item in the admin panel. It will automatically start the upgrade process if any needed.
 
 == Changelog ==
 
+= 2.3.2 =
+* BUG: when submitting the search by hitting the Enter button rather than a click, the auto-detect location input was appearing.
+
 = 2.3.1 =
 * Added an option to hide the user autodetect button
 * Added an option to view locations in alphabetical order (in Settings > Group Output)
 * BUG: the admin area in multi site installation was redirecting to the default site
-* Added the data-id attribute in the location wrapping div (.lpr-location) in the front-end possible developer use
+* Added the data-id attribute in the location wrapping div (.lpr-location) in the front-end for a possible developer use
 
 = 2.3.0 =
 * Admin panel restyled for a closer match to the latest WordPress version.

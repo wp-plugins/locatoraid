@@ -3,7 +3,7 @@
 <ul class="list-unstyled list-margin-v">
 	<?php if( $conf_trigger_autodetect ) : ?>
 		<li>
-			<button class="btn" id="lpr-autodetect"><?php echo lang('front_autodetect'); ?></button>
+			<button type="button" class="btn" id="lpr-autodetect"><?php echo lang('front_autodetect'); ?></button>
 		</li>
 	<?php endif; ?>
 
@@ -13,7 +13,7 @@
 				<strong><?php echo lang('front_current_location'); ?></strong> 
 			</li>
 			<li>
-				<button class="btn" id="lpr-skip-current-location"><?php echo lang('front_enter_address'); ?></button>
+				<button type="button" class="btn" id="lpr-skip-current-location"><?php echo lang('front_enter_address'); ?></button>
 			</li>
 		</ul>
 	</li>

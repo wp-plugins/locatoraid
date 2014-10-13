@@ -64,7 +64,7 @@ class MY_Controller extends MX_Controller
 			wp_localize_script( 'lctrScript1', 'url_prefix', ci_site_url('front/get') );
 			wp_localize_script( 'lctrScript_front', 'lpr_vars', 
 				array(
-					'conf_trigger_autodetect'	=> $this->app_conf->get('trigger_autodetect') ? 1 : 0,
+					'conf_trigger_autodetect'	=> $this->app_conf->get('trigger_autodetect') ? $this->app_conf->get('trigger_autodetect') : 0,
 					'conf_append_search'		=> $this->app_conf->get('append_search'),
 					'start_listing'				=> $this->app_conf->get('start_listing') ? 1 : 0,
 					)
