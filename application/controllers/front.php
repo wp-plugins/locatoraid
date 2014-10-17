@@ -26,6 +26,13 @@ class Front extends Front_controller
 
 	function get( $lat = 0, $long = 0, $log_it = 1 )
 	{
+		if( $lat == 'init' )
+		{
+			global $SEC;
+			echo $SEC->get_csrf_hash();
+			exit;
+		}
+
 		$within = $this->input->post('within');
 
 	// within options

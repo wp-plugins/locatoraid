@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.3 =
+* A fix for front end view for sites that implement page caching for example WPEngine
+
 = 2.3.2 =
 * BUG: when submitting the search by hitting the Enter button rather than a click, the auto-detect location input was appearing.
 

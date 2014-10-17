@@ -166,8 +166,19 @@
 	font-style: italic;
 }
 
-#lpr-results {
-	width: 90%;
+#lpr-results
+{
+width: 100%;
+overflow: auto;
+}
+#lpr-map {
+width: 60%;
+float: left;
+}
+#lpr-locations
+{
+width: 35%;
+float: right;
 }
 
 /*

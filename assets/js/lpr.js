@@ -380,6 +380,32 @@ function lpr_show_on_map( loc, target_div, data )
 	}
 }
 
+function lpr_set_cookie( cname, cvalue, exdays )
+{
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires="+d.toUTCString();
+	document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function lpr_delete_cookie( cname )
+{
+	document.cookie = cname + "=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
+function lpr_get_cookie( cname )
+{
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for( var i=0; i < ca.length; i++ ) 
+	{
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1);
+		if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+	}
+	return "";
+}
+
 function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 {
 	allow_empty = (typeof allow_empty === "undefined") ? false : allow_empty;
@@ -401,29 +427,86 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 	if( target_div )
 		target_div.addClass( 'hc-loading' );
 
-	var csrfToken = jQuery('#lpr-search-form').find('[name=hc_csrf_token]').val();
-	var thisData = {
-		hc_csrf_token: csrfToken,
-		search2: my_search2,
-		address: address,
-		within: within
-		};
+	var csrfToken2 = jQuery('#lpr-search-form').find('[name=hc_csrf_token]').val();
+	var csrfToken = lpr_get_cookie( 'hc_csrf_cookie' );
 
-	jQuery.ajax({
-		type: "POST",
-		url: json_url,
-		dataType: "json",
-		data: thisData,
-		success: function(data, textStatus){
-			if( target_div )
-				target_div.removeClass( 'hc-loading' );
-			lpr_show_on_map( loc, target_div, data );
-			lpr_offset += lpr_limit;
-			}
-		})
-		.fail( function(data){
-			alert( 'Error parsing JSON from ' + json_url  );
+//	alert( "hidden = " + csrfToken2 );
+//	alert( "cookie = " + csrfToken );
+
+	if( 
+		(! csrfToken)
+//		||
+//		(csrfToken != csrfToken2)
+		)
+	{
+		var my_rand = Math.floor( (Math.random() * 1000000) + 1 );
+		var init_url = [ url_prefix, 'init', my_rand ].join('/');
+
+		jQuery.ajax({
+			type: "GET",
+			url: init_url,
+			dataType: "text",
+			success: function(data, textStatus){
+				var csrfToken = data;
+				lpr_set_cookie( 'hc_csrf_cookie', csrfToken, 1 );
+
+//				alert( "3 = " + csrfToken );
+
+				var thisData = {
+					hc_csrf_token: csrfToken,
+					search2: my_search2,
+					address: address,
+					within: within
+					};
+
+				jQuery.ajax({
+					type: "POST",
+					url: json_url,
+					dataType: "json",
+					data: thisData,
+					success: function(data, textStatus){
+						if( target_div )
+							target_div.removeClass( 'hc-loading' );
+						lpr_show_on_map( loc, target_div, data );
+						lpr_offset += lpr_limit;
+						}
+					})
+					.fail( function(data){
+						target_div.removeClass( 'hc-loading' );
+						alert( 'Error parsing JSON from ' + json_url + "\nResponse:\n" + data.responseText  );
+						})
+				}
+			});
+	}
+	else
+	{
+//		alert( "4 = " + csrfToken );
+
+		var thisData = {
+			hc_csrf_token: csrfToken,
+			search2: my_search2,
+			address: address,
+			within: within
+			};
+
+		jQuery.ajax({
+			type: "POST",
+			url: json_url,
+			dataType: "json",
+			data: thisData,
+			success: function(data, textStatus){
+				if( target_div )
+					target_div.removeClass( 'hc-loading' );
+				lpr_show_on_map( loc, target_div, data );
+				lpr_offset += lpr_limit;
+				}
 			})
+			.fail( function(data){
+				target_div.removeClass( 'hc-loading' );
+				alert( 'Error parsing JSON from ' + json_url + "\nResponse:\n" + data.responseText  );
+				})
+	}
+
 	return false;
 }
 
