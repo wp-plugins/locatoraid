@@ -192,6 +192,7 @@ class Locatoraid_Base
 		$GLOBALS['NTS_CONFIG']['_app_title_'] = $app_title;
 
 		require( dirname(__FILE__) . '/../index_action.php' );
+		$GLOBALS['NTS_CONFIG'][$this->app]['ACTION_STARTED'] = 1;
 	}
 
 	function admin_view()
@@ -214,9 +215,22 @@ EOT;
 		}
 		else
 		{
-			$ci =& ci_get_instance();
-			$output = $ci->output->get_output();
-			return $output;
+			if( 
+				isset($GLOBALS['NTS_CONFIG'][$this->app]['ACTION_STARTED']) && 
+				$GLOBALS['NTS_CONFIG'][$this->app]['ACTION_STARTED']
+				)
+			{
+				$ci =& ci_get_instance();
+				$output = $ci->output->get_output();
+				return $output;
+			}
+			else
+			{
+				global $post;
+				$link = get_permalink($post);
+				$title = get_the_title( $post->ID );
+				echo '<a href="' . $link . '">' . $title . '</a>';
+			}
 		}
 	}
 
@@ -295,6 +309,7 @@ EOT;
 
 			$GLOBALS['NTS_CONFIG']['_app_'] = $this->app;
 			require( dirname(__FILE__) . '/../index_action.php' );
+			$GLOBALS['NTS_CONFIG'][$this->app]['ACTION_STARTED'] = 1;
 		}
 	}
 

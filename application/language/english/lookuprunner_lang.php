@@ -126,6 +126,7 @@ $lang['conf_group_output_city'] = 'By City';
 $lang['conf_group_output_alphabetical'] = 'Sort Alphabetically';
 $lang['conf_limit_output'] = 'Limit Output (number of locations)';
 $lang['conf_limit_output_help'] = 'Only numbers please, set to 0 for no limit';
+$lang['conf_choose_country'] = 'Choose Country Drop Down';
 
 $lang['conf_trigger_autodetect'] = 'Detect Customer Current Position';
 $lang['conf_start_listing'] = 'Start With Default Locations Listing';

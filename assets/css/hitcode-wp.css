@@ -93,3 +93,16 @@
 {
 max-width: 100%;
 }
+
+.hc ul li:before {
+	content: "";
+	position: inherit;
+}
+.hc ul li {
+	padding: 0 0;
+	margin: 0 0;
+}
+.hc input {
+	display: inherit;
+	width: inherit;
+}

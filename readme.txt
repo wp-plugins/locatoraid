@@ -73,6 +73,11 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.4 =
+* Added a dropdown input to choose a country if you have locations in several countries
+* Added a configuration for the location website label. If no label is given then the location's website URL is displayed. Applies to the Pro version.
+* BUG: fatal error when Locatoraid front end was appeared on a post in the blog posts list rather on a page of its own.
+
 = 2.3.3 =
 * A fix for front end view for sites that implement page caching for example WPEngine
 

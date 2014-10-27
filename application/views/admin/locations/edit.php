@@ -30,106 +30,104 @@ else
 
 <div class="row-fluid">
 
-<div class="span6">
-<?php echo form_open('', array('class' => 'form-horizontal form-condensed')); ?>
+	<div class="span6">
+		<?php echo form_open('', array('class' => 'form-horizontal form-condensed')); ?>
 
-<?php foreach( $fields as $f ) : ?>
-<?php
-$error = form_error($f['name']);
-$class = $error ? 'error' : '';
-$type = isset($f['type']) ? $f['type'] : '';
-$required = isset($f['required']) ? $f['required'] : FALSE;
-?>
-<div class="control-group <?php echo $class; ?>">
+		<?php foreach( $fields as $f ) : ?>
+			<?php
+			$error = form_error($f['name']);
+			$class = $error ? 'error' : '';
+			$type = isset($f['type']) ? $f['type'] : '';
+			$required = isset($f['required']) ? $f['required'] : FALSE;
+			?>
+			<div class="control-group <?php echo $class; ?>">
+				<?php if( $f['name'] == 'misc1' ) : ?>
+					<span class="help-inline">
+					<em>You can place an image URL in any of the misc fields and it will be rendered as image</em>
+					</span>
+				<?php endif; ?>
 
-<?php if( $f['name'] == 'misc1' ) : ?>
-	<span class="help-inline">
-	<em>You can place an image URL in any of the misc fields and it will be rendered as image</em>
-	</span>
-<?php endif; ?>
+				<label class="control-label" for="<?php echo $f['name']; ?>">
+				<?php echo $f['title']; ?><?php if( $required ){echo ' *';}; ?>
+				<?php if($f['name'] == 'products') : ?>
+				<span class="help-block">(<?php echo lang('location_products_field_help'); ?>)</span>
+				<?php endif; ?>
+				</label>
 
-<label class="control-label" for="<?php echo $f['name']; ?>">
-<?php echo $f['title']; ?><?php if( $required ){echo ' *';}; ?>
-<?php if($f['name'] == 'products') : ?>
-<span class="help-block">(<?php echo lang('location_products_field_help'); ?>)</span>
-<?php endif; ?>
-</label>
+				<div class="controls">  
 
-<div class="controls">  
+					<?php
+					switch( $type )
+					{
+						case 'dropdown':
+							echo form_dropdown( $f['name'], $f['options'], set_value($f['name'], $object[$f['name']]) );
+							break;
+						case 'textarea':
+							echo form_textarea( $f, set_value($f['name'], $object[$f['name']]) );
+							break;
+						default:
+							echo form_input( $f, set_value($f['name'], $object[$f['name']]) );
+							break;
+					}
+					?>
+					<?php if( $error ) : ?>
+					<span class="help-inline"><?php echo $error; ?></span>
+					<?php endif; ?>
 
-<?php 
-switch( $type )
-{
-	case 'dropdown':
-		echo form_dropdown( $f['name'], $f['options'], set_value($f['name'], $object[$f['name']]) );
-		break;
-	case 'textarea':
-		echo form_textarea( $f, set_value($f['name'], $object[$f['name']]) );
-		break;
-	default:
-		echo form_input( $f, set_value($f['name'], $object[$f['name']]) );
-		break;
-}
-?>
-<?php if( $error ) : ?>
-<span class="help-inline"><?php echo $error; ?></span>
-<?php endif; ?>
+					<?php 
+					/* if image in misc fields */
+					?>
+					<?php if( 
+							preg_match('/^misc/', $f['name']) &&
+							preg_match('/(\.jpg|\.png|\.gif|\.svg)$/i', $object[$f['name']])
+							) : 
+					?>
+						<div>
+							<img src="<?php echo $object[$f['name']]; ?>" style="max-width: 100%;">
+						</div>
+					<?php endif; ?>
+				</div>
+			</div>
+		<?php endforeach; ?>
 
-<?php 
-/* if image in misc fields */
-?>
-<?php if( 
-		preg_match('/^misc/', $f['name']) &&
-		preg_match('/(\.jpg|\.png|\.gif|\.svg)$/i', $object[$f['name']])
-		) : 
-?>
-	<div>
-		<img src="<?php echo $object[$f['name']]; ?>" style="max-width: 100%;">
+		<div class="controls">
+			<?php echo form_button( array('type' => 'submit', 'name' => 'submit', 'class' => 'btn btn-primary'), lang('common_save')); ?>
+
+			<?php echo ci_anchor( array($this->conf['path'], 'delete', $object['id']), lang('common_delete'), 'class="btn btn-danger hc-confirm"' ); ?>
+		</div>
+		<?php echo form_close();?>
 	</div>
-<?php endif; ?>
 
-</div>  
-</div>
-<?php endforeach; ?>
+	<div class="span6" style="margin-bottom: 0.5em;">
 
-<div class="controls">
-<?php echo form_button( array('type' => 'submit', 'name' => 'submit', 'class' => 'btn btn-primary'), lang('common_save')); ?>
+		<?php if( $geocoded == 1 ) : ?>
 
-<?php echo ci_anchor( array($this->conf['path'], 'delete', $object['id']), lang('common_delete'), 'class="btn btn-danger hc-confirm"' ); ?>
-</div>
-<?php echo form_close();?>
-</div>
+			<div class="alert alert-success">
+				<?php echo lang('location_coordinates'); ?>: <em><?php echo $object['latitude']; ?>, <?php echo $object['longitude']; ?></em><br>
+			</div>
+			<div id="lpr-map" style="height: 400px; width: 100%;"></div>
 
-<div class="span6" style="margin-bottom: 0.5em;">
-<?php switch( $geocoded )
-	{
-		case 1:
-?>
-	<div class="alert alert-success">
-		<?php echo lang('location_coordinates'); ?>: <em><?php echo $object['latitude']; ?>, <?php echo $object['longitude']; ?></em><br>
-	</div>
-	<div id="lpr-map" style="height: 400px; width: 100%;"></div>
-<script language="JavaScript">
-jQuery(document).ready( function()
-{
-	var lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
-	var location_position = new google.maps.LatLng( <?php echo $object['latitude']; ?>, <?php echo $object['longitude']; ?> );
-	lpr_map.setCenter( location_position );
-	var start_marker = new google.maps.Marker( {
-		map: lpr_map,
-		position: location_position,
-		draggable: false,
-		visible:true,
-		});
-});	
-</script>
-<?php 		break;
-		case 0:
-?>
-	<div class="alert alert-block" id="lpr-results">
-		<?php echo lang('location_not_geocoded'); ?>
-	</div>
-	<div id="lpr-map" style="height: 400px; width: 100%;"></div>
+			<script language="JavaScript">
+			jQuery(document).ready( function()
+			{
+				var lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
+				var location_position = new google.maps.LatLng( <?php echo $object['latitude']; ?>, <?php echo $object['longitude']; ?> );
+				lpr_map.setCenter( location_position );
+				var start_marker = new google.maps.Marker( {
+					map: lpr_map,
+					position: location_position,
+					draggable: false,
+					visible:true,
+					});
+			});	
+			</script>
+
+		<?php elseif( $geocoded == 0 ) : ?>
+
+			<div class="alert alert-block" id="lpr-geo-results">
+				<?php echo lang('location_not_geocoded'); ?>
+			</div>
+			<div id="lpr-map" style="height: 400px; width: 100%;"></div>
 
 <script language="JavaScript">
 var url_prefix = '<?php echo ci_site_url('admin/locations'); ?>';
@@ -152,7 +150,7 @@ jQuery(document).ready( function()
 						switch( status )
 						{
 							case google.maps.GeocoderStatus.OVER_QUERY_LIMIT :
-								jQuery("#lpr-results").html( 'Daily limit reached, please try tomorrow' );
+								jQuery("#lpr-geo-results").html( 'Daily limit reached, please try tomorrow' );
 								break;
 
 							case google.maps.GeocoderStatus.ZERO_RESULTS:
@@ -160,7 +158,12 @@ jQuery(document).ready( function()
 								jQuery.ajax( save_url )
 								.done( function()
 									{
-										jQuery("#lpr-results").html( 'Address not found' );
+										jQuery("#lpr-geo-results").html( 
+											[
+												data.address,
+												'Address not found'
+											].join('<br>')
+										);
 									}
 								);
 								break;
@@ -172,8 +175,13 @@ jQuery(document).ready( function()
 								jQuery.ajax( save_url )
 								.done( function()
 								{
-									jQuery("#lpr-results").html( [loc.lat(), loc.lng()].join(', ') );
-									jQuery("#lpr-results").attr('class', 'alert alert-success');
+									jQuery("#lpr-geo-results").html(
+										[
+											data.address,
+											[loc.lat(), loc.lng()].join(', ')
+										].join('<br>')
+										);
+									jQuery("#lpr-geo-results").attr('class', 'alert alert-success');
 
 									var lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
 									lpr_map.setCenter( loc );
@@ -188,7 +196,7 @@ jQuery(document).ready( function()
 								break;
 
 							default :
-								jQuery("#lpr-results").html( 'Geocoding error: ' + status );
+								jQuery("#lpr-geo-results").html( 'Geocoding error: ' + status );
 								break;
 						}
 					}
@@ -210,14 +218,13 @@ jQuery(document).ready( function()
 		);
 });
 </script>
-<?php 	break;
-		case -1 :
-?>
-	<div class="alert alert-error">
-		<?php echo lang('location_geocoding_failed'); ?>
+
+		<?php elseif( $geocoded == -1 ) : ?>
+
+			<div class="alert alert-error">
+				<?php echo lang('location_geocoding_failed'); ?>
+			</div>
+
+		<?php endif; ?>
 	</div>
-<?php 		break;
-		} //endswitch
-?>
-</div>
 </div>

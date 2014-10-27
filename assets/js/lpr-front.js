@@ -136,6 +136,15 @@ jQuery(document).on( 'submit', '#lpr-search-form', function(event) {
 	event.preventDefault();
 	var address = jQuery( this ).find('[name=search]').val();
 
+	var country = jQuery( this ).find('[name=country]').val();
+	if( country )
+	{
+		if( address )
+			address = address + ' ' + country;
+		else
+			address = country;
+	}
+
 	if( lpr_vars.conf_append_search.length > 0 )
 	{
 		// check if it already ends with append

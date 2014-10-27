@@ -160,8 +160,10 @@ class MY_Controller extends MX_Controller
 						{
 							$href = 'http://' . $href;
 						}
+						$f['title'] = strlen($f['title']) ? $f['title'] : $href;
 						$return[$f['name']] = '<a href="' . $href . '" target="_blank">' . $f['title'] . '</a>';
 						break;
+
 					default:
 						$email_regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
 						if(

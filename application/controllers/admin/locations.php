@@ -100,7 +100,7 @@ class Locations extends Admin_controller_crud
 		{
 			$out = array(
 				'id'		=> $e['id'],
-				'address'	=> $this->model->make_address( $e, FALSE, TRUE ),
+				'address'	=> $this->model->make_address( $e, FALSE, FALSE ),
 				'left'		=> $left,
 				);
 		}

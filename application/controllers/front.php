@@ -360,8 +360,39 @@ class Front extends Front_controller
 		}
 		sort( $within_options );
 
+	// countries options
+		$countries_options = array();
+		$country = '';
+		$choose_country = $this->app_conf->get('choose_country');
+		if( $choose_country )
+		{
+			$countries = $this->model->get_countries();
+			if( count($countries) > 1 )
+			{
+				if( isset($_GET['lpr-country']) )
+				{
+					$country = $_GET['lpr-country'];
+				}
+				else
+				{
+					$country = '';
+				}
+
+				$countries_options = array();
+				$countries_options[''] = '- ' . lang('location_country') . ' -';
+				foreach( $countries as $c )
+				{
+					$countries_options[$c] = $c;
+				}
+			}
+		}
+
 		$this->data['search'] = $search;
 		$this->data['product_options'] = $product_options;
+
+		$this->data['countries_options'] = $countries_options;
+		$this->data['country'] = $country;
+
 		$this->data['search2'] = $search2;
 		$this->data['show_sidebar'] = $this->app_conf->get('show_sidebar');
 		$this->data['include'] = 'front';

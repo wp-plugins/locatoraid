@@ -11,3 +11,4 @@ $config['show_distance'] = 1;
 $config['group_output'] = '';
 $config['limit_output'] = 0;
 $config['language'] = 'english';
+$config['choose_country'] = 0;

@@ -23,6 +23,7 @@ class Conf extends Admin_controller
 				'group_output',
 				'limit_output',
 				'language',
+				'choose_country',
 				),
 			'form' => array(
 				'form_misc1',

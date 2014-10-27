@@ -64,6 +64,15 @@ $fields = array(
 			),
 		),
 	array(
+		'name' 		=> 'choose_country',
+ 		'title'		=> lang('conf_choose_country'),
+		'type'		=> 'dropdown',
+		'options'	=> array(
+			0	=> lang('common_no'),
+			1	=> lang('common_yes'),
+			),
+		),
+	array(
 		'name' 		=> 'limit_output',
  		'title'		=> lang('conf_limit_output'),
 		'type'		=> 'text',
@@ -121,46 +130,64 @@ reset( $fields );
 <?php echo form_open('', array('class' => 'form-horizontal form-condensed')); ?>
 
 <?php foreach( $fields as $f ) : ?>
-<?php
-		$error = form_error($f['name']);
-		$class = $error ? ' error' : '';
-?>
-<div class="control-group<?php echo $class; ?>">
-<label class="control-label" for="<?php echo $f['name']; ?>"><?php echo $f['title'];?></label>
+	<?php
+	$error = form_error($f['name']);
+	$class = $error ? ' error' : '';
 
-<div class="controls">
-<?php
-switch( $f['type'] ){
-	case 'dropdown':
-		echo form_dropdown($f['name'], $f['options'], set_value($f['name'], $defaults[$f['name']]));
-		break;
-	case 'checkbox':
-		echo form_checkbox($f['name'], 1, set_checkbox($f['name'], 1, $defaults[$f['name']] ? TRUE : FALSE) );
-		break;
-	case 'textarea':
-		echo form_textarea( $f['name'], set_value($f['name'], $defaults[$f['name']]), 'style="width: 20em; height: 8em;"' );
-		break;
-	default:
-		echo form_input($f, set_value($f['name'], $defaults[$f['name']]));
-		break;
+	$skip_me = FALSE;
+	switch( $f['name'] )
+	{
+		case 'choose_country':
+			$lm = new Location_model;
+			if( $countries = $lm->get_countries() )
+			{
+				$f['help'] = join( ', ', $countries );
+			}
+			else
+			{
+				$skip_me = TRUE;
+			}
+			break;
 	}
-?>
-<?php if( isset($f['help']) ) : ?>
-	<span class="help-block"><?php echo $f['help']; ?></span>
-<?php endif; ?>
 
-<?php if( $error ) : ?>
-<span class="help-inline"><?php echo $error; ?></span>
-<?php endif; ?>
-</div>
-</div>
+	if( $skip_me )
+		continue;
+	?>
+	<div class="control-group<?php echo $class; ?>">
+		<label class="control-label" for="<?php echo $f['name']; ?>"><?php echo $f['title'];?></label>
+
+		<div class="controls">
+			<?php
+			switch( $f['type'] )
+			{
+				case 'dropdown':
+					echo form_dropdown($f['name'], $f['options'], set_value($f['name'], $defaults[$f['name']]));
+					break;
+				case 'checkbox':
+					echo form_checkbox($f['name'], 1, set_checkbox($f['name'], 1, $defaults[$f['name']] ? TRUE : FALSE) );
+					break;
+				case 'textarea':
+					echo form_textarea( $f['name'], set_value($f['name'], $defaults[$f['name']]), 'style="width: 20em; height: 8em;"' );
+					break;
+				default:
+					echo form_input($f, set_value($f['name'], $defaults[$f['name']]));
+					break;
+			}
+			?>
+			<?php if( isset($f['help']) ) : ?>
+				<span class="help-block"><?php echo $f['help']; ?></span>
+			<?php endif; ?>
+
+			<?php if( $error ) : ?>
+				<span class="help-inline"><?php echo $error; ?></span>
+			<?php endif; ?>
+		</div>
+	</div>
 <?php endforeach; ?>
-
 
 <?php
 $products = $this->app_conf->get('products');
 ?>
-
 <?php if( $products ) : ?>
 	<div class="control-group<?php echo $class; ?>">
 		<label class="control-label"></label>

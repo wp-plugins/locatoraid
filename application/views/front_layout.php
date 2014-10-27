@@ -24,6 +24,15 @@
 				<?php echo form_input( array('name' => 'search', 'id' => 'lpr-search-address', 'class' => '', 'placeholder' => lang('front_address_or_zip')), set_value('search', $search) ); ?>
 			</li>
 
+			<?php if( $countries_options ) : ?>
+				<li>
+					<?php echo form_dropdown( 'country', $countries_options, set_value('country', $country), 'title="' . lang('location_country') . '" id="lpr-countries-dropdown" style="width: 8em;"' ); ?>
+				</li>
+			<?php else : ?>
+				<?php echo form_hidden( 'country', '' ); ?>
+			<?php endif; ?>
+
+
 			<?php if( $product_options ) : ?>
 				<li>
 					<?php echo form_dropdown( 'search2', $do_options, set_value('search2', $search2), 'id="lpr-products-dropdown"' ); ?>

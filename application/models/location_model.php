@@ -19,6 +19,35 @@ class Location_model extends MY_Model
 		}
 	}
 
+	function get_countries()
+	{
+		$this->db->distinct();
+		$this->db->select( 'country' );
+		$result	= $this->db->get('locations');
+
+		$return	= array();
+		foreach( $result->result_array() as $e )
+		{
+			$e['country'] = trim( $e['country'] );
+			if( strlen($e['country']) )
+			{
+				$return[ ucwords($e['country']) ] = 1;
+			}
+		}
+
+		if( $return && (count($return) > 1) )
+		{
+			$return = array_keys( $return );
+			sort( $return );
+		}
+		else
+		{
+			$return = array();
+		}
+
+		return $return;
+	}
+
 	function get_types()
 	{
 		return $this->types;
@@ -120,11 +149,15 @@ class Location_model extends MY_Model
 				'title'	=> lang('location_phone'),
 				'size'	=> 12,
 				),
-			array(
-				'name'	=> 'website',
-				'title'	=> lang('location_website'),
-				'size'	=> 32,
-				),
+			);
+
+		$website_title = $this->app_conf->get( 'form_website' );
+		if( ! $website_title )
+			$website_title = '';
+		$return[] = array(
+			'name'	=> 'website',
+			'title'	=> $website_title,
+			'size'	=> 32,
 			);
 
 		if( Modules::exists('pro') )
@@ -195,7 +228,7 @@ class Location_model extends MY_Model
 		return $return;
 	}
 
-	function make_address( $e, $for_display = FALSE, $append_search = FALSE )
+	function make_address( $e, $for_display = FALSE, $append_search = TRUE )
 	{
 		if( $for_display )
 		{
@@ -221,7 +254,13 @@ class Location_model extends MY_Model
 			foreach( array('country') as $af )
 			{
 				if( $e[$af] )
+				{
 					$address3[] = strtoupper($e[$af]);
+				}
+				else
+				{
+					$append_search = TRUE;
+				}
 			}
 			if( $address3 )
 			{
@@ -243,16 +282,19 @@ class Location_model extends MY_Model
 			}
 
 			$CI =& ci_get_instance();
-			$append_search = $CI->app_conf->get( 'append_search' );
 			if( $append_search )
 			{
-				$append_search = strtolower( $append_search );
-				$test_address = join( ', ', $address );
-				$test_address = strtolower( $test_address );
-			// check if it already ends with append
-				if( substr($test_address, 0, strlen($append_search)) != $append_search )
+				$append_search = $CI->app_conf->get( 'append_search' );
+				if( $append_search )
 				{
-					$address[] = $append_search;
+					$append_search = strtolower( $append_search );
+					$test_address = join( ', ', $address );
+					$test_address = strtolower( $test_address );
+				// check if it already ends with append
+					if( substr($test_address, 0, strlen($append_search)) != $append_search )
+					{
+						$address[] = $append_search;
+					}
 				}
 			}
 			$address = join( ', ', $address );
