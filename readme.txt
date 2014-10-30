@@ -73,6 +73,10 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.5 =
+* Fixed compatibility issue with AutoChimp plugin
+* Modified the CSV import code that may have failed then loading UTF-8 encoded CSV files (applies to the Pro version).
+
 = 2.3.4 =
 * Added a dropdown input to choose a country if you have locations in several countries
 * Added a configuration for the location website label. If no label is given then the location's website URL is displayed. Applies to the Pro version.
