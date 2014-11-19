@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.6 =
+* Fixed the empty label for website address in the admin panel
+
 = 2.3.5 =
 * Fixed compatibility issue with AutoChimp plugin
 * Modified the CSV import code that may have failed then loading UTF-8 encoded CSV files (applies to the Pro version).

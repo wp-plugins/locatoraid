@@ -39,6 +39,10 @@ else
 			$class = $error ? 'error' : '';
 			$type = isset($f['type']) ? $f['type'] : '';
 			$required = isset($f['required']) ? $f['required'] : FALSE;
+			if( $f['name'] == 'website' )
+			{
+				$f['title'] = lang('location_website');
+			}
 			?>
 			<div class="control-group <?php echo $class; ?>">
 				<?php if( $f['name'] == 'misc1' ) : ?>

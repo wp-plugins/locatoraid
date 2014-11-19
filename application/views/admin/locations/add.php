@@ -15,6 +15,10 @@ $error = form_error($f['name']);
 $class = $error ? 'control-group error' : 'control-group';
 $type = isset($f['type']) ? $f['type'] : '';
 $required = isset($f['required']) ? $f['required'] : FALSE;
+if( $f['name'] == 'website' )
+{
+	$f['title'] = lang('location_website');
+}
 ?>
 <div class="<?php echo $class; ?>">
 

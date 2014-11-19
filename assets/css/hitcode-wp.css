@@ -106,3 +106,6 @@ max-width: 100%;
 	display: inherit;
 	width: inherit;
 }
+.hc img {
+width: auto;
+}
