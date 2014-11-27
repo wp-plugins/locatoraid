@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.7 =
+* Loading Google maps JavaScript libraries with "//" rather than "http://" that will fix the error on https websites
+
 = 2.3.6 =
 * Fixed the empty label for website address in the admin panel
 

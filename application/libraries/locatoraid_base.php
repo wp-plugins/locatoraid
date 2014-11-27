@@ -284,8 +284,8 @@ EOT;
 			if( ! $this->load_by_js )
 			{
 				$this->print_styles();
-				wp_enqueue_script( 'lctrScript11', 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true' );
-				wp_enqueue_script( 'lctrScript12', 'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js' );
+				wp_enqueue_script( 'lctrScript11', '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true' );
+				wp_enqueue_script( 'lctrScript12', '//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js' );
 				$this->print_scripts();
 			}
 

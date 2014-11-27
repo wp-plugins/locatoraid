@@ -10,8 +10,8 @@
 
 <script type="text/javascript" src="<?php echo ci_base_url('assets/js/jquery-1.8.3.min.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo ci_base_url('assets/bootstrap/js/bootstrap.min.js'); ?>"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
-<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+<script type="text/javascript" src="//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 <script type="text/javascript" src="<?php echo ci_base_url('assets/js/lpr.js'); ?>"></script>
 </head>
 <body>
