@@ -1,3 +1,8 @@
+<?php
+$search_label = $this->app_conf->get( 'search_label' );
+$search_label = strlen($search_label) ? $search_label : lang('front_address_or_zip');
+?>
+
 <?php echo form_open('search', array('id' => 'lpr-search-form', 'class' => 'form-horizontal form-condensed')); ?>
 
 <ul class="list-unstyled list-margin-v">
@@ -21,7 +26,7 @@
 	<li>
 		<ul class="list-inline list-margin-v list-margin-h">
 			<li>
-				<?php echo form_input( array('name' => 'search', 'id' => 'lpr-search-address', 'class' => '', 'placeholder' => lang('front_address_or_zip')), set_value('search', $search) ); ?>
+				<?php echo form_input( array('name' => 'search', 'id' => 'lpr-search-address', 'class' => '', 'placeholder' => $search_label), set_value('search', $search) ); ?>
 			</li>
 
 			<?php if( $countries_options ) : ?>

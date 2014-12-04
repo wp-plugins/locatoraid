@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.8 =
+* Added an option to configure the search form label: the "Address or zip code" text.
+
 = 2.3.7 =
 * Loading Google maps JavaScript libraries with "//" rather than "http://" that will fix the error on https websites
 

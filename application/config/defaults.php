@@ -12,3 +12,4 @@ $config['group_output'] = '';
 $config['limit_output'] = 0;
 $config['language'] = 'english';
 $config['choose_country'] = 0;
+$config['search_label'] = 'Address or Zip Code';

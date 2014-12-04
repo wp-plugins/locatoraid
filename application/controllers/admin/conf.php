@@ -11,6 +11,7 @@ class Conf extends Admin_controller
 		$this->params = array(
 			'settings' => array(
 				'default_search',
+				'search_label',
 				'append_search',
 				'start_listing',
 				'csv_separator',

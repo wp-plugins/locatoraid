@@ -37,6 +37,11 @@ $fields = array(
 		'help'		=> lang('conf_search_within_help'),
 		),
 	array(
+		'name' 		=> 'search_label',
+ 		'title'		=> lang('conf_search_label'),
+		'type'		=> 'text',
+		),
+	array(
 		'name' 		=> 'not_found_text',
  		'title'		=> lang('conf_not_found_text'),
 		'type'		=> 'textarea',
