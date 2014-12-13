@@ -132,6 +132,9 @@ $lang['conf_trigger_autodetect'] = 'Detect Customer Current Position';
 $lang['conf_start_listing'] = 'Start With Default Locations Listing';
 $lang['conf_not_found_text'] = 'Not Found Text';
 $lang['conf_search_label'] = 'Search Form Label';
+$lang['conf_search_button'] = 'Search Form Button Text';
+$lang['conf_autodetect_button'] = 'Auto-detect Button Text';
+$lang['conf_your_location_label'] = 'Your Location Label';
 $lang['conf_show_distance'] = 'Show Distance To Location';
 
 /* TIME */

@@ -42,6 +42,21 @@ $fields = array(
 		'type'		=> 'text',
 		),
 	array(
+		'name' 		=> 'search_button',
+ 		'title'		=> lang('conf_search_button'),
+		'type'		=> 'text',
+		),
+	array(
+		'name' 		=> 'autodetect_button',
+ 		'title'		=> lang('conf_autodetect_button'),
+		'type'		=> 'text',
+		),
+	array(
+		'name' 		=> 'your_location_label',
+ 		'title'		=> lang('conf_your_location_label'),
+		'type'		=> 'text',
+		),
+	array(
 		'name' 		=> 'not_found_text',
  		'title'		=> lang('conf_not_found_text'),
 		'type'		=> 'textarea',

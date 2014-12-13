@@ -8,7 +8,7 @@ Plugin Name: Locatoraid
 Plugin URI: http://www.locatoraid.com/
 Description: Store locator plugin
 Author: HitCode
-Version: 2.3.8
+Version: 2.3.9
 Author URI: http://www.hitcode.com/
 */
 /* 

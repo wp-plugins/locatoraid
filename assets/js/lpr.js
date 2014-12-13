@@ -63,6 +63,11 @@ function lpr_with_position( position )
 		);
 }
 
+jQuery(document).on( 'click', '#lpr-search-button', function(event) {
+	jQuery('#lpr-search-form').submit();
+	return false;
+});
+
 jQuery(document).on( 'change', '#lpr-search-form select', function(event) {
 	if( lpr_current_location_set )
 	{
@@ -72,6 +77,7 @@ jQuery(document).on( 'change', '#lpr-search-form select', function(event) {
 	{
 		jQuery('#lpr-search-form').submit();
 	}
+	return false;
 });
 
 jQuery(document).on( 'click', '#lpr-autodetect', function(event) {

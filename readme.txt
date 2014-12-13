@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.3.9 =
+* Added options to configure all other labels in the front end search form so now it can be easily translated into any language.
+
 = 2.3.8 =
 * Added an option to configure the search form label: the "Address or zip code" text.
 

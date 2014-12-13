@@ -12,7 +12,10 @@ class Conf extends Admin_controller
 			'settings' => array(
 				'default_search',
 				'search_label',
+				'search_button',
 				'append_search',
+				'autodetect_button',
+				'your_location_label',
 				'start_listing',
 				'csv_separator',
 				'measurement',
