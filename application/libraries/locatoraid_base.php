@@ -273,6 +273,7 @@ EOT;
 				)
 			{
 				$is_me = TRUE;
+				$GLOBALS['NTS_CONFIG'][$this->app]['DEFAULT_PARAMS'] = shortcode_parse_atts( $matches[1] );
 			}
 		}
 

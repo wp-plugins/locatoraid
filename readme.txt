@@ -73,6 +73,10 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.4.0 =
+* Now it can recognize shortcode options. Currently there are 2: "search" for the search address, and "search2" for the product option if you have any.
+For example: [locatoraid search2="Pizza"]
+
 = 2.3.9 =
 * Added options to configure all other labels in the front end search form so now it can be easily translated into any language.
 

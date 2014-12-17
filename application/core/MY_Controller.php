@@ -5,6 +5,7 @@ require APPPATH."third_party/MX/Controller.php";
 class MY_Controller extends MX_Controller 
 {
 	var $is_mobile = FALSE;
+	public $default_params = array();
 
 	function __construct()
 	{

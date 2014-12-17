@@ -324,10 +324,22 @@ class Front extends Front_controller
 		{
 			$search = trim($_GET['lpr-search']);
 		}
+		elseif( isset($this->default_params['search']) )
+		{
+			$search = $this->default_params['search'];
+		}
 
 		if( ! strlen($search) )
 		{
 			$search = $this->default_search ? $this->default_search : $this->app_conf->get('default_search');
+		}
+
+		if( ! $search2 )
+		{
+			if( isset($this->default_params['search2']) )
+			{
+				$search2 = $this->default_params['search2'];
+			}
 		}
 
 		if( ! $search2 )

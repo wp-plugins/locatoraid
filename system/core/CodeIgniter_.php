@@ -315,6 +315,12 @@
 
 	$CI = new $class();
 
+	$app = isset($GLOBALS['NTS_CONFIG']['_app_']) ? $GLOBALS['NTS_CONFIG']['_app_'] : '';
+	if( $app && isset($GLOBALS['NTS_CONFIG'][$app]['DEFAULT_PARAMS']) )
+	{
+		$CI->default_params = $GLOBALS['NTS_CONFIG'][$app]['DEFAULT_PARAMS'];
+	}
+
 /*
  * ------------------------------------------------------
  *  Is there a "post_controller_constructor" hook?
