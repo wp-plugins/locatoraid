@@ -92,6 +92,15 @@ class MY_Controller extends MX_Controller
 		$address_fields = array( 'street1', 'street2', 'city', 'state', 'zip', 'country' );
 		$all_fields = $this->model->get_fields();
 
+		// sort products
+		if( strlen($e['products']) )
+		{
+			$products = explode( ',', $e['products'] );
+			$products = array_map( 'trim', $products );
+			sort( $products );
+			$e['products'] = join(', ', $products);
+		}
+
 		$return = array();
 		$skip['loc_type'] = TRUE;
 

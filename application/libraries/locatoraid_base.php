@@ -255,7 +255,7 @@ EOT;
 		}
 */
 		if( ! (isset($post) && $post) )
-			return $return;
+			return $is_me;
 
 		$pattern = '\[' . $this->app . '\]';
 		if(

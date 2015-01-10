@@ -68,7 +68,11 @@ class Front extends Front_controller
 			$search2 = urldecode( $search2 );
 			$search2 = trim( $search2 );
 			$str_search2 = $search2;
-			$search2 = ($search2 !== '') ? explode( ' ', $search2 ) : array();
+
+		// any of the words
+//			$search2 = ($search2 !== '') ? explode( ' ', $search2 ) : array();
+		// exact phrase	
+			$search2 = ($search2 !== '') ? array($search2) : array();
 		}
 
 		$entries = array();
@@ -360,6 +364,7 @@ class Front extends Front_controller
 		{
 			$product_options = array();
 		}
+		sort( $product_options );
 
 	// within options
 		$within_options = array();

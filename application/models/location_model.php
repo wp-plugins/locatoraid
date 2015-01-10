@@ -555,7 +555,18 @@ class Location_model extends MY_Model
 
 	function get($id)
 	{
-		return $this->db->get_where('locations', array('id'=>$id))->row_array();
+		$return = $this->db->get_where('locations', array('id'=>$id))->row_array();
+
+		// sort products
+		if( strlen($return['products']) )
+		{
+			$products = explode( ',', $return['products'] );
+			$products = array_map( 'trim', $products );
+			sort( $products );
+			$return['products'] = join(', ', $products);
+		}
+
+		return $return;
 	}
 
 	function get_categories($id)

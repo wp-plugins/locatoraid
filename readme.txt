@@ -6,7 +6,7 @@ License: GPLv2 or later
 
 Stable tag: trunk
 Requires at least: 3.3
-Tested up to: 4.0
+Tested up to: 4.1
 
 Add a store locator map to your site and get your visitors to start finding you faster!
 
@@ -72,6 +72,10 @@ float: right;
 The upgrade is simply - upload everything up again to your `/wp-content/plugins/` directory, then go to the Locatoraid menu item in the admin panel. It will automatically start the upgrade process if any needed.
 
 == Changelog ==
+
+= 2.4.1 =
+* When using products, now it searches for the exact product name. Before it might give wrong results because it searched for ANY word from the product name. For example, if you had two products "Dark Beer" and "Lager Beer", and searched for "Dark Beer", it also returned records with "Lager Beer" only because it contained the word "Beer".
+* Product names are sorted in alphabetical order
 
 = 2.4.0 =
 * Now it can recognize shortcode options. Currently there are 2: "search" for the search address, and "search2" for the product option if you have any.
