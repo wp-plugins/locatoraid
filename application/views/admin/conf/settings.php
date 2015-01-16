@@ -81,6 +81,8 @@ $fields = array(
 			'state_city'	=> lang('conf_group_output_state_city'),
 			'city'			=> lang('conf_group_output_city'),
 			'alphabetical'	=> lang('conf_group_output_alphabetical'),
+			'country'		=> lang('conf_group_output_country'),
+			'country_city'	=> lang('conf_group_output_country_city'),
 			),
 		),
 	array(
@@ -157,6 +159,18 @@ reset( $fields );
 	$skip_me = FALSE;
 	switch( $f['name'] )
 	{
+		case 'group_output':
+			$lm = new Location_model;
+			if( $countries = $lm->get_countries() )
+			{
+			}
+			else
+			{
+				unset( $f['options']['country'] );
+				unset( $f['options']['country_city'] );
+			}
+			break;
+
 		case 'choose_country':
 			$lm = new Location_model;
 			if( $countries = $lm->get_countries() )

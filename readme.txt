@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.4.2 =
+* A new option to group locations output by country and by country then by city. It becomes active when countries are entered for your locations.
+
 = 2.4.1 =
 * When using products, now it searches for the exact product name. Before it might give wrong results because it searched for ANY word from the product name. For example, if you had two products "Dark Beer" and "Lager Beer", and searched for "Dark Beer", it also returned records with "Lager Beer" only because it contained the word "Beer".
 * Product names are sorted in alphabetical order

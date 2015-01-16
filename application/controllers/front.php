@@ -166,6 +166,19 @@ class Front extends Front_controller
 					ksort( $final_entries );
 					break;
 
+				case 'country':
+					reset( $entries );
+					foreach( $entries as $e )
+					{
+						if( ! strlen($e['country']) )
+							continue;
+						if( ! isset($final_entries[$e['country']]) )
+							$final_entries[$e['country']] = array( array() );
+						$final_entries[$e['country']][0][] = $e;
+					}
+					ksort( $final_entries );
+					break;
+
 				case 'city':
 					reset( $entries );
 					foreach( $entries as $e )
@@ -187,6 +200,25 @@ class Front extends Front_controller
 							$final_entries[$e['state']][$e['city']] = array();
 
 						$final_entries[$e['state']][$e['city']][] = $e;
+					}
+					ksort( $final_entries );
+					$keys = array_keys( $final_entries );
+					foreach( $keys as $k )
+					{
+						ksort( $final_entries[$k] );
+					}
+					break;
+
+				case 'country_city':
+					reset( $entries );
+					foreach( $entries as $e )
+					{
+						if( ! isset($final_entries[$e['country']]) )
+							$final_entries[$e['country']] = array();
+						if( ! isset($final_entries[$e['country']][$e['city']]) )
+							$final_entries[$e['country']][$e['city']] = array();
+
+						$final_entries[$e['country']][$e['city']][] = $e;
 					}
 					ksort( $final_entries );
 					$keys = array_keys( $final_entries );
