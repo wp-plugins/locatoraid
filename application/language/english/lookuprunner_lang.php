@@ -125,6 +125,7 @@ $lang['conf_group_output_state_city'] = 'By State, Then By City';
 $lang['conf_group_output_city'] = 'By City';
 $lang['conf_group_output_country'] = 'By Country';
 $lang['conf_group_output_country_city'] = 'By Country, Then By City';
+$lang['conf_group_output_country_state'] = 'By Country, Then By State';
 $lang['conf_group_output_alphabetical'] = 'Sort Alphabetically';
 $lang['conf_limit_output'] = 'Limit Output (number of locations)';
 $lang['conf_limit_output_help'] = 'Only numbers please, set to 0 for no limit';

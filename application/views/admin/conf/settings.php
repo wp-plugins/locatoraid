@@ -83,6 +83,7 @@ $fields = array(
 			'alphabetical'	=> lang('conf_group_output_alphabetical'),
 			'country'		=> lang('conf_group_output_country'),
 			'country_city'	=> lang('conf_group_output_country_city'),
+			'country_state'	=> lang('conf_group_output_country_state'),
 			),
 		),
 	array(
@@ -168,6 +169,7 @@ reset( $fields );
 			{
 				unset( $f['options']['country'] );
 				unset( $f['options']['country_city'] );
+				unset( $f['options']['country_state'] );
 			}
 			break;
 
