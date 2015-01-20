@@ -139,6 +139,8 @@ $lang['conf_search_button'] = 'Search Form Button Text';
 $lang['conf_autodetect_button'] = 'Auto-detect Button Text';
 $lang['conf_your_location_label'] = 'Your Location Label';
 $lang['conf_show_distance'] = 'Show Distance To Location';
+$lang['conf_show_print_link'] = 'Print View Link Label';
+$lang['conf_show_print_link_help'] = 'Leave empty to hide';
 
 /* TIME */
 $lang['time_from'] = 'From';

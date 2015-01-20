@@ -6,6 +6,7 @@ $config['measurement'] = 'miles';
 $config['search_within'] = 100;
 $config['show_sidebar'] = 1;
 $config['trigger_autodetect'] = 0;
+$config['show_print_link'] = 'Print View';
 $config['not_found_text'] = 'No locations found';
 $config['show_distance'] = 1;
 $config['group_output'] = '';

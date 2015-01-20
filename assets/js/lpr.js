@@ -473,6 +473,13 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 					success: function(data, textStatus){
 						if( target_div )
 							target_div.removeClass( 'hc-loading' );
+
+						if( lpr_vars.show_print_link.length > 0 ){
+							var print_within = within ? within : 0;
+							var print_url = [ json_url, 1, print_within, encodeURIComponent(my_search2), encodeURIComponent(address) ].join('/');
+							target_div.append( '<a target="_blank" href="' + print_url + '">' + lpr_vars.show_print_link + '</a><br>' );
+						}
+
 						lpr_show_on_map( loc, target_div, data );
 						lpr_offset += lpr_limit;
 						}
@@ -503,6 +510,13 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 			success: function(data, textStatus){
 				if( target_div )
 					target_div.removeClass( 'hc-loading' );
+
+				if( lpr_vars.show_print_link.length > 0 ){
+					var print_within = within ? within : 0;
+					var print_url = [ json_url, 1, print_within, encodeURIComponent(my_search2), encodeURIComponent(address) ].join('/');
+					target_div.append( '<a target="_blank" href="' + print_url + '">' + lpr_vars.show_print_link + '</a><br>' );
+				}
+
 				lpr_show_on_map( loc, target_div, data );
 				lpr_offset += lpr_limit;
 				}

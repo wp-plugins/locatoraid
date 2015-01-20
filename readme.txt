@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.4.3 =
+* Print view link in the front end.
+
 = 2.4.2 =
 * A new option to group locations output by country, by country then by city, and by country then by state. It becomes active when countries are entered for your locations.
 

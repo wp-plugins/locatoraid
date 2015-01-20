@@ -72,6 +72,12 @@ $fields = array(
 		'type'		=> 'checkbox',
 		),
 	array(
+		'name' 		=> 'show_print_link',
+ 		'title'		=> lang('conf_show_print_link'),
+		'type'		=> 'text',
+		'help'		=> lang('conf_show_print_link_help'),
+		),
+	array(
 		'name' 		=> 'group_output',
  		'title'		=> lang('conf_group_output'),
 		'type'		=> 'dropdown',

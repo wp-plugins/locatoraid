@@ -24,7 +24,7 @@ class Front extends Front_controller
 		return $this->index( $search2 );
 	}
 
-	function get( $lat = 0, $long = 0, $log_it = 1 )
+	function get( $lat = 0, $long = 0, $log_it = 1, $print_view = 0, $print_within = 0, $print_search2 = '', $print_address = '' )
 	{
 		if( $lat == 'init' )
 		{
@@ -34,6 +34,9 @@ class Front extends Front_controller
 		}
 
 		$within = $this->input->post('within');
+		if( $print_within ){
+			$within = $print_within;
+		}
 
 	// within options
 		$within_options = array();
@@ -57,6 +60,9 @@ class Front extends Front_controller
 		$search = $this->default_search ? $this->default_search : $this->app_conf->get('default_search');
 		$search2 = $this->input->post('search2');
 		$address = $this->input->post('address');
+		if( $print_view ){
+			$search2 = $print_search2;
+		}
 
 		$search2 = trim( $search2 );
 		if( in_array($search2, array('_', '-')) )
@@ -292,6 +298,9 @@ class Front extends Front_controller
 							$skip_display['distance'] = TRUE;
 							$skip_display['directions'] = TRUE;
 						}
+						if( $print_view ){
+							$skip_display['directions'] = TRUE;
+						}
 
 						$out[] = array(
 							'id'		=> $e['id'],
@@ -354,20 +363,47 @@ class Front extends Front_controller
 				);
 		}
 
-		echo json_encode( $out );
+		if( ! $print_view ){
+			echo json_encode( $out );
 
-	/* add log */
-		if( $log_it )
-		{
-			$address = trim( $address );
-			$this->log->add( 
-				array(
-					'address'	=> $address,
-					'latitude'	=> $lat,
-					'longitude'	=> $long,
-					'search'	=> $str_search2
-					)
-				);
+		/* add log */
+			if( $log_it )
+			{
+				$address = trim( $address );
+				$this->log->add( 
+					array(
+						'address'	=> $address,
+						'latitude'	=> $lat,
+						'longitude'	=> $long,
+						'search'	=> $str_search2
+						)
+					);
+			}
+		}
+		else {
+			echo "<style>\n.list-unstyled {margin-left: 0; padding-left: 0; list-style: none;}\n</style>\n";
+
+			$search_label = $this->app_conf->get( 'search_label' );
+			$search_label = strlen($search_label) ? $search_label : lang('front_address_or_zip');
+
+			echo '<ul class="list-unstyled">';
+			echo '<li>' . '<strong>' . $search_label . '</strong>' . '</li>';
+			echo '<li>' . '<i>' . urldecode($print_address) . '</i>' . '</li>';
+			if( strlen(trim(urldecode($print_search2))) ){
+				echo '<li>' . '<i>' . urldecode($print_search2) . '</i>' . '</li>';
+			}
+			echo '</ul>';
+
+			if( isset($out['error'])){
+				echo $out['error'];
+			}
+			else {
+				echo '<ul class="list-unstyled">';
+				foreach( $out as $o ){
+					echo '<li>' . $o['display'] . '</li>';
+				}
+				echo '</ul>';
+			}
 		}
 		exit;
 	}

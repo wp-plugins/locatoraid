@@ -23,6 +23,7 @@ class Conf extends Admin_controller
 				'show_sidebar',
 				'show_distance',
 				'trigger_autodetect',
+				'show_print_link',
 				'not_found_text',
 				'group_output',
 				'limit_output',
