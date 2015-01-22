@@ -70,6 +70,16 @@ jQuery(document).on( 'click', '#lpr-search-button', function(event) {
 	return false;
 });
 
+jQuery(document).on( 'keydown', '#lpr-search-address', function(event) {
+	if( event.which == 13 )
+	{
+		event.preventDefault();
+		event.stopPropagation();
+		lpr_search_form_submit( jQuery('#lpr-search-form') );
+		return false;
+	}
+});
+
 jQuery(document).on( 'change', '#lpr-search-form select', function(event) {
 	if( lpr_current_location_set )
 	{
@@ -477,10 +487,12 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 						if( target_div )
 							target_div.removeClass( 'hc-loading' );
 
-						if( lpr_vars.show_print_link.length > 0 ){
-							var print_within = within ? within : 0;
-							var print_url = [ json_url, 1, print_within, encodeURIComponent(my_search2), encodeURIComponent(address) ].join('/');
-							target_div.append( '<a target="_blank" href="' + print_url + '">' + lpr_vars.show_print_link + '</a><br>' );
+						if( typeof lpr_vars.show_print_link !== 'undefined' ){
+							if( lpr_vars.show_print_link.length > 0 ){
+								var print_within = within ? within : 0;
+								var print_url = [ json_url, 1, print_within, encodeURIComponent(my_search2), encodeURIComponent(address) ].join('/');
+								target_div.append( '<a target="_blank" href="' + print_url + '">' + lpr_vars.show_print_link + '</a><br>' );
+							}
 						}
 
 						lpr_show_on_map( loc, target_div, data );
@@ -514,10 +526,12 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 				if( target_div )
 					target_div.removeClass( 'hc-loading' );
 
-				if( lpr_vars.show_print_link.length > 0 ){
-					var print_within = within ? within : 0;
-					var print_url = [ json_url, 1, print_within, encodeURIComponent(my_search2), encodeURIComponent(address) ].join('/');
-					target_div.append( '<a target="_blank" href="' + print_url + '">' + lpr_vars.show_print_link + '</a><br>' );
+				if( typeof lpr_vars.show_print_link !== 'undefined' ){
+					if( lpr_vars.show_print_link.length > 0 ){
+						var print_within = within ? within : 0;
+						var print_url = [ json_url, 1, print_within, encodeURIComponent(my_search2), encodeURIComponent(address) ].join('/');
+						target_div.append( '<a target="_blank" href="' + print_url + '">' + lpr_vars.show_print_link + '</a><br>' );
+					}
 				}
 
 				lpr_show_on_map( loc, target_div, data );
