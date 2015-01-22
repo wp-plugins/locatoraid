@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.4.4 =
+* Modified JavaScript to avoid conflicts with some themes.
+
 = 2.4.3 =
 * Print view link in the front end.
 

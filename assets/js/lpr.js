@@ -27,7 +27,8 @@ jQuery(document).on( 'click', '#lpr-next-within', function(event) {
 	}
 	else
 	{
-		jQuery('#lpr-search-form').submit();
+		lpr_search_form_submit( jQuery('#lpr-search-form') );
+		// jQuery('#lpr-search-form').submit();
 	}
 	return false;
 });
@@ -64,7 +65,8 @@ function lpr_with_position( position )
 }
 
 jQuery(document).on( 'click', '#lpr-search-button', function(event) {
-	jQuery('#lpr-search-form').submit();
+	lpr_search_form_submit( jQuery('#lpr-search-form') );
+	// jQuery('#lpr-search-form').submit();
 	return false;
 });
 
@@ -75,7 +77,8 @@ jQuery(document).on( 'change', '#lpr-search-form select', function(event) {
 	}
 	else
 	{
-		jQuery('#lpr-search-form').submit();
+		lpr_search_form_submit( jQuery('#lpr-search-form') );
+		// jQuery('#lpr-search-form').submit();
 	}
 	return false;
 });
@@ -751,4 +754,49 @@ function lpr_next_location( url_prefix, loc_id, map )
 			alert(JSON.stringify(data));
 		}
 	);
+}
+
+function lpr_search_form_submit( search_form )
+{
+	var address = search_form.find('[name=search]').val();
+	var country = search_form.find('[name=country]').val();
+	if( country )
+	{
+		if( address )
+			address = address + ' ' + country;
+		else
+			address = country;
+	}
+
+	if( lpr_vars.conf_append_search.length > 0 )
+	{
+		// check if it already ends with append
+		if( address.substr(address.length - lpr_vars.conf_append_search.length).toLowerCase() != lpr_vars.conf_append_search.toLowerCase() )
+		{
+			address = address + ' ' + lpr_vars.conf_append_search;
+		}
+	}
+
+	var search2 = search_form.find('[name=search2]').val();
+	var within = search_form.find('[name=within]').val();
+
+	if( jQuery('#lpr-results').is(':hidden') )
+	{
+		if( address.length || (search2.length && (search2 != ' ')) )
+		{
+			jQuery('#lpr-results').show();
+			lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
+		}
+	}
+
+	allow_empty = (typeof allow_empty === "undefined") ? false : allow_empty;
+	if( (! allow_empty) && (address.length < 1) && (search2.length < 1) )
+		return false;
+
+	var target_div = jQuery( '#lpr-locations' );
+	if( target_div )
+		target_div.html( '' );
+
+	lpr_directions_display.setMap( null );
+	lpr_front_process_search( address, search2, lpr_allow_empty, within );
 }
