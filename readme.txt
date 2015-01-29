@@ -73,6 +73,9 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.4.5 =
+* A fix for the error in the print view for some search strings.
+
 = 2.4.4 =
 * Modified JavaScript to avoid conflicts with some themes.
 
