@@ -176,7 +176,7 @@ class MY_Controller extends MX_Controller
 						break;
 
 					default:
-						$email_regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
+						$email_regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i';
 						if(
 							preg_match('/^misc/', $f['name']) &&
 							preg_match('/(\.jpg|\.png|\.gif|\.svg)$/i', $e[$f['name']])

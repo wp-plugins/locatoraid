@@ -102,6 +102,7 @@ $lang['location_import_message_fields_not_recognized'] = 'Some fields in your fi
 $lang['location_import_ok'] = 'Locations Imported';
 $lang['location_import_mode_overwrite'] = 'Delete current locations';
 $lang['location_import_mode_append'] = 'Append to current locations';
+$lang['location_import_check_duplicates'] = 'Check duplicates';
 $lang['location_geocode_title'] = 'Geocode Locations';
 $lang['location_products'] = 'Products';
 $lang['location_products_field_help'] = 'Separate by comma';

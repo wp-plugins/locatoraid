@@ -381,18 +381,21 @@ function lpr_show_on_map( loc, target_div, data )
 
 	// zoom
 		lpr_map.setCenter( loc );
-		if( max_distance_id > -1 )
-		{
-			var location_position = new google.maps.LatLng( data[max_distance_id].lat, data[max_distance_id].lng );
+		if( (typeof lpr_default_map_zoom !== 'undefined') && (lpr_default_map_zoom != 0) ){
+			lpr_map.setZoom( lpr_default_map_zoom );
+			lpr_default_map_zoom = 0;
+			}
+		else {
+			if( max_distance_id > -1 ){
+				var location_position = new google.maps.LatLng( data[max_distance_id].lat, data[max_distance_id].lng );
 
-			var z = lpr_map.getZoom();
-			z = 15;
-			for ( var zz = z; zz > 1; zz-- )
-			{
-				lpr_map.setZoom( zz );
-				if( lpr_map.getBounds().contains( location_position ) )
-				{
-					break;
+				var z = lpr_map.getZoom();
+				z = 15;
+				for ( var zz = z; zz > 1; zz-- ){
+					lpr_map.setZoom( zz );
+					if( lpr_map.getBounds().contains( location_position ) ){
+						break;
+					}
 				}
 			}
 		}
@@ -597,6 +600,14 @@ function lpr_front_get_results( address, search2, allow_empty, within )
 
 					case google.maps.GeocoderStatus.ZERO_RESULTS :
 						alert( "Can't locate this address" );
+						break;
+
+					case google.maps.GeocoderStatus.REQUEST_DENIED :
+						alert( 'Geocode error: request denied' );
+						break;
+
+					case google.maps.GeocoderStatus.INVALID_REQUEST :
+						alert( 'Geocode error: invalid request' );
 						break;
 
 					default :

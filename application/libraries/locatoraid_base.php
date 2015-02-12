@@ -119,16 +119,25 @@ class Locatoraid_Base
 		$GLOBALS['NTS_CONFIG'][$this->app]['ASSETS_DIR'] = plugins_url( 'assets', $this->full_path );
 
 	// database
-		global $table_prefix;
 		$GLOBALS['NTS_CONFIG'][$this->app]['DB_HOST'] = DB_HOST;
 		$GLOBALS['NTS_CONFIG'][$this->app]['DB_USER'] = DB_USER;
 		$GLOBALS['NTS_CONFIG'][$this->app]['DB_PASS'] = DB_PASSWORD;
 		$GLOBALS['NTS_CONFIG'][$this->app]['DB_NAME'] = DB_NAME;
-		$mypref = $table_prefix . 'lctr2_';
-		if( $this->wpi )
-		{
+
+		global $wpdb;
+		if( is_multisite() ){
+			$share_database = get_site_option( $this->app . '_share_database', 0 );
+			$wp_prefix = $share_database ? $wpdb->base_prefix : $wpdb->prefix;
+		}
+		else {
+			$wp_prefix = $wpdb->prefix;
+		}
+
+		$mypref = $wp_prefix . 'lctr2_';
+		if( $this->wpi ){
 			$mypref .= $this->wpi . '_';
 		}
+
 		$GLOBALS['NTS_CONFIG'][$this->app]['DB_TABLES_PREFIX'] = $mypref;
 		$GLOBALS['NTS_IS_PLUGIN'] = 'wordpress';
 	}
@@ -285,7 +294,8 @@ EOT;
 			if( ! $this->load_by_js )
 			{
 				$this->print_styles();
-				wp_enqueue_script( 'lctrScript11', '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true' );
+				$lang = get_locale();
+				wp_enqueue_script( 'lctrScript11', '//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&language=' . $lang );
 				wp_enqueue_script( 'lctrScript12', '//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js' );
 				$this->print_scripts();
 			}

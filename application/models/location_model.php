@@ -586,9 +586,9 @@ class Location_model extends MY_Model
 		return $return;
 	}
 
-	function save($object, $rewrite_coord = FALSE )
+	function save($object, $rewrite_coord = FALSE, $check_existing = TRUE )
 	{
-		if( $this->already_exists($object) )
+		if( $check_existing && $this->already_exists($object) )
 		{
 			return FALSE;
 		}
