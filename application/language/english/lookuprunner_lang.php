@@ -128,6 +128,7 @@ $lang['conf_group_output_country'] = 'By Country';
 $lang['conf_group_output_country_city'] = 'By Country, Then By City';
 $lang['conf_group_output_country_state'] = 'By Country, Then By State';
 $lang['conf_group_output_alphabetical'] = 'Sort Alphabetically';
+$lang['conf_group_output_zip'] = 'By Zip/Postal Code';
 $lang['conf_limit_output'] = 'Limit Output (number of locations)';
 $lang['conf_limit_output_help'] = 'Only numbers please, set to 0 for no limit';
 $lang['conf_choose_country'] = 'Choose Country Drop Down';

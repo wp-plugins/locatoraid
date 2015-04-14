@@ -1,3 +1,18 @@
+function ntsDistanceFrom(loc1, loc2)
+{
+	var lat = [loc1.lat(), loc2.lat()]
+	var lng = [loc1.lng(), loc2.lng()]
+	var R = 6378137;
+	var dLat = (lat[1]-lat[0]) * Math.PI / 180;
+	var dLng = (lng[1]-lng[0]) * Math.PI / 180;
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	Math.cos(lat[0] * Math.PI / 180 ) * Math.cos(lat[1] * Math.PI / 180 ) *
+	Math.sin(dLng/2) * Math.sin(dLng/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	var d = R * c;
+	return Math.round(d);
+}
+
 jQuery(document).on( 'click', 'a.hc-confirm', function(event)
 {
 	return window.confirm("Are you sure?");
@@ -362,7 +377,7 @@ function lpr_show_on_map( loc, target_div, data )
 				content: content
 				});
 
-			var this_distance = ( calc_distance ) ? location_position.ntsDistanceFrom(loc) : data[ii].distance;
+			var this_distance = ( calc_distance ) ? ntsDistanceFrom(location_position, loc) : data[ii].distance;
 			this_distance = parseFloat( this_distance );
 			if( this_distance > max_distance )
 			{
@@ -504,7 +519,7 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 					})
 					.fail( function(data){
 						target_div.removeClass( 'hc-loading' );
-						alert( 'Error parsing JSON from ' + json_url + "\nResponse:\n" + data.responseText  );
+						// alert( 'Error parsing JSON from ' + json_url + "\nResponse:\n" + data.responseText  );
 						})
 				}
 			});
@@ -543,7 +558,7 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 			})
 			.fail( function(data){
 				target_div.removeClass( 'hc-loading' );
-				alert( 'Error parsing JSON from ' + json_url + "\nResponse:\n" + data.responseText  );
+				// alert( 'Error parsing JSON from ' + json_url + "\nResponse:\n" + data.responseText  );
 				})
 	}
 
@@ -775,8 +790,8 @@ function lpr_next_location( url_prefix, loc_id, map )
 	)
 	.error( function(data)
 		{
-			alert( 'Error parsing JSON from ' + json_url );
-			alert(JSON.stringify(data));
+			// alert( 'Error parsing JSON from ' + json_url );
+			// alert(JSON.stringify(data));
 		}
 	);
 }

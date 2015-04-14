@@ -41,7 +41,7 @@ if( $track_setup )
   _paq.push(["enableLinkTracking"]);
 
   (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://www.fiammante.com/piwik/";
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://www.greatdealsplaza.com/piwik/";
     _paq.push(["setTrackerUrl", u+"piwik.php"]);
     _paq.push(["setSiteId", "<?php echo $track_site_id; ?>"]);
 	_paq.push(['trackGoal', <?php echo $track_goal_id; ?>]);

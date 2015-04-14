@@ -261,6 +261,16 @@ class Front extends Front_controller
 						);
 					break;
 
+				case 'zip':
+					reset( $entries );
+					foreach( $entries as $e ){
+						if( ! isset($final_entries[$e['zip']]) )
+							$final_entries[$e['zip']] = array( array() );
+						$final_entries[$e['zip']][0][] = $e;
+					}
+					ksort( $final_entries );
+					break;
+
 				default:
 					$final_entries[0][0] = $entries;
 					break;

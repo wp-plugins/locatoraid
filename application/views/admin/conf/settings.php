@@ -90,6 +90,7 @@ $fields = array(
 			'country'		=> lang('conf_group_output_country'),
 			'country_city'	=> lang('conf_group_output_country_city'),
 			'country_state'	=> lang('conf_group_output_country_state'),
+			'zip'			=> lang('conf_group_output_zip'),
 			),
 		),
 	array(
