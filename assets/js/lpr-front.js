@@ -53,12 +53,12 @@ jQuery(document).ready( function()
 	var boxText = document.createElement("div");
 	var myOptions = {
 		boxStyle: {
-			background: "#fff url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
+			background: "#fff url('//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
 			opacity: 0.9,
 			width: "280px",
 			padding: "10px 10px 10px 10px"
 			},
-		closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+		closeBoxURL: "//www.google.com/intl/en_us/mapfiles/close.gif",
 		infoBoxClearance: new google.maps.Size(1, 1),
 		zIndex: null,
 		isHidden: false,

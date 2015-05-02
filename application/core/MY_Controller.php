@@ -158,7 +158,7 @@ class MY_Controller extends MX_Controller
 //						$return[$f['name']] = join( ': ', array($f['title'], '<a href="' . $e[$f['name']] . '" target="_blank">' . $e[$f['name']] . '</a>') );
 						$ok = FALSE;
 						$href = $e[$f['name']];
-						$prfx = array('http://', 'https://');
+						$prfx = array('http://', 'https://', '//');
 						foreach( $prfx as $prf )
 						{
 							if( substr($href, 0, strlen($prf)) == $prf )
@@ -169,7 +169,8 @@ class MY_Controller extends MX_Controller
 						}
 						if( ! $ok )
 						{
-							$href = 'http://' . $href;
+							// $href = 'http://' . $href;
+							$href = '//' . $href;
 						}
 						$f['title'] = strlen($f['title']) ? $f['title'] : $href;
 						$return[$f['name']] = '<a href="' . $href . '" target="_blank">' . $f['title'] . '</a>';
@@ -186,7 +187,10 @@ class MY_Controller extends MX_Controller
 						}
 						elseif(
 							preg_match('/^misc/', $f['name']) &&
-							preg_match('/^https?\:\/\//', $e[$f['name']])
+							(
+							preg_match('/^https?\:\/\//', $e[$f['name']]) OR
+							preg_match('/^\/\//', $e[$f['name']])
+							)
 							)
 						{
 							$field_view = '<a href="' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';

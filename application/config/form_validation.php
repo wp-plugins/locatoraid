@@ -48,6 +48,26 @@ $config = array(
 			'field'   => 'form_misc5',
 			'rules'   => 'trim'
 			),
+	   array(
+			'field'   => 'form_misc6',
+			'rules'   => 'trim'
+			),
+	   array(
+			'field'   => 'form_misc7',
+			'rules'   => 'trim'
+			),
+	   array(
+			'field'   => 'form_misc8',
+			'rules'   => 'trim'
+			),
+	   array(
+			'field'   => 'form_misc9',
+			'rules'   => 'trim'
+			),
+	   array(
+			'field'   => 'form_misc10',
+			'rules'   => 'trim'
+			),
 		),
 
 	'location' => array(

@@ -96,7 +96,7 @@ class Location_model extends MY_Model
 	function get_fields()
 	{
 		$misc_titles = array();
-		for( $ii = 1; $ii <= 5; $ii++ )
+		for( $ii = 1; $ii <= 10; $ii++ )
 		{
 			$misc_title = $this->app_conf->get( 'form_misc' . $ii );
 			if( ! $misc_title )
@@ -172,7 +172,7 @@ class Location_model extends MY_Model
 					)
 				);
 
-			for( $ii = 1; $ii <= 5; $ii++ )
+			for( $ii = 1; $ii <= 10; $ii++ )
 			{
 				$return[] = array(
 					'name'	=> 'misc' . $ii,
@@ -335,7 +335,7 @@ class Location_model extends MY_Model
 		$skip_this = FALSE;
 		if( $search2 )
 		{
-			$search_in_parts = array( 'name', 'misc1', 'misc2', 'misc3', 'misc4', 'misc5', 'products' );
+			$search_in_parts = array( 'name', 'misc1', 'misc2', 'misc3', 'misc4', 'misc5', 'misc6', 'misc7', 'misc8', 'misc9', 'misc10', 'products' );
 		}
 
 		$return	= array();
@@ -467,7 +467,7 @@ class Location_model extends MY_Model
 		$skip_this = FALSE;
 		if( $search2 )
 		{
-			$search_in_parts = array( 'name', 'misc1', 'misc2', 'misc3', 'misc4', 'misc5', 'products' );
+			$search_in_parts = array( 'name', 'misc1', 'misc2', 'misc3', 'misc4', 'misc5', 'misc6', 'misc7', 'misc8', 'misc9', 'misc10', 'products' );
 		}
 
 		$return	= array();

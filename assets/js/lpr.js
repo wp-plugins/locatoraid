@@ -367,7 +367,7 @@ function lpr_show_on_map( loc, target_div, data )
 			var content = wrapper + data[ii].display + '</div>';
 			var location_position = new google.maps.LatLng( data[ii].lat, data[ii].lng );
 			var location_marker = new google.maps.Marker( {
-//				icon: "http://localhost/_avatars/1.jpg",
+//				icon: "//localhost/_avatars/1.jpg",
 				map: lpr_map,
 				position: location_position,
 				title: data[ii].name,
@@ -443,8 +443,14 @@ function lpr_get_cookie( cname )
 	return "";
 }
 
+var lpr_search_working = 0;
+
 function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 {
+	if( lpr_search_working ){
+		return false;
+	}
+
 	allow_empty = (typeof allow_empty === "undefined") ? false : allow_empty;
 	var target_div = jQuery( '#lpr-locations' );
 	var my_search2 = search2.length ? search2 : '-';
@@ -528,6 +534,8 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 	{
 //		alert( "4 = " + csrfToken );
 
+		lpr_search_working = 1;
+
 		var thisData = {
 			hc_csrf_token: csrfToken,
 			search2: my_search2,
@@ -541,6 +549,7 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 			dataType: "json",
 			data: thisData,
 			success: function(data, textStatus){
+				lpr_search_working = 0;
 				if( target_div )
 					target_div.removeClass( 'hc-loading' );
 
@@ -557,6 +566,7 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 				}
 			})
 			.fail( function(data){
+				lpr_search_working = 0;
 				target_div.removeClass( 'hc-loading' );
 				// alert( 'Error parsing JSON from ' + json_url + "\nResponse:\n" + data.responseText  );
 				})
@@ -582,7 +592,7 @@ function lpr_front_get_results_by_coord( loc, search2, address, allow_empty, wit
 		position: lpr_loc,
 		draggable: false,
 		visible:true,
-		icon: "http://maps.google.com/mapfiles/arrow.png"
+		icon: "//maps.google.com/mapfiles/arrow.png"
 		});
 
 // get matching locations

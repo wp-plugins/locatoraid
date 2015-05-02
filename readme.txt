@@ -73,6 +73,12 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.4.9 =
+* The Pro version now can have up to 10 misc fields.
+
+= 2.4.8 =
+* A small fix to allow just "//" URLs, without protocol.
+
 = 2.4.7 =
 * A new option to group locations output by zip/postal code.
 
