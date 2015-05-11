@@ -6,7 +6,7 @@ License: GPLv2 or later
 
 Stable tag: trunk
 Requires at least: 3.3
-Tested up to: 4.1
+Tested up to: 4.2
 
 Add a store locator map to your site and get your visitors to start finding you faster!
 
@@ -72,6 +72,9 @@ float: right;
 The upgrade is simply - upload everything up again to your `/wp-content/plugins/` directory, then go to the Locatoraid menu item in the admin panel. It will automatically start the upgrade process if any needed.
 
 == Changelog ==
+
+= 2.5.0 =
+* Added a setting to disable the scroll wheel in the map, it is useful when you don't want to automatically zoom the map when scrolling the page.
 
 = 2.4.9 =
 * The Pro version now can have up to 10 misc fields.

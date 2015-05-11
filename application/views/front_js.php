@@ -4,7 +4,8 @@ var url_prefix = "<?php echo ci_site_url('front/get'); ?>";
 var lpr_vars = {
 	"conf_trigger_autodetect":"<?php echo $this->app_conf->get('trigger_autodetect'); ?>",
 	"conf_append_search":"<?php echo $this->app_conf->get('append_search'); ?>",
-	"start_listing":"<?php echo ($this->app_conf->get('start_listing')) ? 1 : 0; ?>"
+	"start_listing":"<?php echo ($this->app_conf->get('start_listing')) ? 1 : 0; ?>",
+	"map_scrollwheel":<?php echo ($this->app_conf->get('map_no_scrollwheel')) ? 'false' : 'true'; ?>
 	};
 /* ]]> */
 
@@ -51,7 +52,8 @@ jQuery(document).ready( function()
 		document.getElementById("lpr-map"),
 		{
 			zoom:15,
-			mapTypeId:google.maps.MapTypeId.ROADMAP
+			mapTypeId:google.maps.MapTypeId.ROADMAP,
+			scrollwheel: lpr_vars.map_scrollwheel
 			}
 		);
 
@@ -157,7 +159,14 @@ jQuery(document).on( 'submit', '#lpr-search-form', function(event) {
 		if( address.length || (search2.length && (search2 != ' ')) )
 		{
 			jQuery('#lpr-results').show();
-			lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
+			lpr_map = new google.maps.Map( 
+				document.getElementById("lpr-map"),
+				{
+					zoom:15,
+					mapTypeId:google.maps.MapTypeId.ROADMAP,
+					scrollwheel: lpr_vars.map_scrollwheel
+				}
+			);
 		}
 	}
 

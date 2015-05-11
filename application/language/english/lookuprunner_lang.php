@@ -119,6 +119,7 @@ $lang['conf_measurement_km'] = 'Km';
 $lang['conf_measurement_miles'] = 'Miles';
 $lang['conf_search_within'] = 'Search Within';
 $lang['conf_search_within_help'] = 'Separate by comma';
+$lang['conf_map_no_scrollwheel'] = 'Disable Mouse Scroll Wheel In Map';
 $lang['conf_show_sidebar'] = 'Show Locations List';
 $lang['conf_group_output'] = 'Group Output';
 $lang['conf_group_output_state'] = 'By State';

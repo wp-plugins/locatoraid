@@ -20,6 +20,7 @@ class Conf extends Admin_controller
 				'csv_separator',
 				'measurement',
 				'search_within',
+				'map_no_scrollwheel',
 				'show_sidebar',
 				'show_distance',
 				'trigger_autodetect',

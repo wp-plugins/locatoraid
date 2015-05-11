@@ -55,7 +55,14 @@ function lpr_with_position( position )
 	if( jQuery('#lpr-results').is(':hidden') )
 	{
 		jQuery('#lpr-results').show();
-		lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
+		lpr_map = new google.maps.Map( 
+			document.getElementById("lpr-map"),
+			{
+				zoom:15,
+				mapTypeId:google.maps.MapTypeId.ROADMAP,
+				scrollwheel: lpr_vars.map_scrollwheel
+			}
+		);
 	}
 
 	var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
@@ -835,7 +842,15 @@ function lpr_search_form_submit( search_form )
 		if( address.length || (search2.length && (search2 != ' ')) )
 		{
 			jQuery('#lpr-results').show();
-			lpr_map = new google.maps.Map( document.getElementById("lpr-map"), {zoom:15, mapTypeId:google.maps.MapTypeId.ROADMAP} );
+
+			lpr_map = new google.maps.Map( 
+				document.getElementById("lpr-map"),
+				{
+					zoom:15,
+					mapTypeId:google.maps.MapTypeId.ROADMAP,
+					scrollwheel: lpr_vars.map_scrollwheel
+				}
+			);
 		}
 	}
 

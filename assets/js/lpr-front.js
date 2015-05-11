@@ -41,9 +41,10 @@ jQuery(document).ready( function()
 		document.getElementById("lpr-map"),
 		{
 			zoom:15,
-			mapTypeId:google.maps.MapTypeId.ROADMAP
-			}
-		);
+			mapTypeId:google.maps.MapTypeId.ROADMAP,
+			scrollwheel: lpr_vars.map_scrollwheel
+		}
+	);
 
 	lpr_infowindow = new google.maps.InfoWindow();
 	google.maps.event.addListener(lpr_map, 'click', function(){

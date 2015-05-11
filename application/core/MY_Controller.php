@@ -68,6 +68,7 @@ class MY_Controller extends MX_Controller
 					'conf_trigger_autodetect'	=> $this->app_conf->get('trigger_autodetect') ? $this->app_conf->get('trigger_autodetect') : 0,
 					'conf_append_search'		=> $this->app_conf->get('append_search'),
 					'start_listing'				=> $this->app_conf->get('start_listing') ? 1 : 0,
+					'map_scrollwheel'			=> $this->app_conf->get('map_no_scrollwheel') ? FALSE : TRUE,
 					'show_print_link'			=> $this->app_conf->get('show_print_link'),
 					)
 				);
