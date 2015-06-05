@@ -144,6 +144,8 @@ $lang['conf_your_location_label'] = 'Your Location Label';
 $lang['conf_show_distance'] = 'Show Distance To Location';
 $lang['conf_show_print_link'] = 'Print View Link Label';
 $lang['conf_show_print_link_help'] = 'Leave empty to hide';
+$lang['conf_show_matched_locations'] = 'Matched Locations Count Label';
+$lang['conf_show_matched_locations_help'] = 'Leave empty to hide';
 
 /* TIME */
 $lang['time_from'] = 'From';

@@ -70,6 +70,7 @@ class MY_Controller extends MX_Controller
 					'start_listing'				=> $this->app_conf->get('start_listing') ? 1 : 0,
 					'map_scrollwheel'			=> $this->app_conf->get('map_no_scrollwheel') ? FALSE : TRUE,
 					'show_print_link'			=> $this->app_conf->get('show_print_link'),
+					'show_matched_locations'	=> $this->app_conf->get('show_matched_locations'),
 					)
 				);
 		}

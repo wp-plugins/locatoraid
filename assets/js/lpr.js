@@ -518,6 +518,12 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 						if( target_div )
 							target_div.removeClass( 'hc-loading' );
 
+						if( typeof lpr_vars.show_matched_locations !== 'undefined' ){
+							if( data.length ){
+								target_div.append( lpr_vars.show_matched_locations + ': ' + data.length + '<br>' );
+							}
+						}
+
 						if( typeof lpr_vars.show_print_link !== 'undefined' ){
 							if( lpr_vars.show_print_link.length > 0 ){
 								var print_within = within ? within : 0;
@@ -559,6 +565,12 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 				lpr_search_working = 0;
 				if( target_div )
 					target_div.removeClass( 'hc-loading' );
+
+				if( typeof lpr_vars.show_matched_locations !== 'undefined' ){
+					if( data.length ){
+						target_div.append( lpr_vars.show_matched_locations + ': ' + data.length + '<br>' );
+					}
+				}
 
 				if( typeof lpr_vars.show_print_link !== 'undefined' ){
 					if( lpr_vars.show_print_link.length > 0 ){

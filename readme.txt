@@ -73,6 +73,10 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.5.1 =
+* Added a setting to show the matched locations count in the front end.
+* Skip empty lines in the locations import file.
+
 = 2.5.0 =
 * Added a setting to disable the scroll wheel in the map, it is useful when you don't want to automatically zoom the map when scrolling the page.
 

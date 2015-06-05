@@ -25,6 +25,7 @@ class Conf extends Admin_controller
 				'show_distance',
 				'trigger_autodetect',
 				'show_print_link',
+				'show_matched_locations',
 				'not_found_text',
 				'group_output',
 				'limit_output',

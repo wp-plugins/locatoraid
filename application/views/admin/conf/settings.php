@@ -83,6 +83,12 @@ $fields = array(
 		'help'		=> lang('conf_show_print_link_help'),
 		),
 	array(
+		'name' 		=> 'show_matched_locations',
+ 		'title'		=> lang('conf_show_matched_locations'),
+		'type'		=> 'text',
+		'help'		=> lang('conf_show_matched_locations_help'),
+		),
+	array(
 		'name' 		=> 'group_output',
  		'title'		=> lang('conf_group_output'),
 		'type'		=> 'dropdown',
