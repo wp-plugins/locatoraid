@@ -18,3 +18,4 @@ $config['search_button'] = 'Search';
 $config['autodetect_button'] = 'Auto-detect your location';
 $config['your_location_label'] = 'Your location';
 $config['show_matched_locations'] = 'Matched Locations';
+$config['directions_label'] = 'Directions';

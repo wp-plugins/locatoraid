@@ -115,8 +115,8 @@ $lang['conf_append_search'] = 'Append Customer Search With';
 $lang['conf_append_search_help'] = 'You may add your country or city name so it will show relevant results even if there might be the same zip code in another place.';
 $lang['conf_csv_separator'] = 'CSV Separator';
 $lang['conf_measurement'] = 'Measure Units';
-$lang['conf_measurement_km'] = 'Km';
-$lang['conf_measurement_miles'] = 'Miles';
+$lang['conf_measurement_km'] = 'km';
+$lang['conf_measurement_miles'] = 'mi';
 $lang['conf_search_within'] = 'Search Within';
 $lang['conf_search_within_help'] = 'Separate by comma';
 $lang['conf_map_no_scrollwheel'] = 'Disable Mouse Scroll Wheel In Map';
@@ -133,6 +133,7 @@ $lang['conf_group_output_zip'] = 'By Zip/Postal Code';
 $lang['conf_limit_output'] = 'Limit Output (number of locations)';
 $lang['conf_limit_output_help'] = 'Only numbers please, set to 0 for no limit';
 $lang['conf_choose_country'] = 'Choose Country Drop Down';
+$lang['conf_localization'] = 'Customize or Translate Front End Text';
 
 $lang['conf_trigger_autodetect'] = 'Detect Customer Current Position';
 $lang['conf_start_listing'] = 'Start With Default Locations Listing';
@@ -146,6 +147,7 @@ $lang['conf_show_print_link'] = 'Print View Link Label';
 $lang['conf_show_print_link_help'] = 'Leave empty to hide';
 $lang['conf_show_matched_locations'] = 'Matched Locations Count Label';
 $lang['conf_show_matched_locations_help'] = 'Leave empty to hide';
+$lang['conf_directions_label'] = 'Directions Link Label';
 
 /* TIME */
 $lang['time_from'] = 'From';

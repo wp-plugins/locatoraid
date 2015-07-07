@@ -519,8 +519,16 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 							target_div.removeClass( 'hc-loading' );
 
 						if( typeof lpr_vars.show_matched_locations !== 'undefined' ){
-							if( data.length ){
-								target_div.append( lpr_vars.show_matched_locations + ': ' + data.length + '<br>' );
+							if( lpr_vars.show_matched_locations !== '' ){
+								var matched_count = 0;
+								for( var ii = 0; ii < data.length; ii++ ){
+									if( ! data[ii].id ) // group header
+										continue;
+									matched_count++;
+								}
+								if( matched_count > 0 ){
+									target_div.append( lpr_vars.show_matched_locations + ': ' + matched_count + '<br>' );
+								}
 							}
 						}
 
@@ -567,8 +575,16 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 					target_div.removeClass( 'hc-loading' );
 
 				if( typeof lpr_vars.show_matched_locations !== 'undefined' ){
-					if( data.length ){
-						target_div.append( lpr_vars.show_matched_locations + ': ' + data.length + '<br>' );
+					if( lpr_vars.show_matched_locations !== '' ){
+						var matched_count = 0;
+						for( var ii = 0; ii < data.length; ii++ ){
+							if( ! data[ii].id ) // group header
+								continue;
+							matched_count++;
+						}
+						if( matched_count > 0 ){
+							target_div.append( lpr_vars.show_matched_locations + ': ' + matched_count + '<br>' );
+						}
 					}
 				}
 

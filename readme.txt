@@ -73,6 +73,16 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.5.3 =
+* BUG: If the matched locations title was set to blank, it still showed in the frontend.
+* BUG: The matched locations count was wrong if the output group by option was set.
+* Added an option to translate the Directions link label.
+* Moved all localization/customization options for the front end together in the settings form.
+
+= 2.5.2 =
+* Skip locations with empty name and street address in the locations import file.
+* BUG: If the locations import file contained special characters like umlauts then they were skipped.
+
 = 2.5.1 =
 * Added a setting to show the matched locations count in the front end.
 * Skip empty lines in the locations import file.

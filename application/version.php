@@ -1,2 +1,2 @@
 <?php
-define('HC_APP_VERSION', '2.5.1');
+define('HC_APP_VERSION', '2.5.3');

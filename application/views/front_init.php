@@ -8,13 +8,14 @@ if( ! strlen($products_label) )
 if( count($within_options) > 1 )
 {
 	$measure = $this->app_conf->get( 'measurement' );
-	$measure_title = lang('conf_measurement_') . $measure;
+	$measure_title = lang('conf_measurement_' . $measure);
 	$dropdown_within = array();
 	foreach( $within_options as $wo )
 	{
 		$dropdown_within[ $wo ] = $wo . ' ' . $measure_title;
 	}
 }
+
 if( $product_options )
 {
 	$do_options = array(

@@ -169,12 +169,13 @@ class MY_Controller extends MX_Controller
 								break;
 							}
 						}
+
+						$f['title'] = strlen($f['title']) ? $f['title'] : $href;
 						if( ! $ok )
 						{
 							// $href = 'http://' . $href;
 							$href = '//' . $href;
 						}
-						$f['title'] = strlen($f['title']) ? $f['title'] : $href;
 						$return[$f['name']] = '<a href="' . $href . '" target="_blank">' . $f['title'] . '</a>';
 						break;
 
@@ -214,9 +215,12 @@ class MY_Controller extends MX_Controller
 			}
 		}
 
-		if(! (isset($skip['directions']) && $skip['directions']) )
-		{
-			$return['directions'] = '<a href="#" class="lpr-directions">' . lang('front_directions') . '</a>';
+		if(! (isset($skip['directions']) && $skip['directions']) ){
+			$front_directions_label = $this->app_conf->get('directions_label');
+			if( ! strlen($front_directions_label) ){
+				$front_directions_label = lang('front_directions');
+			}
+			$return['directions'] = '<a href="#" class="lpr-directions">' . $front_directions_label . '</a>';
 		}
 		return $return;
 	}

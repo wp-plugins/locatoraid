@@ -32,7 +32,7 @@ $fields = array(
 		),
 	array(
 		'name' 		=> 'search_within',
- 		'title'		=> lang('conf_search_within') . ', ' . $defaults['measurement'],
+ 		'title'		=> lang('conf_search_within') . ', ' . lang('conf_measurement_' . $defaults['measurement']),
 		'type'		=> 'text',
 		'help'		=> lang('conf_search_within_help'),
 		),
@@ -40,31 +40,6 @@ $fields = array(
 		'name' 		=> 'map_no_scrollwheel',
  		'title'		=> lang('conf_map_no_scrollwheel'),
 		'type'		=> 'checkbox',
-		),
-	array(
-		'name' 		=> 'search_label',
- 		'title'		=> lang('conf_search_label'),
-		'type'		=> 'text',
-		),
-	array(
-		'name' 		=> 'search_button',
- 		'title'		=> lang('conf_search_button'),
-		'type'		=> 'text',
-		),
-	array(
-		'name' 		=> 'autodetect_button',
- 		'title'		=> lang('conf_autodetect_button'),
-		'type'		=> 'text',
-		),
-	array(
-		'name' 		=> 'your_location_label',
- 		'title'		=> lang('conf_your_location_label'),
-		'type'		=> 'text',
-		),
-	array(
-		'name' 		=> 'not_found_text',
- 		'title'		=> lang('conf_not_found_text'),
-		'type'		=> 'textarea',
 		),
 	array(
 		'name' 		=> 'show_sidebar',
@@ -75,18 +50,6 @@ $fields = array(
 		'name' 		=> 'show_distance',
  		'title'		=> lang('conf_show_distance'),
 		'type'		=> 'checkbox',
-		),
-	array(
-		'name' 		=> 'show_print_link',
- 		'title'		=> lang('conf_show_print_link'),
-		'type'		=> 'text',
-		'help'		=> lang('conf_show_print_link_help'),
-		),
-	array(
-		'name' 		=> 'show_matched_locations',
- 		'title'		=> lang('conf_show_matched_locations'),
-		'type'		=> 'text',
-		'help'		=> lang('conf_show_matched_locations_help'),
 		),
 	array(
 		'name' 		=> 'group_output',
@@ -139,6 +102,52 @@ $fields = array(
 			';'	=> ';',
 			),
 		),
+
+/* localization entries */
+	lang('conf_localization'),
+
+	array(
+		'name' 		=> 'search_label',
+ 		'title'		=> lang('conf_search_label'),
+		'type'		=> 'text',
+		),
+	array(
+		'name' 		=> 'search_button',
+ 		'title'		=> lang('conf_search_button'),
+		'type'		=> 'text',
+		),
+	array(
+		'name' 		=> 'autodetect_button',
+ 		'title'		=> lang('conf_autodetect_button'),
+		'type'		=> 'text',
+		),
+	array(
+		'name' 		=> 'your_location_label',
+ 		'title'		=> lang('conf_your_location_label'),
+		'type'		=> 'text',
+		),
+	array(
+		'name' 		=> 'not_found_text',
+ 		'title'		=> lang('conf_not_found_text'),
+		'type'		=> 'textarea',
+		),
+	array(
+		'name' 		=> 'show_print_link',
+ 		'title'		=> lang('conf_show_print_link'),
+		'type'		=> 'text',
+		'help'		=> lang('conf_show_print_link_help'),
+		),
+	array(
+		'name' 		=> 'show_matched_locations',
+ 		'title'		=> lang('conf_show_matched_locations'),
+		'type'		=> 'text',
+		'help'		=> lang('conf_show_matched_locations_help'),
+		),
+	array(
+		'name' 		=> 'directions_label',
+ 		'title'		=> lang('conf_directions_label'),
+		'type'		=> 'text',
+		),
 	);
 
 /* get languages */
@@ -171,6 +180,14 @@ reset( $fields );
 <?php echo form_open('', array('class' => 'form-horizontal form-condensed')); ?>
 
 <?php foreach( $fields as $f ) : ?>
+	<?php if( ! is_array($f) ): ?>
+		<h4>
+			<?php echo $f; ?>
+		</h4>
+	<?php 
+		continue;
+		endif;
+	?>
 	<?php
 	$error = form_error($f['name']);
 	$class = $error ? ' error' : '';
