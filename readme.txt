@@ -73,6 +73,12 @@ The upgrade is simply - upload everything up again to your `/wp-content/plugins/
 
 == Changelog ==
 
+= 2.5.5 =
+* Added an option to configure which fields to show in the search results list and on the map.
+
+= 2.5.4 =
+* BUG: "Always Shown" locations were not really always displayed.
+
 = 2.5.3 =
 * BUG: If the matched locations title was set to blank, it still showed in the frontend.
 * BUG: The matched locations count was wrong if the output group by option was set.

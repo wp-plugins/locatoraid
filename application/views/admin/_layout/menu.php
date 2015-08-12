@@ -17,12 +17,10 @@ $lm->condition_failed();
 $failed_count = $lm->count_all();
 
 $warning_view = '';
-if( $not_yet_count > 0 )
-{
+if( $not_yet_count > 0 ){
 	$warning_view .= '<span class="badge badge-warning">' . $not_yet_count . '</span>';
 }
-if( $failed_count > 0 )
-{
+if( $failed_count > 0 ){
 	$warning_view .= '<span class="badge badge-important">' . $failed_count . '</span>';
 }
 ?>
@@ -92,6 +90,9 @@ if( $failed_count > 0 )
 							<a href="<?php echo ci_site_url('pro/admin/conf/form'); ?>"><?php echo lang('menu_conf_form');?></a>
 						</li>
 					<?php endif; ?>
+						<li>
+							<a href="<?php echo ci_site_url( array('admin', 'conf', 'templates') ); ?>"><?php echo lang('menu_conf_templates');?></a>
+						</li>
 					</ul>
 				</li>
 

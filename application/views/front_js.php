@@ -71,6 +71,8 @@ jQuery(document).ready( function()
 			padding: "10px 10px 10px 10px"
 			},
 		closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+		// closeBoxURL: "//www.google.com/intl/en_us/mapfiles/close.gif",
+		// closeBoxURL: "//www.google.com/la.gif",
 		infoBoxClearance: new google.maps.Size(1, 1),
 		zIndex: null,
 		isHidden: false,

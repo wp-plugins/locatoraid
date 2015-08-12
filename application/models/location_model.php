@@ -462,6 +462,7 @@ class Location_model extends MY_Model
 		$this->db->select($what);
 		$this->db->order_by('priority', 'DESC');
 		$this->db->order_by('distance', 'ASC');
+
 		$result	= $this->db->get('locations');
 
 		$skip_this = FALSE;
@@ -471,11 +472,9 @@ class Location_model extends MY_Model
 		}
 
 		$return	= array();
-		foreach( $result->result_array() as $e )
-		{
+		foreach( $result->result_array() as $e ){
 			$skip_this = FALSE;
-			if( $search2 && ($e['priority'] < self::PRIORITY_ALWAYS) )
-			{
+			if( $search2 && ($e['priority'] < self::PRIORITY_ALWAYS) ){
 				$skip_this = TRUE;
 
 				$search_in = array();
@@ -519,13 +518,11 @@ class Location_model extends MY_Model
 				}
 			}
 
-			if( $skip_this )
-			{
+			if( $skip_this ){
 				continue;
 			}
 
-			if( $e['distance'] > $within )
-			{
+			if( ($e['distance'] > $within) && ($e['priority'] < self::PRIORITY_ALWAYS) ){
 				continue;
 			}
 

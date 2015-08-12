@@ -27,6 +27,13 @@ $config = array(
 			),
 		),
 
+	'conf-templates' => array(
+		array(
+			'field'   => 'form_misc1_hide',
+			'rules'   => 'trim'
+			),
+		),
+
 	'conf-form' => array(
 		array(
 			'field'   => 'form_misc1',

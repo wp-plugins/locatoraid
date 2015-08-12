@@ -20,6 +20,7 @@ jQuery(document).on( 'click', 'a.hc-confirm', function(event)
 
 var lpr_current_location_set = 0;
 var lpr_markers = [];
+var lpr_data = [];
 
 var lpr_on_marker_click = function(event)
 {
@@ -260,6 +261,21 @@ jQuery(document).on( 'click', '#lpr-locations .lpr-location', function(event)
 {
 	var this_thumbnail = jQuery(this).parent();
 
+	// find this location
+	this_content = "";
+ 	for( var ii = 0; ii < lpr_data.length; ii++ ){
+		if( ! lpr_data[ii].id )
+			continue;
+		if( lpr_data[ii].id == jQuery(this).data('id') ){
+			this_content = lpr_data[ii].display_map;
+			break;
+		}
+	}
+
+	if( ! this_content ){
+		this_thumbnail.html()
+	}
+
 	// clear directions	
 	var directions_panel = jQuery("#lpr-directions-panel");
 	directions_panel.hide();
@@ -267,18 +283,15 @@ jQuery(document).on( 'click', '#lpr-locations .lpr-location', function(event)
 
 	// adjust map so it shows both source and target location
 	var location_position = new google.maps.LatLng( jQuery(this).data('lat'), jQuery(this).data('lng') );
-	if( lpr_loc )
-	{
+	if( lpr_loc ){
 		lpr_map.setCenter( lpr_loc );
 	}
-	else
-	{
+	else {
 		lpr_map.setCenter( location_position );
 	}
 
 	var z = 15;
-	for ( var zz = z; zz > 1; zz-- )
-	{
+	for ( var zz = z; zz > 1; zz-- ){
 		lpr_map.setZoom( zz );
 		if( lpr_map.getBounds().contains( location_position ) )
 			break;
@@ -287,7 +300,9 @@ jQuery(document).on( 'click', '#lpr-locations .lpr-location', function(event)
 	jQuery('#lpr-locations .thumbnail').removeClass('alert-info');
 	this_thumbnail.addClass('alert-info');
 
-	lpr_infowindow.setContent( this_thumbnail.html() );
+	// lpr_infowindow.setContent( this_thumbnail.html() );
+	lpr_infowindow.setContent( this_content );
+
 	lpr_infowindow.setPosition( location_position );
 	lpr_infowindow.open( lpr_map );
 	
@@ -371,7 +386,8 @@ function lpr_show_on_map( loc, target_div, data )
 				continue;
 
 			var wrapper = '<div class="lpr-location" data-id="' + data[ii].id + '" data-lat="' + data[ii].lat + '"' + 'data-lng="' + data[ii].lng + '">';
-			var content = wrapper + data[ii].display + '</div>';
+			// var content = wrapper + data[ii].display + '</div>';
+			var content = wrapper + data[ii].display_map + '</div>';
 			var location_position = new google.maps.LatLng( data[ii].lat, data[ii].lng );
 			var location_marker = new google.maps.Marker( {
 //				icon: "//localhost/_avatars/1.jpg",
@@ -515,6 +531,8 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 					dataType: "json",
 					data: thisData,
 					success: function(data, textStatus){
+						lpr_data = data;
+
 						if( target_div )
 							target_div.removeClass( 'hc-loading' );
 
@@ -570,6 +588,7 @@ function lpr_front_pull_results( loc, search2, address, allow_empty, within )
 			dataType: "json",
 			data: thisData,
 			success: function(data, textStatus){
+				lpr_data = data;
 				lpr_search_working = 0;
 				if( target_div )
 					target_div.removeClass( 'hc-loading' );

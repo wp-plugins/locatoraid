@@ -51,6 +51,7 @@ $lang['logged_in_as'] = 'Logged in as';
 $lang['menu_conf'] = 'Configuration';
 $lang['menu_conf_form'] = 'Location Form';
 $lang['menu_conf_settings'] = 'Settings';
+$lang['menu_conf_templates'] = 'Fields In Front End';
 $lang['menu_locations'] = 'Locations';
 $lang['menu_locations_view'] = 'View';
 $lang['menu_locations_add'] = 'Add';
@@ -109,6 +110,8 @@ $lang['location_products_field_help'] = 'Separate by comma';
 $lang['location_products_file_help'] = 'To import products to locations relations, add your column headers like <strong>product:Pizza</strong> or <strong>product:Wheat Beer</strong>, then put <strong>x</strong> in respective location rows.';
 
 /* CONFIGURATION */
+$lang['conf_template_list'] = 'Location view in results list';
+$lang['conf_template_map'] = 'Location view in info window on map';
 $lang['conf_default_search'] = 'Default Search Text';
 $lang['conf_default_search_help'] = 'If you leave this blank, all the locations will be displayed. Please be careful when you have a lot of locations, it is acceptable for up to 50-100 locations in total.';
 $lang['conf_append_search'] = 'Append Customer Search With';
@@ -134,6 +137,10 @@ $lang['conf_limit_output'] = 'Limit Output (number of locations)';
 $lang['conf_limit_output_help'] = 'Only numbers please, set to 0 for no limit';
 $lang['conf_choose_country'] = 'Choose Country Drop Down';
 $lang['conf_localization'] = 'Customize or Translate Front End Text';
+
+$lang['conf_locations_map'] = 'Location details on the map';
+$lang['conf_locations_list'] = 'Location details in the results list';
+$lang['conf_templates_help'] = 'If set, those fields will be displayed in the front end';
 
 $lang['conf_trigger_autodetect'] = 'Detect Customer Current Position';
 $lang['conf_start_listing'] = 'Start With Default Locations Listing';

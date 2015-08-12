@@ -96,8 +96,7 @@ class MY_Controller extends MX_Controller
 		$all_fields = $this->model->get_fields();
 
 		// sort products
-		if( strlen($e['products']) )
-		{
+		if( strlen($e['products']) ){
 			$products = explode( ',', $e['products'] );
 			$products = array_map( 'trim', $products );
 			sort( $products );
@@ -110,8 +109,7 @@ class MY_Controller extends MX_Controller
 		if( ! $this->app_conf->get('show_distance') )
 			$skip['distance'] = TRUE;
 
-		if( ! (isset($skip['name']) && $skip['name']) )
-		{
+		if( ! (isset($skip['name']) && $skip['name']) ){
 			$return['name'] = '';
 			if( ($e['loc_type'] > 0) && ($this->model->get_types()) )
 			{
@@ -121,32 +119,28 @@ class MY_Controller extends MX_Controller
 			$return['name'] .= '</strong>';
 		}
 
-		$return['address'] = $this->model->make_address( $e, TRUE );
+		if( ! (isset($skip['address']) && $skip['address']) ){
+			$return['address'] = $this->model->make_address( $e, TRUE );
+		}
 
-		if( isset($e['distance']) && (! ( isset($skip['distance']) && $skip['distance'])) )
-		{
+		if( isset($e['distance']) && (! ( isset($skip['distance']) && $skip['distance'])) ){
 //			$return['distance'] = lang('location_distance') . ': ' . $e['distance'];
 			$return['distance'] = $e['distance'];
 		}
 
 		// more fields
 		reset( $all_fields );
-		foreach( $all_fields as $f )
-		{
+		foreach( $all_fields as $f ){
 			if( $f['name'] == 'name' )
 				continue;
-			if( in_array($f['name'], $address_fields) )
-			{
+			if( in_array($f['name'], $address_fields) ){
 				continue;
 			}
-			if( isset($skip[$f['name']]) && $skip[$f['name']] )
-			{
+			if( isset($skip[$f['name']]) && $skip[$f['name']] ){
 				continue;
 			}
-			if( strlen($e[$f['name']]) > 0 )
-			{
-				switch( $f['name'] )
-				{
+			if( strlen($e[$f['name']]) > 0 ){
+				switch( $f['name'] ){
 					case 'priority':
 						$return[$f['name']] = join( ': ', array($f['title'], $this->Location_model->get_priority_title($e[$f['name']])) );
 						break;
@@ -161,18 +155,15 @@ class MY_Controller extends MX_Controller
 						$ok = FALSE;
 						$href = $e[$f['name']];
 						$prfx = array('http://', 'https://', '//');
-						foreach( $prfx as $prf )
-						{
-							if( substr($href, 0, strlen($prf)) == $prf )
-							{
+						foreach( $prfx as $prf ){
+							if( substr($href, 0, strlen($prf)) == $prf ){
 								$ok = TRUE;
 								break;
 							}
 						}
 
 						$f['title'] = strlen($f['title']) ? $f['title'] : $href;
-						if( ! $ok )
-						{
+						if( ! $ok ){
 							// $href = 'http://' . $href;
 							$href = '//' . $href;
 						}
@@ -184,8 +175,7 @@ class MY_Controller extends MX_Controller
 						if(
 							preg_match('/^misc/', $f['name']) &&
 							preg_match('/(\.jpg|\.png|\.gif|\.svg)$/i', $e[$f['name']])
-							)
-						{
+							){
 							$field_view = '<img src="' . $e[$f['name']] . '" style="max-width: 95%;">';
 						}
 						elseif(
@@ -194,19 +184,18 @@ class MY_Controller extends MX_Controller
 							preg_match('/^https?\:\/\//', $e[$f['name']]) OR
 							preg_match('/^\/\//', $e[$f['name']])
 							)
-							)
-						{
+							){
 							$field_view = '<a href="' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';
 						}
 						elseif(
 							preg_match('/^misc/', $f['name']) &&
 							preg_match($email_regex, $e[$f['name']])
-							)
-						{
-							$field_view = '<a href="mailto:' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';
+							){
+							// $field_view = '<a href="mailto:' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';
+							// $field_view = '<a href="mailto:' . $e[$f['name']] . '" target="_blank">' . $f['title'] . '</a>';
+							$field_view = '<a href="mailto:' . $e[$f['name']] . '" target="_blank">' . $e[$f['name']] . '</a>';
 						}
-						else
-						{
+						else {
 							$field_view = join( ': ', array($f['title'], $e[$f['name']]) );
 						}
 						$return[$f['name']] = $field_view;
@@ -225,17 +214,31 @@ class MY_Controller extends MX_Controller
 		return $return;
 	}
 
-	function display_location( $e, $skip = array() )
+	function display_location_old( $e, $skip = array() )
 	{
-//		$return = $this->_prepare_display_location( $e, $skip );
-//		$return = join( '<br>', $return );
-
 		$info = $this->_prepare_display_location( $e, $skip );
 
 		$return = array();
 		$return[] = '<ul class="list-unstyled">';
-		foreach( $info as $k => $v )
-		{
+		foreach( $info as $k => $v ){
+			$this_item = '<li class="lpr-location-' . $k . '">';
+			$this_item .= $v;
+			$this_item .= '</li>';
+			$return[] = $this_item;
+		}
+		$return[] = '</ul>';
+		$return = join( '', $return );
+
+		return $return;
+	}
+
+	function display_location( $e, $skip = array() )
+	{
+		$info = $this->_prepare_display_location( $e, $skip );
+
+		$return = array();
+		$return[] = '<ul class="list-unstyled">';
+		foreach( $info as $k => $v ){
 			$this_item = '<li class="lpr-location-' . $k . '">';
 			$this_item .= $v;
 			$this_item .= '</li>';

@@ -58,6 +58,41 @@ class Conf extends Admin_controller
 				),
 			);
 
+	/* checkboxes to hide views in front end */
+		$templates_fields = array();
+		$templates_fields['distance'] = lang('location_distance');
+		// $templates_fields['directions'] = lang('front_directions');
+		$templates_fields['directions'] = 'Directions';
+
+		$this->load->model('Location_model');
+		$model_all_fields = $this->Location_model->get_fields();
+
+		$address_fields = array( 'street1', 'street2', 'city', 'state', 'zip', 'country' );
+		$skip_fields = array('priority');
+		foreach( $model_all_fields as $mf ){
+			if( in_array($mf['name'], $skip_fields) ){
+				continue;
+			}
+
+			if( in_array($mf['name'], $address_fields) ){
+				if( ! isset($templates_fields['address']) ){
+					$templates_fields['address'] = lang('location_address');
+				}
+				continue;
+			}
+			$templates_fields[$mf['name']] = $mf['title'];
+		}
+		$this->params['template_fields'] = $templates_fields;
+		$this->data['template_fields'] = $templates_fields;
+
+		$this->params['templates'] = array();
+		foreach( $templates_fields as $tf => $tf_label ){
+			$this->params['templates'][] = 'form_' . $tf . '_hide';
+			$this->params['templates'][] = 'form_' . $tf . '_map_hide';
+		}
+		$this->params['templates'][] = 'form_' . 'distance' . '_hide';
+		$this->params['templates'][] = 'form_' . 'distance' . '_hide';
+
 		$this->data['defaults'] = array();
 		reset( $this->params );
 		foreach( $this->params as $pk => $pa ){
@@ -105,6 +140,9 @@ class Conf extends Admin_controller
 			reset( $this->params[$what] );
 			foreach( $this->params[$what] as $p ){
 				$v = $this->input->post( $p );
+				if( $what == 'templates' ){
+					$v = $v ? 0 : 1;
+				}
 				$this->app_conf->set( $p, $v );
 				}
 

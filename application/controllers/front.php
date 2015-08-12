@@ -26,8 +26,7 @@ class Front extends Front_controller
 
 	function get( $lat = 0, $long = 0, $log_it = 1, $print_view = 0, $print_within = 0, $print_search2 = '', $print_address = '' )
 	{
-		if( $lat == 'init' )
-		{
+		if( $lat == 'init' ){
 			global $SEC;
 			echo $SEC->get_csrf_hash();
 			exit;
@@ -41,16 +40,14 @@ class Front extends Front_controller
 	// within options
 		$within_options = array();
 		$search_within = $this->app_conf->get('search_within');
-		foreach( explode(',', $search_within) as $wo )
-		{
+		foreach( explode(',', $search_within) as $wo ){
 			$wo = trim($wo);
 			if($wo)
 				$within_options[] = $wo;
 		}
 		sort( $within_options );
 
-		if( (! $within) OR (! in_array($within, $within_options)) )
-		{
+		if( (! $within) OR (! in_array($within, $within_options)) ){
 			$within = $within_options[0];
 		}
 
@@ -69,8 +66,7 @@ class Front extends Front_controller
 			$search2 = '';
 		$str_search2 = '';
 
-		if( $search2 )
-		{
+		if( $search2 ){
 			$search2 = urldecode( $search2 );
 			$search2 = trim( $search2 );
 			$str_search2 = $search2;
@@ -84,17 +80,14 @@ class Front extends Front_controller
 		$entries = array();
 
 		$get_what = '';
-		if( $lat == '-all-' )
-		{
+		if( $lat == '-all-' ){
 			$get_what = 'all';
 		}
-		elseif( $lat && $long )
-		{
+		elseif( $lat && $long ){
 			$get_what = 'nearest';
 		}
 
-		switch( $get_what )
-		{
+		switch( $get_what ){
 			case 'all':
 				$entries = $this->model->get_all_by_search( $search2 );
 				break;
@@ -105,23 +98,36 @@ class Front extends Front_controller
 
 	/* if some props are set as hidden */
 		$hide_props = array();
+		$hide_props_map = array();
+
 		$all_fields = $this->model->get_fields();
 		reset( $all_fields );
-		foreach( $all_fields as $f )
-		{
+		foreach( $all_fields as $f ){
 			$hide_name = 'form_' . $f['name'] . '_hide';
 			if( $this->app_conf->get($hide_name) )
 				$hide_props[ $f['name'] ] = TRUE;
+
+			$hide_name = 'form_' . $f['name'] . '_map_hide';
+			if( $this->app_conf->get($hide_name) )
+				$hide_props_map[ $f['name'] ] = TRUE;
+		}
+ 
+		$more_fields = array('address', 'distance', 'directions');
+		foreach( $more_fields as $mf ){
+			$hide_name = 'form_' . $mf . '_hide';
+			if( $this->app_conf->get($hide_name) )
+				$hide_props[ $mf ] = TRUE;
+
+			$hide_name = 'form_' . $mf . '_map_hide';
+			if( $this->app_conf->get($hide_name) )
+				$hide_props_map[ $mf ] = TRUE;
 		}
 
 	/* check out entries */
-		if( count($entries) )
-		{
-			for( $ii = (count($entries) - 1); $ii >= 0; $ii-- )
-			{
+		if( count($entries) ){
+			for( $ii = (count($entries) - 1); $ii >= 0; $ii-- ){
 				$e = $entries[$ii];
-				if( ($e['distance_num'] > $within) && ($e['priority'] < $this->model->priority_always()) )
-				{
+				if( ($e['distance_num'] > $within) && ($e['priority'] < $this->model->priority_always()) ){
 					unset( $entries[$ii] );
 				}
 			}
@@ -129,24 +135,19 @@ class Front extends Front_controller
 
 	/* no dealers found, check out distributors */
 		$types = $this->model->get_types();
-		if( (! count($entries)) && ($get_what == 'nearest') && $types )
-		{
+		if( (! count($entries)) && ($get_what == 'nearest') && $types ){
 			$entries = $this->model->get_nearest( $lat, $long, 0, $search2, 1 );
-			if( $entries )
-			{
+			if( $entries ){
 				// only the nearest
 				$entries = array( $entries[0] );
 			}
 		}
 
-		if( count($entries) )
-		{
+		if( count($entries) ){
 			$limit_output = $this->app_conf->get( 'limit_output' );
-			if( $limit_output )
-			{
+			if( $limit_output ){
 				$limit_output = intval( $limit_output );
-				if( $limit_output )
-				{
+				if( $limit_output ){
 					$entries = array_slice( $entries, 0, $limit_output );
 				}
 			}
@@ -156,15 +157,12 @@ class Front extends Front_controller
 		$out = array();
 		$group_by = $this->app_conf->get( 'group_output' );
 
-		if( count($entries) )
-		{
+		if( count($entries) ){
 			$final_entries = array();
-			switch( $group_by )
-			{
+			switch( $group_by ){
 				case 'state':
 					reset( $entries );
-					foreach( $entries as $e )
-					{
+					foreach( $entries as $e ){
 						if( ! isset($final_entries[$e['state']]) )
 							$final_entries[$e['state']] = array( array() );
 						$final_entries[$e['state']][0][] = $e;
@@ -174,8 +172,7 @@ class Front extends Front_controller
 
 				case 'country':
 					reset( $entries );
-					foreach( $entries as $e )
-					{
+					foreach( $entries as $e ){
 						if( ! strlen($e['country']) )
 							continue;
 						if( ! isset($final_entries[$e['country']]) )
@@ -187,8 +184,7 @@ class Front extends Front_controller
 
 				case 'city':
 					reset( $entries );
-					foreach( $entries as $e )
-					{
+					foreach( $entries as $e ){
 						if( ! isset($final_entries[$e['city']]) )
 							$final_entries[$e['city']] = array( array() );
 						$final_entries[$e['city']][0][] = $e;
@@ -198,8 +194,7 @@ class Front extends Front_controller
 
 				case 'state_city':
 					reset( $entries );
-					foreach( $entries as $e )
-					{
+					foreach( $entries as $e ){
 						if( ! isset($final_entries[$e['state']]) )
 							$final_entries[$e['state']] = array();
 						if( ! isset($final_entries[$e['state']][$e['city']]) )
@@ -209,16 +204,14 @@ class Front extends Front_controller
 					}
 					ksort( $final_entries );
 					$keys = array_keys( $final_entries );
-					foreach( $keys as $k )
-					{
+					foreach( $keys as $k ){
 						ksort( $final_entries[$k] );
 					}
 					break;
 
 				case 'country_city':
 					reset( $entries );
-					foreach( $entries as $e )
-					{
+					foreach( $entries as $e ){
 						if( ! isset($final_entries[$e['country']]) )
 							$final_entries[$e['country']] = array();
 						if( ! isset($final_entries[$e['country']][$e['city']]) )
@@ -228,16 +221,14 @@ class Front extends Front_controller
 					}
 					ksort( $final_entries );
 					$keys = array_keys( $final_entries );
-					foreach( $keys as $k )
-					{
+					foreach( $keys as $k ){
 						ksort( $final_entries[$k] );
 					}
 					break;
 
 				case 'country_state':
 					reset( $entries );
-					foreach( $entries as $e )
-					{
+					foreach( $entries as $e ){
 						if( ! isset($final_entries[$e['country']]) )
 							$final_entries[$e['country']] = array();
 						if( ! isset($final_entries[$e['country']][$e['state']]) )
@@ -247,8 +238,7 @@ class Front extends Front_controller
 					}
 					ksort( $final_entries );
 					$keys = array_keys( $final_entries );
-					foreach( $keys as $k )
-					{
+					foreach( $keys as $k ){
 						ksort( $final_entries[$k] );
 					}
 					break;
@@ -277,10 +267,8 @@ class Front extends Front_controller
 			}
 
 			reset( $final_entries );
-			foreach( $final_entries as $group2 => $entries2 )
-			{
-				if( $group2 )
-				{
+			foreach( $final_entries as $group2 => $entries2 ){
+				if( $group2 ){
 					$out[] = array(
 						'id'		=> 0,
 						'display'	=> $group2,
@@ -288,10 +276,8 @@ class Front extends Front_controller
 						);
 				}
 				reset( $entries2 );
-				foreach( $entries2 as $group3 => $entries3 )
-				{
-					if( $group3 )
-					{
+				foreach( $entries2 as $group3 => $entries3 ){
+					if( $group3 ){
 						$out[] = array(
 							'id'		=> 0,
 							'display'	=> $group3,
@@ -299,24 +285,29 @@ class Front extends Front_controller
 							);
 					}
 					reset( $entries3 );
-					foreach( $entries3 as $e )
-					{
+					foreach( $entries3 as $e ){
 						$skip_display = $hide_props;
+						$skip_display_map = $hide_props_map;
+
 						$skip_display['priority'] = TRUE;
-						if( $lat == '-all-' )
-						{
+						$skip_display_map['priority'] = TRUE;
+						if( $lat == '-all-' ){
 							$skip_display['distance'] = TRUE;
 							$skip_display['directions'] = TRUE;
+							$skip_display_map['distance'] = TRUE;
+							$skip_display_map['directions'] = TRUE;
 						}
 						if( $print_view ){
 							$skip_display['directions'] = TRUE;
+							$skip_display_map['directions'] = TRUE;
 						}
 
 						$out[] = array(
 							'id'		=> $e['id'],
 							'name'		=> $e['name'],
 							'priority'	=> $e['priority'],
-							'display'	=> $this->display_location($e, $skip_display),
+							'display'		=> $this->display_location($e, $skip_display),
+							'display_map'	=> $this->display_location($e, $skip_display_map),
 							'lat'		=> $e['latitude'],
 							'lng'		=> $e['longitude'],
 							'distance'	=> $e['distance_num'],
@@ -326,44 +317,36 @@ class Front extends Front_controller
 			}
 		}
 
-		if( ! $out )
-		{
+		if( ! $out ){
 			$measure = $this->app_conf->get( 'measurement' );
 			$measure_title = lang('conf_measurement_') . $measure;
 
 		// check if bigger within option exists
 			$next_withins = array();
 			reset( $within_options );
-			foreach( $within_options as $wo )
-			{
-				if( $wo > $within )
-				{
+			foreach( $within_options as $wo ){
+				if( $wo > $within ){
 					$next_withins[] = $wo;
 				}
 			}
 
-			if( $next_withins )
-			{
+			if( $next_withins ){
 				$more_entries = array();
-				while( (! $more_entries) && $next_withins )
-				{
+				while( (! $more_entries) && $next_withins ){
 					$next_within = array_shift($next_withins);
 					$more_entries = $this->model->get_nearest( $lat, $long, $next_within, $search2 );
 				}
 
-				if( $more_entries )
-				{
+				if( $more_entries ){
 					$error = sprintf( lang('location_nothing_found'), $within . ' ' . $measure_title );
 					$error .= '<br><a href="#" id="lpr-next-within" data-within="' . $next_within . '">' . sprintf( lang('location_nothing_found_suggest'), count($more_entries), $next_within . ' ' . $measure_title ) . '</a>';
 				}
-				else
-				{
+				else {
 //					$error = sprintf( lang('location_nothing_found'), $next_within . ' ' . $measure_title );
 					$error = $this->app_conf->get('not_found_text');
 				}
 			}
-			else
-			{
+			else {
 //				$error = sprintf( lang('location_nothing_found'), $within . ' ' . $measure_title );
 				$error = $this->app_conf->get('not_found_text');
 			}
@@ -377,8 +360,7 @@ class Front extends Front_controller
 			echo json_encode( $out );
 
 		/* add log */
-			if( $log_it )
-			{
+			if( $log_it ){
 				$address = trim( $address );
 				$this->log->add( 
 					array(
